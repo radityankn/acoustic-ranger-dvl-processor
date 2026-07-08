@@ -18,7 +18,7 @@ A DVL (Doppler Velocity Logger) is a sensor capable of both ranging and measurin
 However, DVL hardware is notoriously expensive, especially if only for trial/testing/low-budget purposes, particularly for use in teaching environments and student robotic clubs. Here, we aim to understand how the sensor works and replicate it in an IC package that hopefully will perform well enough, be compact and integrated, and have the potential to be reused. 
 
 ### Design Overview
-TBA
+<img alt="System High Level Diagram" src="images/system_diagram_updated.jpg" style="width: 60%;"> 
 
 ### Technical Specifications
 #### Electrical Characteristics (General)
