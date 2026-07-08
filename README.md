@@ -5,11 +5,11 @@ Welcome to the team B05 Acoustic Ranger repository!
 This is our codebase containing all analog and digital designs for the Chipathon 2026 Track B: Circuits for Sensors Chip Design Contest
 
 Here are our team members: 
-- Raditya (discord: @Raditya Putra, Team Leader)
-- Yuan (discord: @ClearAtomic, Team Leader)
-- Farhan (discord: @nexuzium, Team Leader)
-- Raihan (discord: @sergeyv, Team Leader)
-- Faiz (discord: @faizzsk, Team Leader)
+- Raditya (discord: @Raditya Putra, Team Leader, Digital)
+- Yuan (discord: @ClearAtomic, Team Member, Digital)
+- Farhan (discord: @nexuzium, Team Member, Analog)
+- Raihan (discord: @sergeyv, Team Member, Analog)
+- Faiz (discord: @faizzsk, Team Member, Analog)
 
 Want to know about our design? Please read the short version below: 
 ### Overview
