@@ -57,10 +57,28 @@ module i2c_controller #(parameter WIDTH = 8) (
     //      - bit 1: I2C master start send (coming soon! we won't need this for now)
     //      - bit 0: Reserved
 
+    // Registers of the I2C Blocks
+    // The localparam is for defining the address of the I2C block's registers, please change it here in case
+    // you need its address to be other than the default
+    localparam ADDR_SET_REGISTER_ADDRESS = 8'hA;
+    localparam RECV_DATA_BUFFER_ADDRESS = 8'hB;
+    localparam SEND_DATA_BUFFER_ADDRESS = 8'hC;
+    localparam CTRL_STATUS_REGISTER_ADDRESS = 8'hD;
+
     reg [7:0] addr_set_register;
     reg [7:0] recv_data_buffer;
     reg [7:0] send_data_buffer;
     reg [7:0] ctrl_status_register;
+
+    // Wishbone Interface of the I2C block
+    always @(posedge CLK_I) begin
+        if (RST_I == 1'b1) begin
+            // do nothing
+        end
+        else begin
+            case
+        end
+    end
 
     // Start-Stop condition detector
     reg sda_previous_state;
@@ -113,84 +131,84 @@ module i2c_controller #(parameter WIDTH = 8) (
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_addr_block <= 2'b00;
-            iteration <= 4'd0;
+            iteration_addr <= 4'd0;
         end
         else if (stop_condition == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
-            iteration <= 4'd0;
+            iteration_addr <= 4'd0;
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_read_block <= STATE_ADDR;
-            iteration <= 4'd0;
+            iteration_addr <= 4'd0;
         end
         // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
         else if (i2c_state != STATE_ADDR) begin
             // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
             i2c_next_state_addr_block <= STATE_IDLE;
             // keep the routine iteration counter at 0
-            iteration <= 4'd0;
+            iteration_addr <= 4'd0;
         end
         else if (i2c_state == STATE_ADDR && rising_edge_detected == 1'b1) begin
-            case (iteration)
+            case (iteration_addr)
                 4'd0 : begin
                     address_data_buffer_internal[7] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR;          
                 end
                 4'd1 : begin
                     address_data_buffer_internal[6] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd2 : begin
                     address_data_buffer_internal[5] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd3 : begin
                     address_data_buffer_internal[4] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd4 : begin
                     address_data_buffer_internal[3] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd5 : begin
                     address_data_buffer_internal[2] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd6 : begin
                     address_data_buffer_internal[1] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd7 : begin
                     address_data_buffer_internal[0] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_addr <= iteration_addr + 1'b1;
                     i2c_next_state_addr_block <= STATE_ADDR; 
                 end
                 4'd8 : begin
                     // if the address is correct (means we're being called)
                     if (address_data_buffer_internal[7:1] == addr_set_register[6:0]) begin
                         // reset the subroutine FSM
-                        iteration <= 4'd0;
+                        iteration_addr <= 4'd0;
                         // give the proper ACK to the line
                         i2c_sda_out_pin_ctrl <= 1'b1;
                         // the check the read/write bit
-                        // if it's 1 (means I2C READ command is received a.k.a requesting data)...
+                        // if it's 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
                         if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_addr_block <= STATE_READ;
-                        end 
-                        // if it's 0 (means I2C WRITE command is received a.k.a receiving data)...
-                        else if (address_data_buffer_internal[0] == 1) begin
                             i2c_next_state_addr_block <= STATE_WRITE;
+                        end 
+                        // if it's 0 (means I2C write command is received a.k.a receiving data --> must READ)...
+                        else if (address_data_buffer_internal[0] == 1) begin
+                            i2c_next_state_addr_block <= STATE_READ;
                         end
                     end else begin
                         // reset the subroutine FSM
-                        iteration <= 4'd0;
+                        iteration_addr <= 4'd0;
                         // do not give the proper ACK to the line
                         i2c_sda_out_pin_ctrl <= 1'b0;
                         // return to IDLE state
@@ -202,90 +220,90 @@ module i2c_controller #(parameter WIDTH = 8) (
         // When there is nothing else to look for (e.g. in-between states when waiting for rising edge)...
         else begin
             // Preserve the current state, all of it 
-            iteration <= iteration;
+            iteration_addr <= iteration_addr;
             i2c_next_state_addr_block <= i2c_next_state_addr_block;
         end
     end
 
-    // I2C: Subroutine READ
+    // I2C: Subroutine READ (means READing from the bus, used in WRITE operation)
     reg [1:0] i2c_next_state_read_block;
     reg [3:0] iteration_read;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
-            iteration <= 4'd0;
+            iteration_read <= 4'd0;
         end
         else if (stop_condition == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
-            iteration <= 4'd0;
+            iteration_read <= 4'd0;
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_read_block <= STATE_ADDR;
-            iteration <= 4'd0;
+            iteration_read <= 4'd0;
         end
         // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
         else if (i2c_state != STATE_ADDR) begin
             // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
             i2c_next_state_addr_block <= STATE_IDLE;
             // keep the routine iteration counter at 0
-            iteration <= 4'd0;
+            iteration_read <= 4'd0;
         end
         else if (i2c_state == STATE_READ && rising_edge_detected == 1'b1) begin
-            case (iteration)
+            case (iteration_read)
                 4'd0 : begin
                     address_data_buffer_internal[7] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ;          
                 end
                 4'd1 : begin
                     address_data_buffer_internal[6] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd2 : begin
                     address_data_buffer_internal[5] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd3 : begin
                     address_data_buffer_internal[4] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd4 : begin
                     address_data_buffer_internal[3] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd5 : begin
                     address_data_buffer_internal[2] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd6 : begin
                     address_data_buffer_internal[1] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd7 : begin
                     address_data_buffer_internal[0] <= i2c_sda_in;
-                    iteration <= iteration + 1'b1;
+                    iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd8 : begin
-                    iteration <= 4'd0;
+                    iteration_read <= 4'd0;
                     // give the proper ACK to the line
                     i2c_sda_out_pin_ctrl <= 1'b1;
                 end
             endcase
         end
         else begin
-            iteration <= iteration;
+            iteration_read <= iteration_read;
             i2c_next_state_addr_block <= i2c_next_state_addr_block;
         end
     end
 
-    // I2C: Subroutine WRITE
+    // I2C: Subroutine WRITE (means WRITEing to the bus, used in READ operation)
     // WRITE will be a little complex, because we need to time it properly so it doesn't violate setup/hold
     // time of the I2C bus. Hence why the 4 if/else case because we cannot rely solely on the SCL rising edge to transmit
     // data
@@ -305,127 +323,134 @@ module i2c_controller #(parameter WIDTH = 8) (
         falling_edge_delayer[1] <= falling_edge_delayer[0];
         if (RST_I == 1'b1) begin
             i2c_next_state_addr_block <= 2'b00;
-            iteration <= 4'd0;
+            iteration_write <= 4'd0;
         end
         else if (stop_condition == 1'b1) begin
             i2c_next_state_write_block <= STATE_IDLE;
-            iteration <= 4'd0;
+            iteration_write <= 4'd0;
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_write_block <= STATE_ADDR;
-            iteration <= 4'd0;
+            iteration_write <= 4'd0;
+        end
+        // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
+        else if (i2c_state != STATE_ADDR) begin
+            // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
+            i2c_next_state_addr_block <= STATE_IDLE;
+            // keep the routine iteration counter at 0
+            iteration_write <= 4'd0;
         end
         else if (i2c_state == STATE_WRITE && falling_edge_detected_delayed == 1'b1) begin
-            case (iteration)
+            case (iteration_write)
                 4'd0 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[7];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE;          
                 end
                 4'd1 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[6];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd2 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[5];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd3 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[4];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd4 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[3];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd5 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[2];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd6 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[1];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd7 : begin
                     i2c_sda_out_pin_ctrl <= address_data_buffer_internal[0];
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd8 : begin
                     // do not do anything, except changing SDA to 0. we will sample the host ACK
                     // when it is in rising edge
-                    iteration <= iteration;
+                    iteration_write <= iteration_write;
                     i2c_next_state_write_block <= i2c_next_state_write_block;
                     i2c_sda_out_pin_ctrl <= 1'b0;                
                 end
             endcase
         end
         else if (i2c_state == STATE_WRITE && rising_edge_detected == 1'b1) begin
-            case (iteration)
+            case (iteration_write)
                 4'd0 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE;          
                 end
                 4'd1 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd2 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd3 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd4 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd5 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd6 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd7 : begin
                     i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
-                    iteration <= iteration + 1'b1;
+                    iteration_write <= iteration_write + 1'b1;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd8 : begin
                     // If host is ACK, keep in WRITE state
                     if (i2c_sda_in == 1'b0) begin
                         i2c_next_state_write_block <= STATE_WRITE;
-                        iteration <= 4'd0;
+                        iteration_write <= 4'd0;
                         i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     end
                     // If host is NAK, go to IDLE state (because usually it will be stopped)
                     else begin
                         i2c_next_state_write_block <= STATE_IDLE;
-                        iteration <= 4'd0;
+                        iteration_write <= 4'd0;
                         i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     end
                 end
             endcase
         end
         else begin
-            iteration <= iteration;
+            iteration_write <= iteration_write;
             i2c_next_state_addr_block <= i2c_next_state_addr_block;
             i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
         end
