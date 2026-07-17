@@ -48,7 +48,7 @@ module i2c_controller #(parameter WIDTH = 8) (
     // send_data_buffer (0x03) --> used for READ process where we send data
     //      - 8 bit wide, stored the outgoing byte
     // ctrl_status_register (0x04) --> used to poll or set the operation of the module
-    //      - bit 7: data received status, 1 means received data. poll this to see if we receive data
+    //      - bit 7: data received status, 1 means received data. Poll this to see if we receive data
     //      - bit 6: data send status, 1 means send data done, 0 means in progress
     //      - bit 5: I2C read request, 1 means we need to send data, 0 means no action needed
     //      - bit 4: I2C write request, 1 means we need to receive data, 0 means no action needed
@@ -108,11 +108,26 @@ module i2c_controller #(parameter WIDTH = 8) (
 
     // I2C: Subroutine ADDR
     reg [1:0] i2c_next_state_addr_block;
-    reg [3:0] iteration;
+    reg [3:0] iteration_addr;
     reg [7:0] address_data_buffer_internal;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_addr_block <= 2'b00;
+            iteration <= 4'd0;
+        end
+        else if (stop_condition == 1'b1) begin
+            i2c_next_state_read_block <= STATE_IDLE;
+            iteration <= 4'd0;
+        end
+        else if (start_condition == 1'b1) begin
+            i2c_next_state_read_block <= STATE_ADDR;
+            iteration <= 4'd0;
+        end
+        // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
+        else if (i2c_state != STATE_ADDR) begin
+            // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
+            i2c_next_state_addr_block <= STATE_IDLE;
+            // keep the routine iteration counter at 0
             iteration <= 4'd0;
         end
         else if (i2c_state == STATE_ADDR && rising_edge_detected == 1'b1) begin
@@ -178,11 +193,15 @@ module i2c_controller #(parameter WIDTH = 8) (
                         iteration <= 4'd0;
                         // do not give the proper ACK to the line
                         i2c_sda_out_pin_ctrl <= 1'b0;
+                        // return to IDLE state
+                        i2c_next_state_addr_block <= STATE_IDLE;
                     end
                 end
             endcase
         end
+        // When there is nothing else to look for (e.g. in-between states when waiting for rising edge)...
         else begin
+            // Preserve the current state, all of it 
             iteration <= iteration;
             i2c_next_state_addr_block <= i2c_next_state_addr_block;
         end
@@ -190,6 +209,7 @@ module i2c_controller #(parameter WIDTH = 8) (
 
     // I2C: Subroutine READ
     reg [1:0] i2c_next_state_read_block;
+    reg [3:0] iteration_read;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
@@ -201,6 +221,13 @@ module i2c_controller #(parameter WIDTH = 8) (
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_read_block <= STATE_ADDR;
+            iteration <= 4'd0;
+        end
+        // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
+        else if (i2c_state != STATE_ADDR) begin
+            // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
+            i2c_next_state_addr_block <= STATE_IDLE;
+            // keep the routine iteration counter at 0
             iteration <= 4'd0;
         end
         else if (i2c_state == STATE_READ && rising_edge_detected == 1'b1) begin
@@ -269,6 +296,7 @@ module i2c_controller #(parameter WIDTH = 8) (
 
     reg [1:0] i2c_next_state_write_block;
     reg [1:0] falling_edge_delayer;
+    reg [3:0] iteration_write;
     wire falling_edge_detected_delayed;
 
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
