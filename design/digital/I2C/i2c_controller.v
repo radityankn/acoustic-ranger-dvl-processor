@@ -62,15 +62,25 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [7:0] send_data_buffer;
     reg [7:0] ctrl_status_register;
 
-    // Start condition detector
+    // Start-Stop condition detector
+    reg sda_previous_state;
     wire start_condition;
-    assign start_condition = ~i2c_sda_in & i2c_scl_in;
+    wire stop_condition;
+    
+    assign start_condition = sda_previous_state & ~i2c_sda_in & i2c_scl_in;
+    assign stop_condition = ~sda_previous_state & i2c_sda_in & i2c_scl_in;
+    always @(posedge CLK_I) begin
+        if (RST_I == 1'b1) sda_previous_state <= 1'b0;
+        else previous_state <= i2c_sda_in;
+    end
 
-    // Rising edge detector
+    // Rising-Falling edge detector
     reg previous_state;
     wire rising_edge_detected;
+    wire falling_edge_detected;
 
     assign rising_edge_detected = ~previous_state & i2c_scl_in;
+    assign rising_edge_detected = previous_state & ~i2c_scl_in;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) previous_state <= 1'b0;
         else previous_state <= i2c_scl_in;
@@ -182,7 +192,15 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [1:0] i2c_next_state_read_block;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
-            i2c_next_state_read_block <= 2'b00;
+            i2c_next_state_read_block <= STATE_IDLE;
+            iteration <= 4'd0;
+        end
+        else if (stop_condition == 1'b1) begin
+            i2c_next_state_read_block <= STATE_IDLE;
+            iteration <= 4'd0;
+        end
+        else if (start_condition == 1'b1) begin
+            i2c_next_state_read_block <= STATE_ADDR;
             iteration <= 4'd0;
         end
         else if (i2c_state == STATE_READ && rising_edge_detected == 1'b1) begin
@@ -190,65 +208,47 @@ module i2c_controller #(parameter WIDTH = 8) (
                 4'd0 : begin
                     address_data_buffer_internal[7] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR;          
+                    i2c_next_state_read_block <= STATE_READ;          
                 end
                 4'd1 : begin
                     address_data_buffer_internal[6] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd2 : begin
                     address_data_buffer_internal[5] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd3 : begin
                     address_data_buffer_internal[4] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd4 : begin
                     address_data_buffer_internal[3] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd5 : begin
                     address_data_buffer_internal[2] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd6 : begin
                     address_data_buffer_internal[1] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd7 : begin
                     address_data_buffer_internal[0] <= i2c_sda_in;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_read_block <= STATE_ADDR; 
+                    i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd8 : begin
-                    // if the address is correct (means we're being called)
-                    if (address_data_buffer_internal[7:1] == addr_set_register[6:0]) begin
-                        // reset the subroutine FSM
-                        iteration <= 4'd0;
-                        // give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b1;
-                        // the check the read/write bit
-                        // if it's 1 (means I2C READ command is received a.k.a requesting data)...
-                        if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_read_block <= STATE_READ;
-                        end 
-                        // if it's 0 (means I2C WRITE command is received a.k.a receiving data)...
-                        else if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_read_block <= STATE_WRITE;
-                        end
-                    end else begin
-                        // reset the subroutine FSM
-                        iteration <= 4'd0;
-                        // do not give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b0;
-                    end
+                    iteration <= 4'd0;
+                    // give the proper ACK to the line
+                    i2c_sda_out_pin_ctrl <= 1'b1;
                 end
             endcase
         end
@@ -259,75 +259,139 @@ module i2c_controller #(parameter WIDTH = 8) (
     end
 
     // I2C: Subroutine WRITE
+    // WRITE will be a little complex, because we need to time it properly so it doesn't violate setup/hold
+    // time of the I2C bus. Hence why the 4 if/else case because we cannot rely solely on the SCL rising edge to transmit
+    // data
+    //
+    // We still figuring out how to do it properly without the area exploding
+    // the falling edge delayer basically delay the signal from the detector above by 3 clock cycle
+    // detector reg --> FF0 --> FF1 --> always @() block
+
     reg [1:0] i2c_next_state_write_block;
+    reg [1:0] falling_edge_delayer;
+    wire falling_edge_detected_delayed;
+
+    assign falling_edge_detected_delayed = falling_edge_delayer[1];
     always @(posedge CLK_I) begin
+        falling_edge_delayer[0] <= falling_edge_detected;
+        falling_edge_delayer[1] <= falling_edge_delayer[0];
         if (RST_I == 1'b1) begin
             i2c_next_state_addr_block <= 2'b00;
             iteration <= 4'd0;
         end
+        else if (stop_condition == 1'b1) begin
+            i2c_next_state_write_block <= STATE_IDLE;
+            iteration <= 4'd0;
+        end
+        else if (start_condition == 1'b1) begin
+            i2c_next_state_write_block <= STATE_ADDR;
+            iteration <= 4'd0;
+        end
+        else if (i2c_state == STATE_WRITE && falling_edge_detected_delayed == 1'b1) begin
+            case (iteration)
+                4'd0 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[7];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE;          
+                end
+                4'd1 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[6];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd2 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[5];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd3 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[4];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd4 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[3];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd5 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[2];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd6 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[1];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd7 : begin
+                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[0];
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= STATE_WRITE; 
+                end
+                4'd8 : begin
+                    // do not do anything, except changing SDA to 0. we will sample the host ACK
+                    // when it is in rising edge
+                    iteration <= iteration;
+                    i2c_next_state_write_block <= i2c_next_state_write_block;
+                    i2c_sda_out_pin_ctrl <= 1'b0;                
+                end
+            endcase
+        end
         else if (i2c_state == STATE_WRITE && rising_edge_detected == 1'b1) begin
             case (iteration)
                 4'd0 : begin
-                    address_data_buffer_internal[7] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR;          
+                    i2c_next_state_write_block <= STATE_WRITE;          
                 end
                 4'd1 : begin
-                    address_data_buffer_internal[6] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd2 : begin
-                    address_data_buffer_internal[5] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd3 : begin
-                    address_data_buffer_internal[4] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd4 : begin
-                    address_data_buffer_internal[3] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd5 : begin
-                    address_data_buffer_internal[2] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd6 : begin
-                    address_data_buffer_internal[1] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd7 : begin
-                    address_data_buffer_internal[0] <= i2c_sda_in;
+                    i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     iteration <= iteration + 1'b1;
-                    i2c_next_state_addr_block <= STATE_ADDR; 
+                    i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd8 : begin
-                    // if the address is correct (means we're being called)
-                    if (address_data_buffer_internal[7:1] == addr_set_register[6:0]) begin
-                        // reset the subroutine FSM
+                    // If host is ACK, keep in WRITE state
+                    if (i2c_sda_in == 1'b0) begin
+                        i2c_next_state_write_block <= STATE_WRITE;
                         iteration <= 4'd0;
-                        // give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b1;
-                        // the check the read/write bit
-                        // if it's 1 (means I2C READ command is received a.k.a requesting data)...
-                        if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_addr_block <= STATE_READ;
-                        end 
-                        // if it's 0 (means I2C WRITE command is received a.k.a receiving data)...
-                        else if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_addr_block <= STATE_WRITE;
-                        end
-                    end else begin
-                        // reset the subroutine FSM
+                        i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
+                    end
+                    // If host is NAK, go to IDLE state (because usually it will be stopped)
+                    else begin
+                        i2c_next_state_write_block <= STATE_IDLE;
                         iteration <= 4'd0;
-                        // do not give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b0;
+                        i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     end
                 end
             endcase
@@ -335,6 +399,7 @@ module i2c_controller #(parameter WIDTH = 8) (
         else begin
             iteration <= iteration;
             i2c_next_state_addr_block <= i2c_next_state_addr_block;
+            i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
         end
     end
 
