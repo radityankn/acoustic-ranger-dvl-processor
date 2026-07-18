@@ -5,7 +5,7 @@ V {}
 S {}
 F {}
 E {}
-N 460 -340 500 -340 {lab=in-}
+N 460 -340 500 -340 {lab=in+}
 N 120 -340 160 -340 {lab=in+}
 N 310 -370 420 -370 {lab=#net1}
 N 200 -340 420 -340 {lab=vdd}
@@ -67,8 +67,8 @@ model=pfet_03v3
 spiceprefix=X
 }
 C {lab_wire.sym} 330 -340 0 0 {name=p12 sig_type=std_logic lab=vdd}
-C {ipin.sym} 500 -340 0 1 {name=p14 lab=in-}
-C {ipin.sym} 120 -340 0 0 {name=p15 lab=in+}
+C {ipin.sym} 500 -340 0 1 {name=p14 lab=in+}
+C {ipin.sym} 120 -340 0 0 {name=p15 lab=in-}
 C {lab_wire.sym} 330 -160 0 0 {name=p2 sig_type=std_logic lab=vss}
 C {symbols/nfet_03v3.sym} 400 -190 0 0 {name=M14
 L=3u
