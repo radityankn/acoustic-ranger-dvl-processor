@@ -172,7 +172,7 @@ module i2c_controller #(parameter WIDTH = 8) (
 
     reg [1:0] i2c_state;
     wire [1:0] i2c_next_state;
-    always @(CLK_IN) begin
+    always @(posedge CLK_I) begin
         if (RST_I == 1'b1) i2c_state <= STATE_IDLE;
         else i2c_state <= i2c_next_state;
     end 
@@ -181,13 +181,15 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [1:0] i2c_next_state_idle_block;
     always @(*) begin
         if (start_condition == 1'b1 && i2c_state == STATE_IDLE) i2c_next_state_idle_block = STATE_ADDR;
-        else i2c_next_state_idle_block = 2'b00; 
+        else i2c_next_state_idle_block = STATE_IDLE; 
     end
 
     // I2C: Subroutine ADDR
     reg [1:0] i2c_next_state_addr_block;
     reg [3:0] iteration_addr;
     reg [7:0] address_data_buffer_internal;
+    reg read_request_internal_addr;
+    reg write_request_internal_addr;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_addr_block <= 2'b00;
@@ -288,7 +290,9 @@ module i2c_controller #(parameter WIDTH = 8) (
     // I2C: Subroutine READ (means READing from the bus, used in WRITE operation)
     reg [1:0] i2c_next_state_read_block;
     reg [3:0] iteration_read;
-    
+    reg read_request_internal_read;
+    reg received_data_flag_internal;
+
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
@@ -303,9 +307,9 @@ module i2c_controller #(parameter WIDTH = 8) (
             iteration_read <= 4'd0;
         end
         // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
-        else if (i2c_state != STATE_ADDR) begin
+        else if (i2c_state != STATE_READ) begin
             // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
-            i2c_next_state_addr_block <= STATE_IDLE;
+            i2c_next_state_read_block <= STATE_IDLE;
             // keep the routine iteration counter at 0
             iteration_read <= 4'd0;
         end
@@ -360,7 +364,7 @@ module i2c_controller #(parameter WIDTH = 8) (
         end
         else begin
             iteration_read <= iteration_read;
-            i2c_next_state_addr_block <= i2c_next_state_addr_block;
+            i2c_next_state_read_block <= i2c_next_state_read_block;
         end
     end
 
@@ -376,15 +380,19 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [1:0] i2c_next_state_write_block;
     reg [1:0] falling_edge_delayer;
     reg [3:0] iteration_write;
+    
     wire falling_edge_detected_delayed;
-    reg write_request_flag_internal;
+    
+    reg write_request_internal_write;
+    reg write_operation_finished_internal;
 
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
+
     always @(posedge CLK_I) begin
         falling_edge_delayer[0] <= falling_edge_detected;
         falling_edge_delayer[1] <= falling_edge_delayer[0];
         if (RST_I == 1'b1) begin
-            i2c_next_state_addr_block <= 2'b00;
+            i2c_next_state_write_block <= 2'b00;
             iteration_write <= 4'd0;
         end
         else if (stop_condition == 1'b1) begin
@@ -396,9 +404,9 @@ module i2c_controller #(parameter WIDTH = 8) (
             iteration_write <= 4'd0;
         end
         // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
-        else if (i2c_state != STATE_ADDR) begin
+        else if (i2c_state != STATE_WRITE) begin
             // set next_state_addr_block (next state indicator from ADDR routine) to IDLE (basically 0) to allow others to prevail
-            i2c_next_state_addr_block <= STATE_IDLE;
+            i2c_next_state_write_block <= STATE_IDLE;
             // keep the routine iteration counter at 0
             iteration_write <= 4'd0;
         end
@@ -516,16 +524,19 @@ module i2c_controller #(parameter WIDTH = 8) (
         end
         else begin
             iteration_write <= iteration_write;
-            i2c_next_state_addr_block <= i2c_next_state_addr_block;
+            i2c_next_state_write_block <= i2c_next_state_write_block;
             i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
         end
     end
 
-    //the grand next state block, OR'ed from all the subroutine
+    // The grand next state block, OR'ed from all the subroutine
     assign i2c_next_state = i2c_next_state_idle_block | i2c_next_state_addr_block | i2c_next_state_read_block | i2c_next_state_write_block;
 
     // Assigning SDA out control port complement to its true counterpart
     assign i2c_sda_out_pin_ctrl_n = ~i2c_sda_out_pin_ctrl;
+
+    // Assign flags to ensure it is OR'ed, both read and write requests 
+    // assign 
 
 endmodule
 
