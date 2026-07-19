@@ -4,10 +4,10 @@
 // Engineer: 
 // 
 // Create Date: 06/25/2026 01:09:04 AM
-// Design Name: 
+// Design Name: I2C Slave Controller Block
 // Module Name: i2c_controller
 // Project Name: 
-// Target Devices: 
+// Target Devices: XC7Z010-CLG225-1 Zynq 7010
 // Tool Versions: 
 // Description: 
 // 
@@ -29,13 +29,13 @@ module i2c_controller #(parameter WIDTH = 8) (
     input RST_I,
     input [WIDTH-1:0] ADDR_I,
     input [WIDTH-1:0] DAT_I,
-    output [WIDTH-1:0] DAT_O,
+    output reg [WIDTH-1:0] DAT_O,
     input CYC_I,
     input STB_I,
     input WE_I,
-    input ACK_I,
-    input ERR_I,
-    input RTY_I
+    output reg ACK_O,
+    output reg ERR_O,
+    output reg RTY_O
     );
 
     // General Register that can be accessed through the bus
@@ -60,10 +60,10 @@ module i2c_controller #(parameter WIDTH = 8) (
     // Registers of the I2C Blocks
     // The localparam is for defining the address of the I2C block's registers, please change it here in case
     // you need its address to be other than the default
-    localparam ADDR_SET_REGISTER_ADDRESS = 8'hA;
-    localparam RECV_DATA_BUFFER_ADDRESS = 8'hB;
-    localparam SEND_DATA_BUFFER_ADDRESS = 8'hC;
-    localparam CTRL_STATUS_REGISTER_ADDRESS = 8'hD;
+    localparam [WIDTH-1:0] ADDR_SET_REGISTER_ADDRESS = 10;
+    localparam [WIDTH-1:0] RECV_DATA_BUFFER_ADDRESS = 11;
+    localparam [WIDTH-1:0] SEND_DATA_BUFFER_ADDRESS = 12;
+    localparam [WIDTH-1:0] CTRL_STATUS_REGISTER_ADDRESS = 13;
 
     reg [7:0] addr_set_register;
     reg [7:0] recv_data_buffer;
@@ -73,10 +73,70 @@ module i2c_controller #(parameter WIDTH = 8) (
     // Wishbone Interface of the I2C block
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
-            // do nothing
+            // Reset everything!
+            DAT_O <= 0;
+            ERR_O <= 1'b0;
+            ACK_O <= 1'b0;
+            RTY_O <= 1'b0;
         end
-        else begin
-            case
+        else if (RST_I == 1'b0 && CYC_I == 1'b1 && STB_I == 1'b1) begin
+            if ((ACK_O | ERR_O | RTY_O) == 1'b0) begin
+                case (ADDR_I)
+                    ADDR_SET_REGISTER_ADDRESS : begin
+                        if (WE_I == 1'b1) begin
+                        addr_set_register <= DAT_I;
+                        ACK_O <= 1'b1;
+                        end
+                        else begin
+                            DAT_O <= addr_set_register;
+                            ACK_O <= 1'b1;
+                        end
+                    end
+                    RECV_DATA_BUFFER_ADDRESS : begin
+                        if (WE_I == 1'b1) begin
+                        addr_set_register <= DAT_I;
+                        ACK_O <= 1'b1;
+                        end
+                        else begin
+                            DAT_O <= recv_data_buffer;
+                            ACK_O <= 1'b1;
+                        end
+                    end
+                    SEND_DATA_BUFFER_ADDRESS : begin
+                        if (WE_I == 1'b1) begin
+                        addr_set_register <= DAT_I;
+                        ACK_O <= 1'b1;
+                        end
+                        else begin
+                            DAT_O <= addr_set_register;
+                            ACK_O <= 1'b1;
+                        end
+                    end
+                    CTRL_STATUS_REGISTER_ADDRESS : begin
+                        if (WE_I == 1'b1) begin
+                        addr_set_register <= DAT_I;
+                        ACK_O <= 1'b1;
+                        end
+                        else begin
+                            DAT_O <= addr_set_register;
+                            ACK_O <= 1'b1;
+                        end
+                    end
+                    default : begin
+                        // Error, the register doesn't exist!
+                        DAT_O <= 0;
+                        ERR_O <= 1'b1;
+                        ACK_O <= 1'b0;
+                        RTY_O <= 1'b0;
+                    end
+                endcase
+            end  
+            else begin
+                DAT_O <= 0;
+                ERR_O <= 1'b0;
+                ACK_O <= 1'b0;
+                RTY_O <= 1'b0;
+            end
         end
     end
 
@@ -228,6 +288,7 @@ module i2c_controller #(parameter WIDTH = 8) (
     // I2C: Subroutine READ (means READing from the bus, used in WRITE operation)
     reg [1:0] i2c_next_state_read_block;
     reg [3:0] iteration_read;
+    
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             i2c_next_state_read_block <= STATE_IDLE;
@@ -251,42 +312,42 @@ module i2c_controller #(parameter WIDTH = 8) (
         else if (i2c_state == STATE_READ && rising_edge_detected == 1'b1) begin
             case (iteration_read)
                 4'd0 : begin
-                    address_data_buffer_internal[7] <= i2c_sda_in;
+                    recv_data_buffer[7] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ;          
                 end
                 4'd1 : begin
-                    address_data_buffer_internal[6] <= i2c_sda_in;
+                    recv_data_buffer[6] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd2 : begin
-                    address_data_buffer_internal[5] <= i2c_sda_in;
+                    recv_data_buffer[5] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd3 : begin
-                    address_data_buffer_internal[4] <= i2c_sda_in;
+                    recv_data_buffer[4] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd4 : begin
-                    address_data_buffer_internal[3] <= i2c_sda_in;
+                    recv_data_buffer[3] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd5 : begin
-                    address_data_buffer_internal[2] <= i2c_sda_in;
+                    recv_data_buffer[2] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd6 : begin
-                    address_data_buffer_internal[1] <= i2c_sda_in;
+                    recv_data_buffer[1] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
                 4'd7 : begin
-                    address_data_buffer_internal[0] <= i2c_sda_in;
+                    recv_data_buffer[0] <= i2c_sda_in;
                     iteration_read <= iteration_read + 1'b1;
                     i2c_next_state_read_block <= STATE_READ; 
                 end
@@ -316,6 +377,7 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [1:0] falling_edge_delayer;
     reg [3:0] iteration_write;
     wire falling_edge_detected_delayed;
+    reg write_request_flag_internal;
 
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
     always @(posedge CLK_I) begin
@@ -343,42 +405,42 @@ module i2c_controller #(parameter WIDTH = 8) (
         else if (i2c_state == STATE_WRITE && falling_edge_detected_delayed == 1'b1) begin
             case (iteration_write)
                 4'd0 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[7];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[7];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE;          
                 end
                 4'd1 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[6];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[6];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd2 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[5];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[5];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd3 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[4];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[4];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd4 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[3];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[3];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd5 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[2];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[2];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd6 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[1];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[1];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
                 4'd7 : begin
-                    i2c_sda_out_pin_ctrl <= address_data_buffer_internal[0];
+                    i2c_sda_out_pin_ctrl <= send_data_buffer[0];
                     iteration_write <= iteration_write;
                     i2c_next_state_write_block <= STATE_WRITE; 
                 end
@@ -391,6 +453,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                 end
             endcase
         end
+        // Here is the block to increment the bit pointer in rising edge, but keep the SDA line fixed until SCL falling edge
+        // It is said that this is ridiculously long, we might be able to get shorter code with C-style looping
         else if (i2c_state == STATE_WRITE && rising_edge_detected == 1'b1) begin
             case (iteration_write)
                 4'd0 : begin
@@ -437,6 +501,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                     // If host is ACK, keep in WRITE state
                     if (i2c_sda_in == 1'b0) begin
                         i2c_next_state_write_block <= STATE_WRITE;
+                        
                         iteration_write <= 4'd0;
                         i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
                     end
