@@ -149,7 +149,7 @@ module i2c_controller #(parameter WIDTH = 8) (
     assign stop_condition = ~sda_previous_state & i2c_sda_in & i2c_scl_in;
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) sda_previous_state <= 1'b0;
-        else previous_state <= i2c_sda_in;
+        else sda_previous_state <= i2c_sda_in;
     end
 
     // Rising-Falling edge detector
@@ -196,11 +196,11 @@ module i2c_controller #(parameter WIDTH = 8) (
             iteration_addr <= 4'd0;
         end
         else if (stop_condition == 1'b1) begin
-            i2c_next_state_read_block <= STATE_IDLE;
+            i2c_next_state_addr_block <= STATE_IDLE;
             iteration_addr <= 4'd0;
         end
         else if (start_condition == 1'b1) begin
-            i2c_next_state_read_block <= STATE_ADDR;
+            i2c_next_state_addr_block <= STATE_ADDR;
             iteration_addr <= 4'd0;
         end
         // The block below is used for nulling the state transition after ACK to ensure the OR'ed state remains correct
