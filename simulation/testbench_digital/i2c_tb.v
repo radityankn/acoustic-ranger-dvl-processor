@@ -45,12 +45,13 @@ module i2c_tb;
     // I2C tasks
     task i2c_start;
     begin
-        i2c_sda_in = 1;
-        i2c_scl_in = 1;
-        #(SCL_PERIOD/2);
+        wait (i2c_scl_in == 1'b0);
+        wait (i2c_sda_in == 1'b1 && i2c_scl_in == 1'b1);
+        // #(SCL_PERIOD/2);
+        #(SCL_PERIOD/4);
         i2c_sda_in = 0;
         #(SCL_PERIOD/2);
-        i2c_scl_in = 0;
+        // i2c_scl_in = 0;
     end
     endtask
     
@@ -67,28 +68,77 @@ module i2c_tb;
     task i2c_write_byte;
         input [7:0] data;
         integer i;
-    begin
-        for (i = 7; i >= 0; i--) begin
-            i2c_sda_in = data[i];
+        begin
+            for (i = 7; i >= 0; i--) begin
+                i2c_sda_in = data[i];
+                #(SCL_PERIOD);
+                // i2c_scl_in = 1;
+                // #(SCL_PERIOD/2);
+                // i2c_scl_in = 0;
+            end
+            // ACK phase (release SDA for slave)
+            i2c_sda_in = 1'b1;
             #(SCL_PERIOD/2);
-            i2c_scl_in = 1;
-            #(SCL_PERIOD/2);
-            i2c_scl_in = 0;
+            // i2c_scl_in = 1;
+            // #(SCL_PERIOD/2);
+            // i2c_scl_in = 0;
         end
-        // ACK phase (release SDA for slave)
-        // sda = 1'bz;
-        #(SCL_PERIOD/2);
-        i2c_scl_in = 1;
-        #(SCL_PERIOD/2);
-        i2c_scl_in = 0;
-    end
+    endtask
+
+    // WB Tasks
+    task wb_write_register;
+        input [7:0] target_addr;
+        input [7:0] target_data;
+        begin
+            wait (CLK_I == 1);
+            ADDR_I = target_addr;
+            DAT_I = target_data;
+            WE_I = 1;
+            STB_I = 1;
+            CYC_I = 1;
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            if (ACK_O == 1) begin
+                STB_I = 0;
+                CYC_I = 0;
+                WE_I = 0;
+                DAT_I = 8'd0;
+                ADDR_I = 8'd0;
+            end
+        end
+    endtask
+
+    task wb_read_register;
+        input [7:0] target_addr;
+        input [7:0] target_data;
+        begin
+            wait (CLK_I == 1);
+            ADDR_I = target_addr;
+            DAT_I = target_data;
+            WE_I = 0;
+            STB_I = 1;
+            CYC_I = 1;
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            if (ACK_O == 1) begin
+                STB_I = 0;
+                CYC_I = 0;
+                WE_I = 0;
+                DAT_I = 8'd0;
+                ADDR_I = 8'd0;
+            end
+        end
     endtask
     
     initial begin
         $dumpfile("i2c_result.vcd");
 		$dumpvars(0, i2c_tb);
-        i2c_sda_in = 1'b0;
-        i2c_scl_in = 1'b0;
+        i2c_sda_in = 1'b1;
+        i2c_scl_in = 1'b1;
         CLK_I = 1'b0;
         RST_I = 1'b1;
         ADDR_I = 8'b0;
@@ -96,12 +146,13 @@ module i2c_tb;
         CYC_I = 1'b0;
         STB_I = 1'b0;
         WE_I = 1'b0;
-
         #10;
         RST_I = 1'b0;
-
+        #10;
+        wb_write_register(8'hA, 8'hAA);
         // Write test
         $display("Writing to slave...");
+        // wait (i2c_scl_in == 1'b1);
         i2c_start();
         i2c_write_byte(8'hAA);  // Address 0x55 + Write bit (0)
         i2c_write_byte(8'hA5);  // Data

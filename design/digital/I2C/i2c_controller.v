@@ -41,13 +41,13 @@ module i2c_controller #(parameter WIDTH = 8) (
     // General Register that can be accessed through the bus
     // All registers are in MSB format
     // Contents : 
-    // addr_set_register (0x01) --> used to set what address we need the module to respond to.
+    // addr_set_register (0x0A) --> used to set what address we need the module to respond to.
     //      - 8 bit wide, but only bit 6 to 0 that is used.
-    // recv_data_buffer (0x02) --> used for WRITE process where we receive data
+    // recv_data_buffer (0x0B) --> used for WRITE process where we receive data
     //      - 8 bit wide, stored the received byte
-    // send_data_buffer (0x03) --> used for READ process where we send data
+    // send_data_buffer (0x0C) --> used for READ process where we send data
     //      - 8 bit wide, stored the outgoing byte
-    // ctrl_status_register (0x04) --> used to poll or set the operation of the module
+    // ctrl_status_register (0x0D) --> used to poll or set the operation of the module
     //      - bit 7: data received status, 1 means received data. Poll this to see if we receive data
     //      - bit 6: data send status, 1 means send data done, 0 means in progress
     //      - bit 5: I2C read request, 1 means we need to send data, 0 means no action needed
@@ -154,14 +154,16 @@ module i2c_controller #(parameter WIDTH = 8) (
 
     // Rising-Falling edge detector
     reg previous_state;
-    wire rising_edge_detected;
-    wire falling_edge_detected;
+    reg rising_edge_detected;
+    reg falling_edge_detected;
 
-    assign rising_edge_detected = ~previous_state & i2c_scl_in;
-    assign rising_edge_detected = previous_state & ~i2c_scl_in;
+    
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) previous_state <= 1'b0;
         else previous_state <= i2c_scl_in;
+
+        rising_edge_detected <= ~previous_state & i2c_scl_in;
+        falling_edge_detected <= previous_state & ~i2c_scl_in;
     end
 
     // I2C State Machine
@@ -254,18 +256,18 @@ module i2c_controller #(parameter WIDTH = 8) (
                 end
                 4'd8 : begin
                     // if the address is correct (means we're being called)
-                    if (address_data_buffer_internal[7:1] == addr_set_register[6:0]) begin
+                    if (address_data_buffer_internal[7:1] == addr_set_register[7:1]) begin
                         // reset the subroutine FSM
                         iteration_addr <= 4'd0;
                         // give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b1;
+                        i2c_sda_out_pin_ctrl <= 1'b0;
                         // the check the read/write bit
                         // if it's 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
                         if (address_data_buffer_internal[0] == 1) begin
                             i2c_next_state_addr_block <= STATE_WRITE;
                         end 
                         // if it's 0 (means I2C write command is received a.k.a receiving data --> must READ)...
-                        else if (address_data_buffer_internal[0] == 1) begin
+                        else if (address_data_buffer_internal[0] == 0) begin
                             i2c_next_state_addr_block <= STATE_READ;
                         end
                     end else begin

@@ -22,17 +22,17 @@ module frequency_counter(
     input ext_rst_i,
     input rst_i,
     input clk_i,
-    input [31:0] addr_i,
-    input [31:0] dat_i,
+    input [7:0] addr_i,
+    input [7:0] dat_i,
     input we_i,
-    input [3:0] sel_i,
+    // input [3:0] sel_i,
     input cyc_i,
     input stb_i,
     input lock_i,
-    input tagn_i,
+    // input tagn_i,
     input signal_input,                     //target signal input port
     input reference_clk_main,                  //reference clock, 100MHz, with different phase shift
-    input reference_clk_interpolate,
+    // input reference_clk_interpolate,
     output reg [31:0] dat_o,
     output reg err_o,
     output reg rty_o,
@@ -45,8 +45,8 @@ module frequency_counter(
     );
 	
 	
-    reg [31:0] measurement_count_reg;            //bus-facing coarse counter data register, accessible through the wishbone bus
-    reg [7:0] phase_count_reg;                  //bus-facing fine counter data register, accessible through the wishbone bus
+    reg [15:0] measurement_count_reg;            //bus-facing coarse counter data register, accessible through the wishbone bus
+    reg [15:0] pulse_count_reg;                  //bus-facing fine counter data register, accessible through the wishbone bus
     reg [7:0] counter_control_reg;               //counter control register, used to start the measurement and indicate whether a measurement has been finished or not
 
     wire counter_reset_internal;                 //used to reset front-end counter register after each measurement
@@ -89,29 +89,37 @@ module frequency_counter(
                 end 
                 default :  begin            
                     ack_o <= 0;
+                    err_o <= 1;
                 end
             endcase
         end else if (we_i == 0 && stb_i == 1) begin 
             //counter control register (0x08)
             case (addr_i)
-                32'h8 : begin
+                8'h8 : begin
                     dat_o[7:0] <= counter_control_reg;
-                    dat_o[31:8] <= 24'd0;
+                    // dat_o[31:8] <= 24'd0;
                     ack_o <= 1;
                 //counter counter result register (0x09)
                 end 
-                32'h9 : begin
+                8'h9 : begin
                     dat_o <= measurement_count_reg;
                     ack_o <= 1;
+                end
+                8'hA : begin
+                    dat_o <= measurement_count_reg;
+                    ack_o <= 1;
+                end  
                 //counter phase begin - end register (0x0a)
-                end 
+                /*
                 32'ha : begin
                     dat_o <= phase_count_reg;
                     ack_o <= 1;
                 end
+                */
                 default : begin 
-                    dat_o <= 32'd0;
+                    dat_o <= 8'd0;
                     ack_o <= 0;
+                    err_o <= 1;
                 end
             endcase
         end
@@ -138,28 +146,28 @@ module frequency_counter(
     used to interact with the input signal and reference clock
     */
 
-    reg [31:0] measurement_count_internal;       //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
-    reg [1:0] phase_count_internal;             //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
-    reg [7:0] phase_count_intermediate;
-    reg [15:0] measurement_state_machine;        //state machine to indicate whether input signal rising edge is present or not
-    reg measurement_began;                       //state of the measurement state machine from the last clock cycle
-    reg measurement_end;                     //register of whether a measurement has been done or not, useful when waiting for rising edge
+    reg [15:0] pulse_count_internal;            //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
+    reg [15:0] range_count_internal;            //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
+    reg [15:0] measurement_state_machine;       //state machine to indicate whether input signal rising edge is present or not
+    reg measurement_began;                      //state of the measurement state machine from the last clock cycle
+    reg measurement_end;                        //register of whether a measurement has been done or not, useful when waiting for rising edge
     reg counter_ready;
-    reg [31:0] counter_pll_1;
 
     reg measurement_begin_buffer_1;
     reg measurement_begin_buffer_2;
 
-    //buffer blocks here, it simply uses the incoming clock signal to propagates the input
+    // buffer blocks here, it simply uses the incoming clock signal to propagates the input
     always @(posedge signal_input) begin
         measurement_begin_buffer_1 <= counter_control_reg[7];
         measurement_begin_buffer_2 <= measurement_begin_buffer_1;
     end
 
-    //interpolation bits
-    reg interpolation_in_beginning_done;
-    reg interpolation_in_end_done;
+    // Ranging Mode FSM begins here
+    always @(posedge signal_input) begin
+        // TBD
+    end
 
+    // Pulse Coutner State Machine begin here
     always @(posedge signal_input) begin
         case (measurement_state_machine)
             16'd0 : begin
@@ -179,7 +187,7 @@ module frequency_counter(
                     measurement_state_machine <= measurement_state_machine;
                 end
             end
-            16'd1000 : begin //16'd1000
+            16'd10000 : begin
                 if (rst_i == 1 || ext_rst_i == 0 || counter_reset_internal == 1) begin 
                     measurement_state_machine <= 16'd0;
                 end else if (measurement_begin_buffer_2 == 1'b0) begin
@@ -195,40 +203,6 @@ module frequency_counter(
                 end else measurement_state_machine <= measurement_state_machine + 1'b1;
             end
         endcase
-
-        //interpolation begins here
-        //Interpolation register for the beginning of measurement, at rising edge of measurement_begin
-        if (measurement_begin_buffer_2 == 1'b1 && interpolation_in_beginning_done == 1'b0) begin 
-            interpolation_in_beginning_done <= 1'b1;
-            phase_count_intermediate[1:0] <= phase_count_internal;
-        end
-
-        //interplation for end of measurement, at the end of measurement_state_machine
-        else if (measurement_state_machine == 16'd1000 & interpolation_in_end_done == 1'b0) begin
-            interpolation_in_end_done <= 1'b1;
-            phase_count_intermediate[5:4] <= phase_count_internal;
-        end
-
-        else if (rst_i == 1 || ext_rst_i == 0 || counter_reset_internal == 1) begin 
-            phase_count_intermediate[7:0] <= 8'b0;
-            interpolation_in_beginning_done = 1'b0;
-            interpolation_in_end_done <= 1'b0;
-        end
-
-        else if (measurement_begin_buffer_2 == 1'b0 && measurement_end == 0) begin 
-            interpolation_in_beginning_done = 1'b0;
-            interpolation_in_end_done <= 1'b0;
-        end
-
-        else begin
-            phase_count_intermediate[7:0] <= phase_count_intermediate[7:0];
-        end 
-        //if (counter_pll_1[31] == 1'b1) begin
-			blinker_3 <= ~blinker_3;
-			//counter_pll_1 <= 32'd0;
-		//end else begin
-			//counter_pll_1 <= counter_pll_1 + 32'h2b;
-		//end
     end
 
     //main clock measurement block here
@@ -244,12 +218,6 @@ module frequency_counter(
             measurement_count_internal <= 32'd0;
             status[1] <= 1'b0;
         end
-    end
-
-    //internal interpolation measurement begins here, using registers
-    always @(posedge reference_clk_interpolate) begin
-        if (rst_i == 1 || ext_rst_i == 0 || counter_reset_internal == 1) phase_count_internal <= 2'b0;
-        else phase_count_internal <= phase_count_internal + 1'b1;
     end
 
     assign counter_reset_internal = counter_control_reg[0]; 
