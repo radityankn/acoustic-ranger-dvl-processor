@@ -23,8 +23,6 @@ N 510 -260 530 -260 {lab=#net2}
 N 420 -260 450 -260 {lab=in-}
 N 660 -230 660 -210 {lab=vbias}
 N 660 -210 700 -210 {lab=vbias}
-N 230 -490 230 -460 {lab=vbias}
-N 230 -400 230 -380 {lab=0}
 N 600 -580 600 -380 {lab=#net1}
 N 680 -280 840 -280 {lab=out50}
 N 760 -580 760 -280 {lab=out50}
@@ -89,6 +87,9 @@ N 40 -750 40 -730 {lab=0}
 N 40 -600 40 -580 {lab=0}
 N 40 -690 40 -660 {lab=in-}
 N 40 -840 40 -810 {lab=in+}
+N 120 -230 150 -230 {lab=vbias}
+N 60 -300 60 -280 {lab=vdd}
+N 60 -160 60 -140 {lab=vss}
 C {vsource.sym} 30 -430 0 0 {name=V5 value=3.3 savecurrent=false}
 C {vsource.sym} 100 -430 0 0 {name=V6 value=0 savecurrent=false}
 C {gnd.sym} 100 -380 0 0 {name=l9 lab=0}
@@ -121,9 +122,6 @@ footprint=1206
 device=resistor
 m=1}
 C {lab_wire.sym} 430 -260 2 1 {name=p3 sig_type=std_logic lab=in-}
-C {vsource.sym} 230 -430 0 0 {name=V3 value=2.27 savecurrent=false}
-C {lab_wire.sym} 230 -490 0 0 {name=p8 sig_type=std_logic lab=vbias}
-C {gnd.sym} 230 -380 0 0 {name=l4 lab=0}
 C {lab_wire.sym} 700 -210 0 0 {name=p11 sig_type=std_logic lab=vbias}
 C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 650 -230 0 0 {name=x1}
 C {devices/code_shown.sym} 280 -1080 0 0 {name=NGSPICE1 only_toplevel=true
@@ -158,7 +156,6 @@ value="
 .include $::180MCU_MODELS/design.ngspice
 .lib $::180MCU_MODELS/sm141064.ngspice typical
 "}
-C {Binary_Resistor_Bank.sym} 720 -460 0 0 {name=x2}
 C {lab_wire.sym} 680 -640 0 0 {name=p18 sig_type=std_logic lab=vdd}
 C {lab_wire.sym} 680 -460 0 0 {name=p19 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 560 -550 0 0 {name=p12 sig_type=std_logic lab=vdd}
@@ -187,7 +184,6 @@ m=1}
 C {lab_wire.sym} 890 -260 2 1 {name=p22 sig_type=std_logic lab=in-}
 C {lab_wire.sym} 1160 -210 0 0 {name=p23 sig_type=std_logic lab=vbias}
 C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 1110 -230 0 0 {name=x3}
-C {Binary_Resistor_Bank.sym} 1180 -460 0 0 {name=x4}
 C {lab_wire.sym} 1140 -640 0 0 {name=p24 sig_type=std_logic lab=vdd}
 C {lab_wire.sym} 1140 -460 0 0 {name=p25 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 1020 -530 0 0 {name=p26 sig_type=std_logic lab=vdd}
@@ -216,7 +212,6 @@ m=1}
 C {lab_wire.sym} 1350 -260 2 1 {name=p36 sig_type=std_logic lab=in-}
 C {lab_wire.sym} 1620 -210 0 0 {name=p37 sig_type=std_logic lab=vbias}
 C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 1570 -230 0 0 {name=x5}
-C {Binary_Resistor_Bank.sym} 1640 -460 0 0 {name=x6}
 C {lab_wire.sym} 1600 -640 0 0 {name=p38 sig_type=std_logic lab=vdd}
 C {lab_wire.sym} 1600 -460 0 0 {name=p39 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 1480 -510 0 0 {name=p40 sig_type=std_logic lab=vdd}
@@ -226,3 +221,10 @@ C {gnd.sym} 40 -580 0 0 {name=l5 lab=0}
 C {gnd.sym} 40 -730 0 0 {name=l6 lab=0}
 C {lab_wire.sym} 40 -840 0 0 {name=p43 sig_type=std_logic lab=in+}
 C {lab_wire.sym} 40 -690 0 0 {name=p44 sig_type=std_logic lab=in-}
+C {acoustic-ranger-dvl-processor/design/analog/PGA/gain_selector.sym} 720 -460 0 0 {name=x2}
+C {acoustic-ranger-dvl-processor/design/analog/PGA/gain_selector.sym} 1180 -460 0 0 {name=x4}
+C {acoustic-ranger-dvl-processor/design/analog/PGA/gain_selector.sym} 1640 -460 0 0 {name=x6}
+C {lab_wire.sym} 140 -230 0 1 {name=p6 sig_type=std_logic lab=vbias}
+C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} -120 -100 0 0 {name=x7}
+C {lab_wire.sym} 60 -300 0 0 {name=p7 sig_type=std_logic lab=vdd}
+C {lab_wire.sym} 60 -140 0 0 {name=p45 sig_type=std_logic lab=vss}

@@ -19,9 +19,10 @@ N 30 -230 30 -190 {lab=0}
 N 90 -330 90 -290 {lab=vss}
 N 30 -330 30 -290 {lab=vdd}
 N 150 -230 150 -190 {lab=0}
-N 150 -330 150 -290 {lab=vbias}
-N 220 -230 220 -190 {lab=0}
-N 220 -330 220 -290 {lab=vref}
+N 150 -330 150 -290 {lab=vref}
+N 320 -260 350 -260 {lab=vbias}
+N 260 -330 260 -310 {lab=vdd}
+N 260 -190 260 -170 {lab=vss}
 C {BPF.sym} 610 -190 0 0 {name=x1}
 C {lab_wire.sym} 610 -200 0 0 {name=p6 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 610 -360 0 0 {name=p1 sig_type=std_logic lab=vdd}
@@ -63,9 +64,10 @@ C {gnd.sym} 90 -190 0 0 {name=l3 lab=0}
 C {gnd.sym} 30 -190 0 0 {name=l4 lab=0}
 C {lab_wire.sym} 30 -330 0 0 {name=p7 sig_type=std_logic lab=vdd}
 C {lab_wire.sym} 90 -330 0 0 {name=p8 sig_type=std_logic lab=vss}
-C {vsource.sym} 150 -260 0 0 {name=V4 value=2.27 savecurrent=false}
-C {gnd.sym} 150 -190 0 0 {name=l5 lab=0}
-C {lab_wire.sym} 150 -330 0 0 {name=p9 sig_type=std_logic lab=vbias}
-C {vsource.sym} 220 -260 0 0 {name=V5 value=1.65 savecurrent=false}
-C {gnd.sym} 220 -190 0 0 {name=l7 lab=0}
-C {lab_wire.sym} 220 -330 0 0 {name=p10 sig_type=std_logic lab=vref}
+C {vsource.sym} 150 -260 0 0 {name=V5 value=1.65 savecurrent=false}
+C {gnd.sym} 150 -190 0 0 {name=l7 lab=0}
+C {lab_wire.sym} 150 -330 0 0 {name=p10 sig_type=std_logic lab=vref}
+C {lab_wire.sym} 340 -260 0 1 {name=p11 sig_type=std_logic lab=vbias}
+C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 80 -130 0 0 {name=x7}
+C {lab_wire.sym} 260 -330 0 0 {name=p12 sig_type=std_logic lab=vdd}
+C {lab_wire.sym} 260 -170 0 0 {name=p13 sig_type=std_logic lab=vss}

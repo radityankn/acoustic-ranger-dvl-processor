@@ -129,9 +129,9 @@ C {lab_wire.sym} 240 -300 0 0 {name=p13 sig_type=std_logic lab=10}
 C {vsource.sym} 420 -240 0 0 {name=V9 value="pulse(0 3.3 60u 1n 1n 30u 100u)" savecurrent=false}
 C {gnd.sym} 420 -190 0 0 {name=l7 lab=0}
 C {lab_wire.sym} 420 -300 0 0 {name=p14 sig_type=std_logic lab=50}
-C {Binary_Resistor_Bank.sym} 720 -810 0 0 {name=x2}
 C {lab_wire.sym} 580 -900 0 0 {name=p15 sig_type=std_logic lab=50}
 C {lab_wire.sym} 580 -880 0 0 {name=p16 sig_type=std_logic lab=10}
 C {lab_wire.sym} 580 -860 0 0 {name=p17 sig_type=std_logic lab=2}
 C {lab_wire.sym} 680 -990 0 0 {name=p18 sig_type=std_logic lab=vdd}
 C {lab_wire.sym} 680 -810 0 0 {name=p19 sig_type=std_logic lab=vss}
+C {acoustic-ranger-dvl-processor/design/analog/PGA/gain_selector.sym} 720 -810 0 0 {name=x2}

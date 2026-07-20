@@ -25,13 +25,14 @@ N 660 -220 660 -200 {lab=vss}
 N 720 -440 800 -440 {lab=in-}
 N 800 -440 800 -390 {lab=in-}
 N 600 -290 620 -290 {lab=in-}
-N 290 -250 290 -230 {lab=0}
-N 290 -340 290 -310 {lab=vbias}
 N 680 -270 680 -240 {lab=vbias}
 N 680 -240 750 -240 {lab=vbias}
 N 570 -290 600 -290 {lab=in-}
 N 570 -440 570 -290 {lab=in-}
 N 570 -440 600 -440 {lab=in-}
+N 400 -270 430 -270 {lab=vbias}
+N 340 -340 340 -320 {lab=vdd}
+N 340 -200 340 -180 {lab=vss}
 C {vsource.sym} 140 -280 0 0 {name=V3 value=1.65 savecurrent=false}
 C {gnd.sym} 140 -230 0 0 {name=l4 lab=0}
 C {lab_wire.sym} 140 -340 0 0 {name=p3 sig_type=std_logic lab=in+}
@@ -66,7 +67,7 @@ C {devices/code_shown.sym} 10 -80 0 0 {name=MODELS only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
-.lib $::180MCU_MODELS/sm141064.ngspice typical
+.lib $::180MCU_MODELS/sm141064.ngspice fs
 "}
 C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 670 -260 0 0 {name=x1}
 C {lab_wire.sym} 770 -200 0 0 {name=p1 sig_type=std_logic lab=vss}
@@ -80,7 +81,8 @@ m=1
 value=500f
 footprint=1206
 device="ceramic capacitor"}
-C {vsource.sym} 290 -280 0 0 {name=V5 value=2.27 savecurrent=false}
-C {gnd.sym} 290 -230 0 0 {name=l3 lab=0}
-C {lab_wire.sym} 290 -340 0 0 {name=p9 sig_type=std_logic lab=vbias}
 C {lab_wire.sym} 740 -240 0 0 {name=p10 sig_type=std_logic lab=vbias}
+C {lab_wire.sym} 420 -270 0 1 {name=p11 sig_type=std_logic lab=vbias}
+C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 160 -140 0 0 {name=x7}
+C {lab_wire.sym} 340 -340 0 0 {name=p12 sig_type=std_logic lab=vdd}
+C {lab_wire.sym} 340 -180 0 0 {name=p13 sig_type=std_logic lab=vss}
