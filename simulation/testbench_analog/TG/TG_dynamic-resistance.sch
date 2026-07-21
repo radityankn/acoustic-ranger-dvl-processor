@@ -48,7 +48,7 @@ C {devices/code_shown.sym} 10 -80 0 0 {name=MODELS only_toplevel=true
 format="tcleval( @value )"
 value="
 .include $::180MCU_MODELS/design.ngspice
-.lib $::180MCU_MODELS/sm141064.ngspice typical
+.lib $::180MCU_MODELS/sm141064.ngspice ss
 "}
 C {lab_wire.sym} 560 -270 0 0 {name=p1 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 500 -390 0 0 {name=p2 sig_type=std_logic lab=vdd}
