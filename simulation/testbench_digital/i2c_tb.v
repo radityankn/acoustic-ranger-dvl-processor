@@ -57,9 +57,11 @@ module i2c_tb;
     
     task i2c_stop;
     begin
+        wait (i2c_scl_in == 1'b0);
         i2c_sda_in = 0;
-        i2c_scl_in = 1;
-        #(SCL_PERIOD/2);
+        wait (i2c_sda_in == 1'b0 && i2c_scl_in == 1'b1);
+        // #(SCL_PERIOD/2);
+        #(SCL_PERIOD/4);
         i2c_sda_in = 1;
         #(SCL_PERIOD/2);
     end
@@ -78,7 +80,27 @@ module i2c_tb;
             end
             // ACK phase (release SDA for slave)
             i2c_sda_in = 1'b1;
-            #(SCL_PERIOD/2);
+            #(SCL_PERIOD);
+            // i2c_scl_in = 1;
+            // #(SCL_PERIOD/2);
+            // i2c_scl_in = 0;
+        end
+    endtask
+
+    task i2c_read_byte;
+        output [7:0] data;
+        integer i;
+        begin
+            for (i = 7; i >= 0; i--) begin
+                data[i] = i2c_sda_out_pin_ctrl;
+                #(SCL_PERIOD);
+                // i2c_scl_in = 1;
+                // #(SCL_PERIOD/2);
+                // i2c_scl_in = 0;
+            end
+            // ACK phase (release SDA for slave)
+            i2c_sda_in = 1'b1;
+            #(SCL_PERIOD);
             // i2c_scl_in = 1;
             // #(SCL_PERIOD/2);
             // i2c_scl_in = 0;
@@ -134,6 +156,8 @@ module i2c_tb;
         end
     endtask
     
+    reg [7:0] result;
+
     initial begin
         $dumpfile("i2c_result.vcd");
 		$dumpvars(0, i2c_tb);
@@ -150,15 +174,16 @@ module i2c_tb;
         RST_I = 1'b0;
         #10;
         wb_write_register(8'hA, 8'hAA);
+        wb_write_register(8'hC, 8'hAA);
         // Write test
         $display("Writing to slave...");
         // wait (i2c_scl_in == 1'b1);
         i2c_start();
-        i2c_write_byte(8'hAA);  // Address 0x55 + Write bit (0)
-        i2c_write_byte(8'hA5);  // Data
+        i2c_write_byte(8'hAB);  // Address 0x55 + Write bit (0)
+        i2c_read_byte(result);  // Data
         i2c_stop();
-        
-        #1000;
+        $display("Read result is %0h", result);
+        #1500;
         $finish;
     end
 
