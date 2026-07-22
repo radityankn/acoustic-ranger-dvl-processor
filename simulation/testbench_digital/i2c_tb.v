@@ -45,11 +45,18 @@ module i2c_tb;
     // I2C tasks
     task i2c_start;
     begin
-        wait (i2c_scl_in == 1'b0);
+        if (i2c_sda_in == 1'b1) begin
+            wait (i2c_scl_in == 1'b0);
+        end
+        else begin
+            wait (i2c_scl_in == 1'b0);
+            #(SCL_PERIOD/4);
+            i2c_sda_in <= 1;
+        end
         wait (i2c_sda_in == 1'b1 && i2c_scl_in == 1'b1);
         // #(SCL_PERIOD/2);
         #(SCL_PERIOD/4);
-        i2c_sda_in = 0;
+        i2c_sda_in <= 0;
         #(SCL_PERIOD/2);
         // i2c_scl_in = 0;
     end
@@ -58,11 +65,11 @@ module i2c_tb;
     task i2c_stop;
     begin
         wait (i2c_scl_in == 1'b0);
-        i2c_sda_in = 0;
+        i2c_sda_in <= 0;
         wait (i2c_sda_in == 1'b0 && i2c_scl_in == 1'b1);
         // #(SCL_PERIOD/2);
         #(SCL_PERIOD/4);
-        i2c_sda_in = 1;
+        i2c_sda_in <= 1;
         #(SCL_PERIOD/2);
     end
     endtask
@@ -72,14 +79,14 @@ module i2c_tb;
         integer i;
         begin
             for (i = 7; i >= 0; i--) begin
-                i2c_sda_in = data[i];
+                i2c_sda_in <= data[i];
                 #(SCL_PERIOD);
                 // i2c_scl_in = 1;
                 // #(SCL_PERIOD/2);
                 // i2c_scl_in = 0;
             end
             // ACK phase (release SDA for slave)
-            i2c_sda_in = 1'b1;
+            i2c_sda_in <= 1'b1;
             #(SCL_PERIOD);
             // i2c_scl_in = 1;
             // #(SCL_PERIOD/2);
@@ -111,47 +118,70 @@ module i2c_tb;
     task wb_write_register;
         input [7:0] target_addr;
         input [7:0] target_data;
+        input continue_cycle;
         begin
+            wait (CLK_I == 0);
             wait (CLK_I == 1);
-            ADDR_I = target_addr;
-            DAT_I = target_data;
-            WE_I = 1;
-            STB_I = 1;
-            CYC_I = 1;
+            ADDR_I <= target_addr;
+            DAT_I <= target_data;
+            WE_I <= 1;
+            STB_I <= 1;
+            CYC_I <= 1;
             wait (CLK_I == 0);
             wait (CLK_I == 1);
             wait (CLK_I == 0);
             wait (CLK_I == 1);
-            if (ACK_O == 1) begin
-                STB_I = 0;
-                CYC_I = 0;
-                WE_I = 0;
-                DAT_I = 8'd0;
-                ADDR_I = 8'd0;
+            if (ACK_O == 1'b1) begin
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+            end 
+            else begin 
+                target_data = 0;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+                $display("ERROR at writing to the register!!");
             end
         end
     endtask
 
     task wb_read_register;
         input [7:0] target_addr;
-        input [7:0] target_data;
+        output [7:0] target_data;
+        input continue_cycle;
         begin
+            wait (CLK_I == 0);
             wait (CLK_I == 1);
-            ADDR_I = target_addr;
-            DAT_I = target_data;
-            WE_I = 0;
-            STB_I = 1;
-            CYC_I = 1;
+            ADDR_I <= target_addr;
+            DAT_I <= 0;
+            WE_I <= 0;
+            STB_I <= 1;
+            CYC_I <= 1;
             wait (CLK_I == 0);
             wait (CLK_I == 1);
             wait (CLK_I == 0);
             wait (CLK_I == 1);
-            if (ACK_O == 1) begin
-                STB_I = 0;
-                CYC_I = 0;
-                WE_I = 0;
-                DAT_I = 8'd0;
-                ADDR_I = 8'd0;
+            if (ACK_O == 1'b1) begin
+                target_data = DAT_O;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+            end
+            else begin 
+                target_data <= 0;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+                $display("ERROR at reading the register!!");
             end
         end
     endtask
@@ -166,28 +196,39 @@ module i2c_tb;
         CLK_I = 1'b0;
         RST_I = 1'b1;
         ADDR_I = 8'b0;
-        DAT_I = 8'b1;
+        DAT_I = 8'b0;
         CYC_I = 1'b0;
         STB_I = 1'b0;
         WE_I = 1'b0;
         #10;
         RST_I = 1'b0;
         #10;
-        wb_write_register(8'hA, 8'hAA);
-        wb_write_register(8'hC, 8'hAA);
+    end
+
+    always @(posedge CLK_I) begin
+        wb_write_register(8'hA, 8'hAA, 1);
+        wb_write_register(8'hC, 8'hAA, 0);
         // Write test
-        $display("Writing to slave...");
-        // wait (i2c_scl_in == 1'b1);
+        $display("Reading from slave...");
         i2c_start();
-        i2c_write_byte(8'hAB);  // Address 0x55 + Write bit (0)
+        // I2C reading from device sequence
+        i2c_write_byte(8'hAB);  // Address 0x55 + Read bit (1)
         i2c_read_byte(result);  // Data
-        i2c_stop();
         $display("Read result is %0h", result);
+        
+        $display("Writing to slave...");
+        ///I2C writing to device sequence
+        i2c_start();
+        i2c_write_byte(8'hAA);  // Address 0x55 + Write bit (0)
+        i2c_write_byte(8'hBE);  // Data
+        wb_read_register(8'hB, result, 0);
+        $display("Write result is %0h", result);
+        i2c_stop();
         #1500;
         $finish;
     end
 
     assign i2c_sda_out_pin_ctrl_n = ~i2c_sda_out_pin_ctrl;
-    always #5 CLK_I = !CLK_I;
-    always #125 i2c_scl_in = !i2c_scl_in;
+    always #5 CLK_I <= ~CLK_I;
+    always #125 i2c_scl_in <= ~i2c_scl_in;
 endmodule
