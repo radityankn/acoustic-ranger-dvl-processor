@@ -49,9 +49,9 @@ module i2c_tb;
             wait (i2c_scl_in == 1'b0);
         end
         else begin
-            wait (i2c_scl_in == 1'b0);
-            #(SCL_PERIOD/4);
             i2c_sda_in <= 1;
+            #(SCL_PERIOD/4);
+
         end
         wait (i2c_sda_in == 1'b1 && i2c_scl_in == 1'b1);
         // #(SCL_PERIOD/2);
@@ -76,6 +76,7 @@ module i2c_tb;
     
     task i2c_write_byte;
         input [7:0] data;
+        input continue_cycle;
         integer i;
         begin
             for (i = 7; i >= 0; i--) begin
@@ -96,6 +97,7 @@ module i2c_tb;
 
     task i2c_read_byte;
         output [7:0] data;
+        input continue_cycle;
         integer i;
         begin
             for (i = 7; i >= 0; i--) begin
@@ -105,8 +107,8 @@ module i2c_tb;
                 // #(SCL_PERIOD/2);
                 // i2c_scl_in = 0;
             end
-            // ACK phase (release SDA for slave)
-            i2c_sda_in = 1'b1;
+            // ACK phase (0 for keep slave sending, 1 for terminate)
+            i2c_sda_in <= continue_cycle;
             #(SCL_PERIOD);
             // i2c_scl_in = 1;
             // #(SCL_PERIOD/2);
@@ -212,15 +214,15 @@ module i2c_tb;
         $display("Reading from slave...");
         i2c_start();
         // I2C reading from device sequence
-        i2c_write_byte(8'hAB);  // Address 0x55 + Read bit (1)
-        i2c_read_byte(result);  // Data
+        i2c_write_byte(8'hAB,1);  // Address 0x55 + Read bit (1)
+        i2c_read_byte(result,0);  // Data
         $display("Read result is %0h", result);
         
         $display("Writing to slave...");
         ///I2C writing to device sequence
         i2c_start();
-        i2c_write_byte(8'hAA);  // Address 0x55 + Write bit (0)
-        i2c_write_byte(8'hBE);  // Data
+        i2c_write_byte(8'hAA,1);  // Address 0x55 + Write bit (0)
+        i2c_write_byte(8'hBE,1);  // Data
         wb_read_register(8'hB, result, 0);
         $display("Write result is %0h", result);
         i2c_stop();
