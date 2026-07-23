@@ -260,8 +260,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     reg [1:0] measurement_state;       //state machine to indicate whether input signal rising edge is present or not
     reg [1:0] measurement_next_state;
     reg measurement_start_internal;                      //state of the measurement state machine from the last clock cycle
-    reg measurement_range_done_internal;                 //register of whether a measurement has been done or not, useful when waiting for rising edge
-    reg measurement_pulse_done_internal;
+    reg measurement_done_internal;
     reg counter_ready;
 
     localparam STATE_READY = 0;
@@ -304,6 +303,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     reg range_timeout_internal_flag;
     reg range_finished_internal_flag;
     reg pulse_timeout_internal_flag;
+    reg [1:0] measurement_next_state_range;
 
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1 or counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
@@ -314,19 +314,39 @@ module frequency_counter #(parameter WIDTH = 8) (
             range_finished_internal_flag <= 1'b0;
             range_timeout_internal_flag <= 1'b0;
         end
-        else if (measurement_start_internal == 1'b1 && measurement_range_done_internal == 1'b0) begin
+        else if (measurement_start_internal <= 1'b1) begin
             if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1) begin
-                measurement_next_state <= STATE_RANGE;
-                range_count_internal <= range_count_internal + 1'b1;
-                trigger_signal_out <= 1'b1;
+                if (measurement_state == STATE_RANGE) begin
+                    if (range_count_internal < 24'd11) begin
+                        measurement_next_state_range <= STATE_RANGE;
+                        range_count_internal <= range_count_internal + 1'b1;
+                        trigger_signal_out <= 1'b1;
+                    end
+                    else if (range_count_internal >= 24'd714286) begin
+                        measurement_next_state_range <= STATE_IDLE;
+                        range_timeout_internal_flag <= 1'b1;
+                    end
+                    else if (rising_edge_detected == 1'b1) begin
+                        measurement_next_state_range <= STATE_PULSE;
+                        range_finished_internal_flag <= 1'b1;
+                    end
+                    else begin
+                        range_count_internal <= range_count_internal + 1'b1;
+                        trigger_signal_out <= 1'b0;
+                        measurement_next_state_range <= STATE_RANGE;
+                    end
+                end
+                else if (measurement_state == STATE_READY) begin
+                    measurement_next_state_range <= STATE_RANGE;
+                end
+                else begin
+                    measurement_next_state_range <= STATE_READY;
+                end
             end
-            else if (range_count_internal >= 24'd714286) begin
-                measurement_next_state <= STATE_IDLE;
-                range_timeout_internal_flag <= 1'b1;
-            end
-            else if (rising_edge_detected == 1'b1) begin
-                measurement_next_state <= STATE_PULSE;
-                range_finished_internal_flag <= 1'b1;
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0) begin
+                if (measurement_state == STATE_READY) begin
+                    measurement_next_state_range <= STATE_PULSE
+                end
             end
         end
     end
