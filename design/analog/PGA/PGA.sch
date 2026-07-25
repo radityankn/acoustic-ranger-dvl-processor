@@ -52,7 +52,7 @@ m=1}
 C {lab_wire.sym} 330 -320 2 1 {name=p3 sig_type=std_logic lab=in-}
 C {lab_wire.sym} 600 -270 0 0 {name=p11 sig_type=std_logic lab=vbias}
 C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 550 -290 0 0 {name=x1}
-C {Binary_Resistor_Bank.sym} 620 -520 0 0 {name=x2}
+C {gain_selector.sym} 620 -520 0 0 {name=x2}
 C {lab_wire.sym} 480 -610 0 0 {name=p15 sig_type=std_logic lab=50}
 C {lab_wire.sym} 480 -590 0 0 {name=p16 sig_type=std_logic lab=10}
 C {lab_wire.sym} 480 -570 0 0 {name=p17 sig_type=std_logic lab=2}

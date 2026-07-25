@@ -33,8 +33,6 @@ N 290 -320 290 -290 {lab=#net1}
 N 210 -370 390 -370 {lab=nbias}
 N 410 -240 410 -210 {lab=vss}
 N 410 -210 410 -190 {lab=vss}
-N 410 -350 410 -270 {lab=pbias}
-N 290 -350 410 -350 {lab=pbias}
 N 290 -190 410 -190 {lab=vss}
 N 520 -370 520 -260 {lab=nbias}
 N 560 -400 560 -290 {lab=#net2}
@@ -53,6 +51,8 @@ N 740 -260 740 -230 {lab=vss}
 N 450 -240 460 -240 {lab=trigger}
 N 390 -370 520 -370 {lab=nbias}
 N 560 -330 700 -330 {lab=#net2}
+N 410 -350 410 -270 {lab=pbias}
+N 290 -350 410 -350 {lab=pbias}
 C {title.sym} 160 -40 0 0 {name=l1 author="Muhammad Farhan"}
 C {iopin.sym} 210 -610 0 0 {name=p5 lab=vdd}
 C {iopin.sym} 210 -170 0 0 {name=p8 lab=vss}

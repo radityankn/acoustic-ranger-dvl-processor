@@ -25,14 +25,17 @@ N 660 -220 660 -200 {lab=vss}
 N 720 -440 800 -440 {lab=in-}
 N 800 -440 800 -390 {lab=in-}
 N 600 -290 620 -290 {lab=in-}
-N 680 -270 680 -240 {lab=vbias}
-N 680 -240 750 -240 {lab=vbias}
 N 570 -290 600 -290 {lab=in-}
 N 570 -440 570 -290 {lab=in-}
 N 570 -440 600 -440 {lab=in-}
-N 400 -270 430 -270 {lab=vbias}
-N 340 -340 340 -320 {lab=vdd}
-N 340 -200 340 -180 {lab=vss}
+N 470 -250 470 -230 {lab=vdd}
+N 530 -180 560 -180 {lab=#net1}
+N 410 -180 410 -150 {lab=vss}
+N 530 -150 560 -150 {lab=#net2}
+N 560 -180 680 -180 {lab=#net1}
+N 360 -120 470 -120 {lab=vss}
+N 410 -150 410 -120 {lab=vss}
+N 680 -270 680 -180 {lab=#net1}
 C {vsource.sym} 140 -280 0 0 {name=V3 value=1.65 savecurrent=false}
 C {gnd.sym} 140 -230 0 0 {name=l4 lab=0}
 C {lab_wire.sym} 140 -340 0 0 {name=p3 sig_type=std_logic lab=in+}
@@ -42,7 +45,7 @@ C {lab_wire.sym} 190 -340 0 0 {name=p4 sig_type=std_logic lab=vdd}
 C {vsource.sym} 240 -280 0 0 {name=V2 value=0 savecurrent=false}
 C {gnd.sym} 240 -230 0 0 {name=l2 lab=0}
 C {lab_wire.sym} 240 -340 0 0 {name=p5 sig_type=std_logic lab=vss}
-C {devices/code_shown.sym} 10 -700 0 0 {name=NGSPICE1 only_toplevel=true
+C {devices/code_shown.sym} 10 -720 0 0 {name=NGSPICE1 only_toplevel=true
 value="
 
 
@@ -52,12 +55,17 @@ value="
 	*tran 1u 1m
 	*plot v(net2) v(net4) v(net5) v(in-) 
 	*plot v(net2) v(net3)
+	
 
 	*show m.xm1.m0 m.xm2.m0
 
+	op
 	ac dec 20 1 1g
-	plot db(v(out)/v(in-))
-	plot (180/3.14159) * cph(v(out)/v(in-))
+
+	*plot v(pbias) v(nbias)
+	plot db(v(out)/v(in-)) (180/3.14159)*cph(v(out)/v(in-))
+	*plot db(v(out)/v(in-))
+	*plot (180/3.14159) * cph(v(out)/v(in-))
 	
 
 .endc
@@ -69,7 +77,6 @@ value="
 .include $::180MCU_MODELS/design.ngspice
 .lib $::180MCU_MODELS/sm141064.ngspice fs
 "}
-C {acoustic_ranger_2026/two-stage_miller_OTA.sym} 670 -260 0 0 {name=x1}
 C {lab_wire.sym} 770 -200 0 0 {name=p1 sig_type=std_logic lab=vss}
 C {lab_wire.sym} 660 -400 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {vsource.sym} 800 -360 0 0 {name=V4 value="ac 1" savecurrent=false}
@@ -81,8 +88,7 @@ m=1
 value=500f
 footprint=1206
 device="ceramic capacitor"}
-C {lab_wire.sym} 740 -240 0 0 {name=p10 sig_type=std_logic lab=vbias}
-C {lab_wire.sym} 420 -270 0 1 {name=p11 sig_type=std_logic lab=vbias}
-C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 160 -140 0 0 {name=x7}
-C {lab_wire.sym} 340 -340 0 0 {name=p12 sig_type=std_logic lab=vdd}
-C {lab_wire.sym} 340 -180 0 0 {name=p13 sig_type=std_logic lab=vss}
+C {lab_wire.sym} 470 -250 0 0 {name=p12 sig_type=std_logic lab=vdd}
+C {acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sym} 670 -260 0 0 {name=x1}
+C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 470 -180 0 0 {name=x2}
+C {lab_wire.sym} 390 -120 0 0 {name=p9 sig_type=std_logic lab=vss}

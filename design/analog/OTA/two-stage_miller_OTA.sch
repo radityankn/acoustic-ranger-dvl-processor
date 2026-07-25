@@ -6,7 +6,7 @@ S {}
 F {}
 E {}
 N 460 -340 500 -340 {lab=in+}
-N 120 -340 160 -340 {lab=in+}
+N 120 -340 160 -340 {lab=in-}
 N 310 -370 420 -370 {lab=#net1}
 N 200 -340 420 -340 {lab=vdd}
 N 200 -310 200 -220 {lab=#net2}
@@ -114,7 +114,7 @@ spiceprefix=X
 }
 C {capa.sym} 570 -320 0 0 {name=C1
 m=1
-value=150f
+value=2pf
 footprint=1206
 device="ceramic capacitor"}
 C {opin.sym} 750 -370 0 0 {name=p10 lab=out}
