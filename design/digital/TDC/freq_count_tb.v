@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 10ns / 1ps
 
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -24,123 +24,170 @@
 
 module freq_count_tb;
 
-	// Inputs
-	reg rst_i;
-	reg clk_i;
-	reg [31:0] addr_i;
-	reg [31:0] dat_i;
-	reg we_i;
-	reg [3:0] sel_i;
-	reg cyc_i;
-	reg stb_i;
-	reg lock_i;
-	reg tagn_i;
-	reg signal_input;
-	reg reference_clk_1;
-	reg reference_clk_2;
+    localparam SIGNAL_PERIOD = 40;
+    localparam WIDTH = 8;
 
-	// Outputs
-	wire [31:0] dat_o;
-	wire err_o;
-	wire rty_o;
-	wire ack_o;
-	wire tagn_o;
+    // Inputs for the module
+    reg signal_input;
+    reg CLK_I;
+    reg RST_I;
+    reg [WIDTH-1:0] ADDR_I;
+    reg [WIDTH-1:0] DAT_I;
+    reg CYC_I;
+    reg STB_I;
+    reg WE_I;
 
-	// Instantiate the Unit Under Test (UUT)
-	frequency_counter uut (
-		.rst_i(rst_i), 
-		.clk_i(clk_i), 
-		.addr_i(addr_i), 
-		.dat_i(dat_i), 
-		.dat_o(dat_o), 
-		.we_i(we_i), 
-		.sel_i(sel_i), 
-		.cyc_i(cyc_i), 
-		.stb_i(stb_i), 
-		.lock_i(lock_i), 
-		.err_o(err_o), 
-		.rty_o(rty_o), 
-		.ack_o(ack_o), 
-		.tagn_i(tagn_i), 
-		.tagn_o(tagn_o), 
+    // Outputs for the module
+	wire trigger_signal_out;
+    wire [WIDTH-1:0] DAT_O;
+    wire ACK_O;
+    wire ERR_O;
+    wire RTY_O;
+
+    frequency_counter #(.WIDTH(WIDTH)) my_counter (
+		.RST_I(RST_I),
+		.CLK_I(CLK_I),
+		.ADDR_I(ADDR_I),
+		.DAT_I(DAT_I),
+		.WE_I(WE_I),
+		.CYC_I(CYC_I),
+		.STB_I(STB_I),
 		.signal_input(signal_input),
-		.reference_clk_main(reference_clk_1),
-		.reference_clk_interpolate(reference_clk_2)
-	);
-		
-	initial begin
-		$dumpfile("result_counter.vcd");
-		$dumpvars(0, freq_count_tb);
-		
-		// Initialize Inputs
-		rst_i = 1;
-		clk_i = 0;
-		addr_i = 0;
-		dat_i = 0;
-		we_i = 0;
-		sel_i = 0;
-		cyc_i = 0;
-		stb_i = 0;
-		lock_i = 0;
-		tagn_i = 0;
-		signal_input = 0;
-		reference_clk_1 = 1;
-		reference_clk_2 = 1;
-		//global reset
-		#100 rst_i = 0;
-		//reset the counter
-		#85 we_i = 1;
-		stb_i = 1;
-		addr_i = 32'h8;
-		dat_i = 8'b00000001;
-		//waiting until reset is deasserted
-		#10 we_i = 0;
-		stb_i = 0;
-		addr_i = 8'b0000000;
-		dat_i = 8'b00000000;
-		//start measurement
-		#10 we_i = 1;
-		stb_i = 1;
-		addr_i = 32'h8;
-		dat_i = 8'b10000000;
-		#10 we_i = 0;
-		stb_i = 0;
-		addr_i = 32'd0;
-		dat_i = 8'b00000000;
-		//read the result
-		#1200 we_i = 0;
-		stb_i = 1;
-		addr_i = 32'd9;
-		dat_i = 32'd0;
-		#1200 $finish;
-		//reset the counter (again)
-		#100 we_i = 1;
-		stb_i = 1;
-		addr_i = 32'h8;
-		dat_i = 8'b00000001;
-		#10 we_i = 0;
-		stb_i = 0;
-		addr_i = 8'b0000000;
-		dat_i = 8'b00000000;
-		//start measurement (again)
-		#10 we_i = 1;
-		stb_i = 1;
-		addr_i = 32'h8;
-		dat_i = 8'b10000000;
-		#10 we_i = 0;
-		stb_i = 0;
-		addr_i = 32'd0;
-		dat_i = 8'b00000000;
-		#1200 we_i = 0;
-		stb_i = 1;
-		addr_i = 32'd9;
-		dat_i = 32'd0;
-		#30 $finish;
-		// Wait 100 ns for global reset to finish
-	end
-	always #5 clk_i = !clk_i;
-	always #40 signal_input = !signal_input;
-	always #2 reference_clk_1 = !reference_clk_1;
-	always #0.5 reference_clk_2 = !reference_clk_2;
+		.trigger_signal_out(trigger_signal_out),
+		.DAT_O(DAT_O),
+		.ERR_O(ERR_O),
+		.RTY_O(RTY_O),
+		.ACK_O(ACK_O)
+    );
+    
+    // I2C tasks
+    task simulate_return_ping;
+		integer i;
+		input integer multiplier;
+		begin
+			for (i = 0;i < 1020;i++) begin
+				signal_input <= ~signal_input;
+				#(SIGNAL_PERIOD*(0.5*multiplier));
+			end
+		end
+    endtask
+
+    // WB Tasks
+    task wb_write_register;
+        input [7:0] target_addr;
+        input [7:0] target_data;
+        input continue_cycle;
+        begin
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            ADDR_I <= target_addr;
+            DAT_I <= target_data;
+            WE_I <= 1;
+            STB_I <= 1;
+            CYC_I <= 1;
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            if (ACK_O == 1'b1) begin
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+            end 
+            else begin 
+                target_data = 0;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+                $display("ERROR at writing to the register!!");
+            end
+        end
+    endtask
+
+    task wb_read_register;
+        input [7:0] target_addr;
+        output [7:0] target_data;
+        input continue_cycle;
+        begin
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            ADDR_I <= target_addr;
+            DAT_I <= 0;
+            WE_I <= 0;
+            STB_I <= 1;
+            CYC_I <= 1;
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            wait (CLK_I == 0);
+            wait (CLK_I == 1);
+            if (ACK_O == 1'b1) begin
+                target_data = DAT_O;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+            end
+            else begin 
+                target_data <= 0;
+                STB_I <= 0;
+                CYC_I <= continue_cycle;
+                WE_I <= 0;
+                DAT_I <= 8'd0;
+                ADDR_I <= 8'd0;
+                $display("ERROR at reading the register!!");
+            end
+        end
+    endtask
+    
+    reg [7:0] result;
+
+    initial begin
+        $dumpfile("i2c_result.vcd");
+		$dumpvars(0, i2c_tb);
+        i2c_sda_in = 1'b1;
+        i2c_scl_in = 1'b1;
+        CLK_I = 1'b0;
+        RST_I = 1'b1;
+        ADDR_I = 8'b0;
+        DAT_I = 8'b0;
+        CYC_I = 1'b0;
+        STB_I = 1'b0;
+        WE_I = 1'b0;
+        #10;
+        RST_I = 1'b0;
+        #10;
+    end
+
+    always @(posedge CLK_I) begin
+        wb_write_register(8'hA, 8'hAA, 1);
+        wb_write_register(8'hC, 8'hAA, 0);
+        // Write test
+        $display("Reading from slave...");
+        i2c_start();
+        // I2C reading from device sequence
+        i2c_write_byte(8'hAB,1);  // Address 0x55 + Read bit (1)
+        i2c_read_byte(result,0);  // Data
+        $display("Read result is %0h", result);
+        
+        $display("Writing to slave...");
+        ///I2C writing to device sequence
+        i2c_start();
+        i2c_write_byte(8'hAA,1);  // Address 0x55 + Write bit (0)
+        i2c_write_byte(8'hBE,1);  // Data
+        wb_read_register(8'hB, result, 0);
+        $display("Write result is %0h", result);
+        i2c_stop();
+        #1500;
+        $finish;
+    end
+	
+	// Clock signal always on
+    always #5 CLK_I <= ~CLK_I;
+
 endmodule
 
