@@ -31,10 +31,11 @@ module frequency_counter #(parameter WIDTH = 8) (
     // input LOCK_I,
     // input TAGN_I,
     input signal_input,
+    output reg trigger_signal_out,
     output reg [WIDTH-1:0] DAT_O,
     output reg ERR_O,
     output reg RTY_O,
-    output reg ACK_O,
+    output reg ACK_O
     );
 
     // General Register that can be accessed through the bus
@@ -73,10 +74,12 @@ module frequency_counter #(parameter WIDTH = 8) (
     localparam MEASUREMENT_DONE_BIT = 6;
     localparam MEASUREMENT_RANGE_MODE_ENABLE = 5;
     localparam MEASUREMENT_PULSE_MODE_ENABLE = 4;
+    localparam MASUREMENT_RANGE_TIMEOUT = 3;
+    localparam MASUREMENT_PULSE_TIMEOUT = 2;
     localparam RESET_COUNTER_BIT = 0;
 
     reg [23:0] range_timing_register;
-    reg [15:0] pulse_timing_register;
+    reg [23:0] pulse_timing_register;
     reg [15:0] pulse_count_threshold_register;
     reg [7:0] counter_control_status_register;
 
@@ -95,7 +98,6 @@ module frequency_counter #(parameter WIDTH = 8) (
     reg just_written_internal_flag;
     
     wire measurement_done_internal;
-    assign measurement_done_internal = (range_finished_internal_flag & counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE]) 
 
     always @(posedge CLK_I) begin
         // if we receive a reset signal from the bus...
@@ -105,6 +107,10 @@ module frequency_counter #(parameter WIDTH = 8) (
             ERR_O <= 1'b0;
             ACK_O <= 1'b0;
             RTY_O <= 1'b0;
+            range_timing_register <= 24'd0;
+            pulse_timing_register <= 24'd0;
+            pulse_count_threshold_register <= 16'd1000;
+            counter_control_status_register <= 8'd0;
         end
         // if there is any operation
         else if (RST_I == 1'b0 && CYC_I == 1'b1 && STB_I == 1'b1) begin
@@ -262,7 +268,65 @@ module frequency_counter #(parameter WIDTH = 8) (
         end
         // if no activity is in progress, update the flag registers and the front facing register 
         else begin
-            if (measurement_)
+            if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                if (measurement_pulse_done_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
+                if (range_finished_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
+            else begin
+                if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+                    counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
+                end
+                else if (range_finished_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
         end
     end
 
@@ -290,13 +354,12 @@ module frequency_counter #(parameter WIDTH = 8) (
 
     // Trigger Output Signal Generator Block
     reg [6:0] trigger_timer_internal;
-    reg trigger_signal_out;
     always @(posedge CLK_I) begin
-        if (RST_I == 1'b1 or counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+        if (RST_I == 1'b1 || counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
             trigger_signal_out <= 1'b0;
             trigger_timer_internal <= 1'b0; 
         end
-        else if (counter_control_status_register[MEASUREMENT_START_BIT] = 1'b1 and counter_control_status_register[MEASUREMENT_DONE_BIT] == 1'b0) begin
+        else if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b1 && counter_control_status_register[MEASUREMENT_DONE_BIT] == 1'b0) begin
             if (trigger_timer_internal == 7'd100) begin
                 trigger_signal_out <= 1'b0;
                 trigger_timer_internal <= trigger_timer_internal;    
@@ -306,7 +369,7 @@ module frequency_counter #(parameter WIDTH = 8) (
                 trigger_timer_internal <= trigger_timer_internal + 1'b1;
             end
         end
-        else if (counter_control_status_register[MEASUREMENT_START_BIT] = 1'b1 and counter_control_status_register[MEASUREMENT_DONE_BIT] == 1'b1) begin
+        else if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b1 && counter_control_status_register[MEASUREMENT_DONE_BIT] == 1'b1) begin
             trigger_signal_out <= 1'b0;
             trigger_timer_internal <= trigger_timer_internal;
         end
@@ -319,7 +382,7 @@ module frequency_counter #(parameter WIDTH = 8) (
 
     // Ranging Mode FSM subroutine begins here
     always @(posedge CLK_I) begin
-        if (RST_I == 1'b1 or counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+        if (RST_I == 1'b1 || counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
             range_timing_internal <= 24'd0;
             counter_ready <= 1'b0;
             range_finished_internal_flag <= 1'b0;
@@ -333,23 +396,23 @@ module frequency_counter #(parameter WIDTH = 8) (
                 if (range_timing_internal >= 24'd714285) begin
                     range_timeout_internal_flag <= 1'b1;
                     range_finished_internal_flag <= 1'b1;
-                    range_count_internal <= 24'd0;
+                    range_timing_internal <= 24'd0;
                 end
                 // When the ranging is finished (pulse detected)...
                 else if (rising_edge_detected == 1'b1) begin
                     if (counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
                         range_finished_internal_flag <= 1'b1;
                         range_timing_internal <= range_timing_internal;
-                        measuremet_pulse_start_internal_flag <= 1'b1;
+                        measurement_pulse_start_internal_flag <= 1'b1;
                     end
                     else begin
                         range_finished_internal_flag <= 1'b1;
-                        range_count_internal <= range_count_internal;
+                        range_timing_internal <= range_timing_internal;
                         measurement_pulse_start_internal_flag <= 1'b0;
                     end
                 end
                 else begin
-                    range_count_internal <= range_count_internal + 1'b1;
+                    range_timing_internal <= range_timing_internal + 1'b1;
                 end
             end
             else if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b1 && range_finished_internal_flag == 1'b1) begin
@@ -360,13 +423,14 @@ module frequency_counter #(parameter WIDTH = 8) (
                 range_timeout_internal_flag <= range_timeout_internal_flag;
             end 
             else if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b0 && range_finished_internal_flag == 1'b1) begin
-                range_count_internal <= 24'b0;
+                range_timing_internal <= 24'b0;
                 counter_ready <= 1'b1;
                 range_finished_internal_flag <= 1'b0;
                 range_timeout_internal_flag <= 1'b0;
+                measurement_pulse_start_internal_flag <= 1'b0;
             end
             else begin
-                range_count_internal <= range_count_internal;
+                range_timing_internal <= range_timing_internal;
                 counter_ready <= counter_ready;
                 measurement_pulse_start_internal_flag <= measurement_pulse_start_internal_flag;
                 range_finished_internal_flag <= range_finished_internal_flag;
@@ -378,12 +442,12 @@ module frequency_counter #(parameter WIDTH = 8) (
                 if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b1 && range_finished_internal_flag == 1'b0) begin
                     counter_ready <= 1'b0;
                     range_finished_internal_flag <= 1'b1;
-                    measuremet_pulse_start_internal_flag <= 1'b1;
+                    measurement_pulse_start_internal_flag <= 1'b1;
                 end
                 else if (counter_control_status_register[MEASUREMENT_START_BIT] == 1'b0 && range_finished_internal_flag == 1'b1) begin
                     counter_ready <= 1'b1;
                     range_finished_internal_flag <= 1'b0;
-                    measuremet_pulse_start_internal_flag <= 1'b0;
+                    measurement_pulse_start_internal_flag <= 1'b0;
                 end
             end
             else begin
@@ -393,11 +457,14 @@ module frequency_counter #(parameter WIDTH = 8) (
     end
 
     // Pulse Mode FSM subroutine begins here
+    reg [15:0] measurement_state_machine;
+
     always @(posedge signal_input) begin
-        if (RST_I == 1 || counter_reset_internal == 1) begin 
+        if (RST_I == 1 || counter_control_status_register[RESET_COUNTER_BIT] == 1) begin 
                 measurement_state_machine <= 16'd0;
+                measurement_pulse_done_internal_flag <= 1'b0;
         end
-        else if (measurement_pulse_start_internal_flag == 1'b1 and measurement_pulse_done_internal_flag == 1'b0) begin
+        else if (measurement_pulse_start_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b0) begin
             case (measurement_state_machine)
                 16'd0 : begin
                     measurement_state_machine <= measurement_state_machine + 1'b1;
@@ -411,7 +478,7 @@ module frequency_counter #(parameter WIDTH = 8) (
                 end
             endcase
         end
-        else if (measurement_pulse_start_internal_flag == 1'b0 and measurement_pulse_done_internal_flag == 1'b1) begin
+        else if (measurement_pulse_start_internal_flag == 1'b0 && measurement_pulse_done_internal_flag == 1'b1) begin
             measurement_pulse_done_internal_flag <= 1'b0;
         end
         else begin
@@ -422,17 +489,17 @@ module frequency_counter #(parameter WIDTH = 8) (
     // Pulse clock duration measurement block here
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1 || counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin 
-            pulse_count_internal <= 24'd0;
+            pulse_timing_internal <= 24'd0;
         end
         else if (measurement_pulse_start_internal_flag == 1'b1) begin 
 		    if (measurement_pulse_done_internal_flag == 1'b1) begin
-				measurement_count_internal <= measurement_count_internal;
+				pulse_timing_internal <= pulse_timing_internal;
             end 
             else begin
-                measurement_count_internal <= measurement_count_internal + 1'b1;
+                pulse_timing_internal <= pulse_timing_internal + 1'b1;
             end
         end else begin 
-            measurement_count_internal <= 24'd0;
+            pulse_timing_internal <= 24'd0;
         end
     end 
 endmodule  
