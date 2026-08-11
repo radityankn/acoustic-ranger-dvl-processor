@@ -1,8 +1,19 @@
 module outer_fsm
 (
-    input  wire clk,
-    input  wire rst_n,
+    // Wishbone bus wire connections
+    input  wire CLK_I,
+    input  wire RST_I,
+    output wire [7:0] ADDR_O,
+    input  wire [7:0] DAT_I,
+    output wire [7:0] DAT_O,
+    output wire CYC_O,
+    output wire STB_O,
+    output wire WE_O,
+    input  wire ACK_I,
+    input  wire ERR_I,
+    input  wire RTY_I,
 
+    //input flags from the peripherals 
     input  wire start,
     input  wire i2c_request,
 
@@ -31,7 +42,8 @@ begin
         current_state <= next_state;
 end
 
-always @(posedge clk or negedge rst_n)
+// Last Served Flag updater block, in pure combinational
+always @(posedge clk )
 begin
     if(!rst_n)
         last_served <= 1'b0;
@@ -53,10 +65,11 @@ begin
     end
 end
 
+// Next State logic in full combinational
 always @(*)
 begin
 
-    next_state = current_state;
+    //next_state = current_state;
 
     case(current_state)
 
@@ -136,5 +149,13 @@ begin
     endcase
 
 end
+
+measurement_fsm measurement_routine (
+
+);
+
+i2c_fsm i2c_routine (
+
+);
 
 endmodule

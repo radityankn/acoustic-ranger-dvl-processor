@@ -1,26 +1,26 @@
 module i2c_fsm
 (
-    input  wire clk,
-    input  wire rst_n,
+    input  wire CLK_I,
+    input  wire RST_I,
 
     input  wire run_i2c,
 
-    input  wire ACK_O,
-    input  wire ERR_O,
-    input  wire RTY_O,
+    input  wire ACK_I,
+    input  wire ERR_I,
+    input  wire RTY_I,
 
-    input  wire [7:0] DAT_O,
+    output reg [7:0] DAT_O,
 
     input  wire data_received_flag,
     input  wire data_send_done_flag,
-    input  wire read_request_flag,
+    input  wire write_request_flag,
 
-    output reg [7:0] ADDR_I,
-    output reg [7:0] DAT_I,
+    output reg [7:0] ADDR_O,
+    input  wire [7:0] DAT_I,
 
-    output reg WE_I,
-    output reg STB_I,
-    output reg CYC_I,
+    output reg WE_O,
+    output reg STB_O,
+    output reg CYC_O,
 
     output reg i2c_state_done
 );
@@ -44,12 +44,14 @@ reg [7:0] ctrl_status_shadow;
 // State Register
 //--------------------------------------------------
 
-always @(posedge clk or negedge rst_n)
+always @(posedge CLK_I)
 begin
-    if(!rst_n)
+    if(RST_I == 1'b1) begin
         current_state <= IDLE;
-    else
-        current_state <= next_state;
+    end
+    else begin
+       current_state <= next_state; 
+    end
 end
 
 

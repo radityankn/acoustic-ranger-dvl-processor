@@ -50,10 +50,10 @@ module i2c_controller #(parameter WIDTH = 8) (
     // ctrl_status_register (0x0D) --> used to poll or set the operation of the module
     //      - bit 7: data received status, 1 means received data. Poll this to see if we receive data
     //      - bit 6: data send status, 1 means send data done, 0 means in progress
-    //      - bit 5: I2C read request, 1 means we need to send data, 0 means no action needed 
-    //      - bit 4: I2C mode (MASTER/SLAVE) (coming soon! we won't need this for now)
-    //      - bit 3: I2C master speed (coming soon! we won't need this for now)
-    //      - bit 2: Reserved
+    //      - bit 5: I2C write request, 1 means we need to send data, 0 means no action needed 
+    //      - bit 4: I2C read Request
+    //      - bit 3: I2C mode (MASTER/SLAVE) (coming soon! we won't need this for now)
+    //      - bit 2: I2C master speed (coming soon! we won't need this for now)
     //      - bit 1: Reserved
     //      - bit 0: Reserved
 
@@ -65,10 +65,17 @@ module i2c_controller #(parameter WIDTH = 8) (
     localparam [WIDTH-1:0] SEND_DATA_BUFFER_ADDRESS = 12;
     localparam [WIDTH-1:0] CTRL_STATUS_REGISTER_ADDRESS = 13;
 
+    // "Front-facing", bus-accessible register
     reg [7:0] addr_set_register;
     reg [7:0] recv_data_buffer;
     reg [7:0] send_data_buffer;
     reg [7:0] ctrl_status_register;
+
+    // Internal flags before being written to the registers
+    reg write_request_internal_flag;
+    reg received_data_internal_flag;
+    //reg read_request_internal_flag;
+    reg write_data_finished_internal_flag;
 
     // Wishbone Interface of the I2C block
     always @(posedge CLK_I) begin
@@ -156,6 +163,17 @@ module i2c_controller #(parameter WIDTH = 8) (
                 ACK_O <= 1'b0;
                 RTY_O <= 1'b0;
             end
+            // if everything has been done: update the control register
+            else begin 
+                ctrl_status_register[7] <= received_data_internal_flag;
+                ctrl_status_register[6] <= write_data_finished_internal_flag;
+                ctrl_status_register[5] <= read_request_internal_flag;
+                ctrl_status_register[4] <= write_request_internal_flag;
+                //ctrl_status_register[3] <= 
+                //ctrl_status_register[2] <= 
+                //ctrl_status_register[1] <= 
+                //ctrl_status_register[0] <= 
+            end
         end
     end
 
@@ -213,10 +231,6 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [3:0] iteration_write;
     
     wire falling_edge_detected_delayed;
-    
-    reg write_request_internal_flag;
-    reg received_data_internal_flag;
-    reg read_request_internal_flag;
 
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
 
@@ -293,6 +307,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_READ;
+                        received_data_internal_flag <= 1'b0;
                     end
                     // When every bit has been sampled...
                     else if (rising_edge_detected == 1'b1 && iteration == 8) begin
@@ -320,17 +335,29 @@ module i2c_controller #(parameter WIDTH = 8) (
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_WRITE;
+                        // de-assert flag
+                        write_request_internal_flag <= 1'b0;
+                        // de-assert finished flag
+                        write_data_finished_internal_flag <= 1'b0;
                     end
                     else if (falling_edge_detected == 1'b1 && iteration < 8) begin
                         i2c_sda_out_pin_ctrl <= send_data_buffer[7-iteration];
                         iteration <= iteration;
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
+                        // de-assert flag
+                        write_request_internal_flag <= 1'b0;
+                        // de-assert finished flag
+                        write_data_finished_internal_flag <= 1'b0;
                     end
                     else if (falling_edge_detected == 1'b1 && iteration == 8) begin
                         // release SDA line for ACK sampling
                         i2c_sda_out_pin_ctrl <= 1'b1;
                         iteration <= iteration;
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
+                        // de-assert flag
+                        write_request_internal_flag <= 1'b0;
+                        // de-assert finished flag
+                        write_data_finished_internal_flag <= 1'b0;
                     end
                     // When every bit has been sampled...
                     else if (rising_edge_detected == 1'b1 && iteration == 8) begin
@@ -340,6 +367,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                             iteration <= 4'd0;
                             // set the flag
                             write_request_internal_flag <= 1'b1;
+                            write_data_finished_internal_flag <= 1'b1;
                             // Keep on WRITE
                             i2c_next_state_routine_block <= STATE_WRITE;
                             // if host NACK (usually this means terminating sequence)
@@ -348,6 +376,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                             iteration <= 4'd0;
                             // de-assert flag
                             write_request_internal_flag <= 1'b0;
+                            // assert finished flag
+                            write_data_finished_internal_flag <= 1'b1;
                             // return to IDLE state
                             i2c_next_state_routine_block <= STATE_IDLE;
                         end
@@ -359,6 +389,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
                         // de-assert flag
                         write_request_internal_flag <= 1'b0;
+                        write_data_finished_internal_flag <= 1'b0;
                     end
                 end 
             endcase
