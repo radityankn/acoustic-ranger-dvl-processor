@@ -384,7 +384,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1 || counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
             range_timing_internal <= 24'd0;
-            counter_ready <= 1'b0;
+            counter_ready <= 1'b1;
             range_finished_internal_flag <= 1'b0;
             range_timeout_internal_flag <= 1'b0;
             measurement_pulse_start_internal_flag <= 1'b0;
