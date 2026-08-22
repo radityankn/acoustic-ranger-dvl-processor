@@ -269,7 +269,6 @@ module i2c_controller #(parameter WIDTH = 8) (
                             else if (address_data_buffer_internal[0] == 0) begin
                                 i2c_next_state_routine_block <= STATE_READ;
                                 read_request_internal_flag <= 1'b1;
-
                             end
                         end else begin
                             // reset the subroutine FSM
