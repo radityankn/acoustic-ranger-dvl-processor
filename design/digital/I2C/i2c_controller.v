@@ -224,14 +224,20 @@ module i2c_controller #(parameter WIDTH = 8) (
         if (RST_I == 1'b1) begin
             i2c_next_state_routine_block <= STATE_IDLE;
             iteration <= 4'd0;
+            register_addr_data_flag <= 1'b0;
+            register_content_data_flag <= 1'b0;
         end
         else if (stop_condition == 1'b1) begin
             i2c_next_state_routine_block <= STATE_IDLE;
             iteration <= 4'd0;
+            register_addr_data_flag <= 1'b0;
+            register_content_data_flag <= 1'b0;
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_routine_block <= STATE_ADDR;
             iteration <= 4'd0;
+            register_addr_data_flag <= 1'b0;
+            register_content_data_flag <= 1'b0;
         end
         else begin
             case(i2c_state)
@@ -296,13 +302,25 @@ module i2c_controller #(parameter WIDTH = 8) (
                     end
                     // When every bit has been sampled...
                     else if (rising_edge_detected == 1'b1 && iteration == 8) begin
-                        // reset the subroutine FSM
-                        iteration <= 4'd0;
-                        // give the proper ACK to the line
-                        i2c_sda_out_pin_ctrl <= 1'b0;
-                        i2c_next_state_routine_block <= STATE_READ;
-                        received_data_internal_flag <= 1'b1;
-
+                        if (register_addr_data_flag == 1'b0) begin
+                            // reset the subroutine FSM
+                            iteration <= 4'd0;
+                            // give the proper ACK to the line
+                            i2c_sda_out_pin_ctrl <= 1'b0;
+                            i2c_next_state_routine_block <= STATE_READ;
+                            received_data_internal_flag <= 1'b1;
+                            register_addr_data_flag <= 1'b1;
+                        end
+                        else begin
+                            // reset the subroutine FSM
+                            iteration <= 4'd0;
+                            // give the proper ACK to the line
+                            i2c_sda_out_pin_ctrl <= 1'b0;
+                            i2c_next_state_routine_block <= STATE_READ;
+                            received_data_internal_flag <= 1'b1;
+                            register_content_data_flag <= 1'b1;
+                        end
+                            
                     end 
                     else begin
                         // keep current state of all IO
@@ -311,6 +329,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
                         // de-assert flag
                         received_data_internal_flag <= 1'b0;
+                        register_addr_data_flag <= register_addr_data_flag;
+                        register_content_data_flag <= register_content_data_flag;
                     end
                 end
                 STATE_WRITE : begin
@@ -342,8 +362,9 @@ module i2c_controller #(parameter WIDTH = 8) (
                             write_request_internal_flag <= 1'b1;
                             // Keep on WRITE
                             i2c_next_state_routine_block <= STATE_WRITE;
-                            // if host NACK (usually this means terminating sequence)
-                        end else begin
+                        end
+                        // if host NACK (usually this means terminating sequence) 
+                        else begin
                             // reset the subroutine FSM
                             iteration <= 4'd0;
                             // de-assert flag

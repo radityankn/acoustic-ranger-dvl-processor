@@ -69,20 +69,202 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [7:0] recv_data_buffer;
     reg [7:0] send_data_buffer;
     reg [7:0] ctrl_status_register;
+    reg [7:0] addr_pointer_register_internal;
+
+    reg [1:0] wb_master_state;
+    reg [1:0] wb_master_next_state;
+    reg [1:0] wb_master_subroutine_iteration;
+    reg last_operation_internal_flag;
+
+    localparam [1:0] WB_MASTER_STATE_IDLE = 0;
+    localparam [1:0] WB_MASTER_STATE_READ = 1;
+    localparam [1:0] WB_MASTER_STATE_WRITE = 2;
+
+    reg write_request_internal_flag;
+    reg received_data_internal_flag;
+    reg read_request_internal_flag;
+    reg register_addr_data_flag;
+    reg register_content_data_flag;
+
+    //Wishbone interface master FSM, for easier state management
+    always @(posedge CLK_I) begin
+        if (RST_I == 1'b1) begin
+            wb_master_state <= WB_MASTER_STATE_IDLE;
+        end
+        else begin
+            wb_master_state <= wb_master_next_state;
+        end
+    end
+
+    //Wishbone interface subroutine iteration FSM
+    always @(posedge CLK_I) begin
+        if (RST_I == 1'b1) begin
+            wb_master_subroutine_iteration <= 2'd0;
+        end
+        else begin
+            case (wb_master_state)
+                WB_MASTER_STATE_IDLE : begin
+                    wb_master_subroutine_iteration <= 2'd0;
+                end
+                WB_MASTER_STATE_READ : begin
+                    wb_master_subroutine_iteration <= wb_master_subroutine_iteration + 1'b1;
+                    if (wb_master_subroutine_iteration == 2'd2) wb_master_subroutine_iteration <= 2'd0;
+                end
+                WB_MASTER_STATE_WRITE : begin
+                    wb_master_subroutine_iteration <= wb_master_subroutine_iteration + 1'b1;
+                    if (wb_master_subroutine_iteration == 2'd2) wb_master_subroutine_iteration <= 2'd0;
+                end
+                defaut : begin
+                    wb_master_subroutine_iteration <= 2'd0;
+                end
+            endcase
+        end
+    end
 
     // Wishbone Interface of the I2C block
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             // Reset everything!
             DAT_O <= 0;
-            ERR_O <= 1'b0;
-            ACK_O <= 1'b0;
-            RTY_O <= 1'b0;
+            STB_O <= 1'b0;
+            CYC_O <= 1'b0;
+            WE_O <= 1'b0;
+            wb_master_next_state <= WB_MASTER_STATE_IDLE;
         end
         // here is the management part of the wishbone interface. It will issue register read/write based on 
         // what it receives through the I2C
-        else if () begin
-            
+        else begin
+            case (wb_master_state)  
+                WB_MASTER_STATE_IDLE : begin
+                    if (received_data_internal_flag == 1'b1 && write_request_internal_flag == 1'b0) begin 
+                        if (register_addr_data_flag == 1'b1 && register_content_data_flag == 1'b0) begin
+                            addr_pointer_register_internal <= recv_data_buffer;
+                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                        end 
+                        else begin
+                            case (addr_pointer_register_internal)
+                                ADDR_SET_REGISTER_ADDRESS : begin
+                                    addr_set_register <= recv_data_buffer;
+                                    wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                    addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                                end
+                                RECV_DATA_BUFFER_ADDRESS : begin
+                                    // don't do anything, it's pointless to write a receive buffer from WB
+                                    wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                    addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                                end
+                                SEND_DATA_BUFFER_ADDRESS : begin
+                                    send_data_buffer <= recv_data_buffer
+                                    wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                    addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                                end
+                                CTRL_STATUS_REGISTER_ADDRESS : begin
+                                    ctrl_status_register <= recv_data_buffer;
+                                    wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                    addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                                end
+                                default : begin
+                                    wb_master_next_state <= WB_MASTER_STATE_WRITE;
+                                end
+                            endcase
+                        end 
+                    end
+                    else if (received_data_internal_flag == 1'b0 && write_request_internal_flag == 1'b1) begin 
+                        case (addr_pointer_register_internal)
+                            ADDR_SET_REGISTER_ADDRESS : begin
+                                send_data_buffer <= addr_set_register;
+                                wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            end
+                            RECV_DATA_BUFFER_ADDRESS : begin
+                                send_data_buffer <= recv_data_buffer;
+                                wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            end
+                            SEND_DATA_BUFFER_ADDRESS : begin
+                                // don't do anything
+                                wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            end
+                            CTRL_STATUS_REGISTER_ADDRESS : begin
+                                send_data_buffer <= ctrl_status_register;
+                                wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                                addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            end
+                            default : begin
+                                wb_master_next_state <= WB_MASTER_STATE_READ;
+                            end
+                        endcase
+                    end
+                end
+                WB_MASTER_STATE_READ : begin
+                    case (wb_master_subroutine_iteration)
+                        2'd0 : begin
+                            // handshake begin with CYC_O and STB_O, as well as target in ADDR_O and R/W operation in WE_O
+                            WE_O <= 1'b0;
+                            CYC_O <= 1'b1;
+                            STB_O <= 1'b1;
+                            ADDR_O <= addr_pointer_register_internal;
+                            DAT_O <= 8'd0;
+                        end
+                        2'd1 : begin
+                            // Wait for slave acknowledgement
+                            WE_O <= 1'b0;
+                            CYC_O <= 1'b1;
+                            STB_O <= 1'b1;
+                            ADDR_O <= addr_pointer_register_internal;
+                            DAT_O <= 8'd0;
+                            // place here to add ACK, ERR, or RTY behaviour
+                        end
+                        2'd2 : begin
+                            // deassert everything
+                            WE_O <= 1'b0;
+                            CYC_O <= 1'b0;
+                            STB_O <= 1'b0;
+                            ADDR_O <= 8'd0;
+                            send_data_buffer <= DAT_I;
+                            DAT_O <= 8'd0;
+                            // And increment the address pointer
+                            addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            // set the WB master next state to IDLE
+                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                        end
+                    endcase
+                end
+                WB_MASTER_STATE_WRITE : begin
+                    case (wb_master_subroutine_iteration)
+                        2'd0 : begin
+                            // handshake begin with CYC_O and STB_O, as well as target in ADDR_O and R/W operation in WE_O
+                            WE_O <= 1'b1;
+                            CYC_O <= 1'b1;
+                            STB_O <= 1'b1;
+                            ADDR_O <= addr_pointer_register_internal;
+                            DAT_O <= recv_data_buffer;
+                        end
+                        2'd1 : begin
+                            // Wait for slave acknowledgement
+                            WE_O <= 1'b1;
+                            CYC_O <= 1'b1;
+                            STB_O <= 1'b1;
+                            ADDR_O <= addr_pointer_register_internal;
+                            DAT_O <= recv_data_buffer;
+                            // place here to add ACK, ERR, or RTY behaviour
+                        end
+                        2'd2 : begin
+                            // deassert everything
+                            WE_O <= 1'b0;
+                            CYC_O <= 1'b0;
+                            STB_O <= 1'b0;
+                            ADDR_O <= 8'd0;
+                            DAT_O <= 8'd0;
+                            // And increment the address pointer
+                            addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
+                            // set the WB master next state to IDLE
+                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                        end
+                    endcase
+                end
+            endcase          
         end
     end
 
@@ -140,12 +322,6 @@ module i2c_controller #(parameter WIDTH = 8) (
     //reg [3:0] iteration_write;
     
     wire falling_edge_detected_delayed;
-    
-    reg write_request_internal_flag;
-    reg received_data_internal_flag;
-    reg read_request_internal_flag;
-    reg register_addr_data_flag;
-    reg register_content_data_flag;
 
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
 

@@ -30,22 +30,22 @@ project:
     secondary_esd: false
 
   # 2
-  - name: rst_n
+  - name: RST_N
     io_type: input_schmitt
     secondary_esd: false
 
   # 3
-  - name: spi_cs_n
-    io_type: input_schmitt
+  - name: I2C_SDA
+    io_type: bidirectional_16ma
     secondary_esd: false
 
   # 4
-  - name: spi_sclk
-    io_type: input_cmos
+  - name: I2C_SCL
+    io_type: input_schmitt
     secondary_esd: false
 
   # 5
-  - name: spi_mosi
+  - name: 
     io_type: input_schmitt
     secondary_esd: false
 
