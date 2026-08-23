@@ -27,7 +27,7 @@ module i2c_controller #(parameter WIDTH = 8) (
     input i2c_scl_in,
     input CLK_I,
     input RST_I,
-    output [WIDTH-1:0] ADDR_O,
+    output reg [WIDTH-1:0] ADDR_O,
     input [WIDTH-1:0] DAT_I,
     output reg [WIDTH-1:0] DAT_O,
     output reg CYC_O,
@@ -42,20 +42,13 @@ module i2c_controller #(parameter WIDTH = 8) (
     // All registers are in MSB format
     // Contents : 
     // addr_set_register (0x0A) --> used to set what address we need the module to respond to.
-    //      - 8 bit wide, but only bit 6 to 0 that is used.
+    //      - 8 bit wide, but only bit 7 to 1 that is used. default to 0xAA (W) / 0xAB (R) when reset
     // recv_data_buffer (0x0B) --> used for WRITE process where we receive data
     //      - 8 bit wide, stored the received byte
     // send_data_buffer (0x0C) --> used for READ process where we send data
     //      - 8 bit wide, stored the outgoing byte
-    // ctrl_status_register (0x0D) --> used to poll or set the operation of the module
-    //      - bit 7: data received status, 1 means received data. Poll this to see if we receive data
-    //      - bit 6: data send status, 1 means send data done, 0 means in progress
-    //      - bit 5: I2C read request, 1 means we need to send data, 0 means no action needed 
-    //      - bit 4: I2C mode (MASTER/SLAVE) (coming soon! we won't need this for now)
-    //      - bit 3: I2C master speed (coming soon! we won't need this for now)
-    //      - bit 2: Reserved
-    //      - bit 1: Reserved
-    //      - bit 0: Reserved
+    // whoami register (0x0D) --> used for sanity checks and checking I2C functionality
+    //      - 8 bit wide, read-only, always return 0xDE when read 
 
     // Registers of the I2C Blocks
     // The localparam is for defining the address of the I2C block's registers, please change it here in case
@@ -63,12 +56,11 @@ module i2c_controller #(parameter WIDTH = 8) (
     localparam [WIDTH-1:0] ADDR_SET_REGISTER_ADDRESS = 10;
     localparam [WIDTH-1:0] RECV_DATA_BUFFER_ADDRESS = 11;
     localparam [WIDTH-1:0] SEND_DATA_BUFFER_ADDRESS = 12;
-    localparam [WIDTH-1:0] CTRL_STATUS_REGISTER_ADDRESS = 13;
+    localparam [WIDTH-1:0] WHOAMI_REGISTER_ADDRESS = 13;
 
     reg [7:0] addr_set_register;
     reg [7:0] recv_data_buffer;
     reg [7:0] send_data_buffer;
-    reg [7:0] ctrl_status_register;
     reg [7:0] addr_pointer_register_internal;
 
     reg [1:0] wb_master_state;
@@ -114,9 +106,9 @@ module i2c_controller #(parameter WIDTH = 8) (
                     wb_master_subroutine_iteration <= wb_master_subroutine_iteration + 1'b1;
                     if (wb_master_subroutine_iteration == 2'd2) wb_master_subroutine_iteration <= 2'd0;
                 end
-                defaut : begin
-                    wb_master_subroutine_iteration <= 2'd0;
-                end
+                // defaut : begin
+                //     wb_master_subroutine_iteration <= 2'd0;
+                // end
             endcase
         end
     end
@@ -125,11 +117,13 @@ module i2c_controller #(parameter WIDTH = 8) (
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             // Reset everything!
+            ADDR_O <= 0;
             DAT_O <= 0;
             STB_O <= 1'b0;
             CYC_O <= 1'b0;
             WE_O <= 1'b0;
             wb_master_next_state <= WB_MASTER_STATE_IDLE;
+            addr_set_register <= 8'hAA;
         end
         // here is the management part of the wishbone interface. It will issue register read/write based on 
         // what it receives through the I2C
@@ -154,12 +148,12 @@ module i2c_controller #(parameter WIDTH = 8) (
                                     addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
                                 end
                                 SEND_DATA_BUFFER_ADDRESS : begin
-                                    send_data_buffer <= recv_data_buffer
+                                    send_data_buffer <= recv_data_buffer;
                                     wb_master_next_state <= WB_MASTER_STATE_IDLE;
                                     addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
                                 end
-                                CTRL_STATUS_REGISTER_ADDRESS : begin
-                                    ctrl_status_register <= recv_data_buffer;
+                                WHOAMI_REGISTER_ADDRESS : begin
+                                    // don't do anything, it's pointless to write a receive buffer from WB
                                     wb_master_next_state <= WB_MASTER_STATE_IDLE;
                                     addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
                                 end
@@ -186,8 +180,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                                 wb_master_next_state <= WB_MASTER_STATE_IDLE;
                                 addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
                             end
-                            CTRL_STATUS_REGISTER_ADDRESS : begin
-                                send_data_buffer <= ctrl_status_register;
+                            WHOAMI_REGISTER_ADDRESS : begin
+                                send_data_buffer <= 8'hDE; // Chip identification and sanity check
                                 wb_master_next_state <= WB_MASTER_STATE_IDLE;
                                 addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
                             end
@@ -214,7 +208,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                             STB_O <= 1'b1;
                             ADDR_O <= addr_pointer_register_internal;
                             DAT_O <= 8'd0;
-                            // place here to add ACK, ERR, or RTY behaviour
+                            // set the WB master next state to IDLE
+                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
                         end
                         2'd2 : begin
                             // deassert everything
@@ -222,12 +217,12 @@ module i2c_controller #(parameter WIDTH = 8) (
                             CYC_O <= 1'b0;
                             STB_O <= 1'b0;
                             ADDR_O <= 8'd0;
-                            send_data_buffer <= DAT_I;
+                            // place here to add ACK, ERR, or RTY behaviour
+                            if (ACK_I == 1'b1) send_data_buffer <= DAT_I;
+                            else send_data_buffer <= 8'b0;
                             DAT_O <= 8'd0;
                             // And increment the address pointer
                             addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
-                            // set the WB master next state to IDLE
-                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
                         end
                     endcase
                 end
@@ -248,7 +243,8 @@ module i2c_controller #(parameter WIDTH = 8) (
                             STB_O <= 1'b1;
                             ADDR_O <= addr_pointer_register_internal;
                             DAT_O <= recv_data_buffer;
-                            // place here to add ACK, ERR, or RTY behaviour
+                            // set the WB master next state to IDLE
+                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
                         end
                         2'd2 : begin
                             // deassert everything
@@ -259,8 +255,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                             DAT_O <= 8'd0;
                             // And increment the address pointer
                             addr_pointer_register_internal <= addr_pointer_register_internal + 1'b1;
-                            // set the WB master next state to IDLE
-                            wb_master_next_state <= WB_MASTER_STATE_IDLE;
+                            // place here to add ACK, ERR, or RTY behaviour
                         end
                     endcase
                 end
@@ -321,8 +316,12 @@ module i2c_controller #(parameter WIDTH = 8) (
     reg [1:0] falling_edge_delayer;
     //reg [3:0] iteration_write;
     
-    wire falling_edge_detected_delayed;
+    always @(posedge CLK_I) begin
+        falling_edge_delayer[0] <= falling_edge_detected;
+        falling_edge_delayer[1] <= falling_edge_delayer[0];
+    end
 
+    wire falling_edge_detected_delayed;
     assign falling_edge_detected_delayed = falling_edge_delayer[1];
 
     always @(posedge CLK_I) begin
@@ -337,12 +336,14 @@ module i2c_controller #(parameter WIDTH = 8) (
             iteration <= 4'd0;
             register_addr_data_flag <= 1'b0;
             register_content_data_flag <= 1'b0;
+            i2c_sda_out_pin_ctrl <= 1'b1;
         end
         else if (start_condition == 1'b1) begin
             i2c_next_state_routine_block <= STATE_ADDR;
             iteration <= 4'd0;
             register_addr_data_flag <= 1'b0;
             register_content_data_flag <= 1'b0;
+            i2c_sda_out_pin_ctrl <= 1'b1;
         end
         else begin
             case(i2c_state)
@@ -357,32 +358,37 @@ module i2c_controller #(parameter WIDTH = 8) (
                         i2c_next_state_routine_block <= STATE_ADDR;
                     end
                     // When every bit has been sampled...
-                    else if (rising_edge_detected == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
                         // if the address is correct... (only 7-bit address is supported)
                         if (address_data_buffer_internal[7:1] == addr_set_register[7:1]) begin
                             // reset the subroutine FSM
-                            iteration <= 4'd0;
+                            iteration <= iteration + 1'b1;
                             // give the proper ACK to the line
                             i2c_sda_out_pin_ctrl <= 1'b0;
-                            // the check the read/write bit
-                            // if it's 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
-                            if (address_data_buffer_internal[0] == 1) begin
-                                i2c_next_state_routine_block <= STATE_WRITE;
-                                write_request_internal_flag <= 1'b1;
-                            end 
-                            // if it's 0 (means I2C write command is received a.k.a receiving data --> must READ)...
-                            else if (address_data_buffer_internal[0] == 0) begin
-                                i2c_next_state_routine_block <= STATE_READ;
-                                read_request_internal_flag <= 1'b1;
-
-                            end
+                            i2c_next_state_routine_block <= STATE_ADDR;
                         end else begin
                             // reset the subroutine FSM
                             iteration <= 4'd0;
                             // do not give the proper ACK to the line
-                            i2c_sda_out_pin_ctrl <= 1'b0;
+                            i2c_sda_out_pin_ctrl <= 1'b1;
                             // return to IDLE state
                             i2c_next_state_routine_block <= STATE_IDLE;
+                        end
+                    end
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 9) begin
+                        // return the line to default condition before proceeding to the next state
+                        i2c_sda_out_pin_ctrl <= 1'b1;
+                        iteration <= 4'd0;
+                        // then check the read/write bit
+                        // if it's 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
+                        if (address_data_buffer_internal[0] == 1) begin
+                            i2c_next_state_routine_block <= STATE_WRITE;
+                            write_request_internal_flag <= 1'b1;
+                        end 
+                        // if it's 0 (means I2C write command is received a.k.a receiving data --> must READ)...
+                        else if (address_data_buffer_internal[0] == 0) begin
+                            i2c_next_state_routine_block <= STATE_READ;
+                            read_request_internal_flag <= 1'b1;
                         end
                     end
                     else begin
@@ -406,10 +412,10 @@ module i2c_controller #(parameter WIDTH = 8) (
                         i2c_next_state_routine_block <= STATE_READ;
                     end
                     // When every bit has been sampled...
-                    else if (rising_edge_detected == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
                         if (register_addr_data_flag == 1'b0) begin
                             // reset the subroutine FSM
-                            iteration <= 4'd0;
+                            iteration <= iteration + 1;
                             // give the proper ACK to the line
                             i2c_sda_out_pin_ctrl <= 1'b0;
                             i2c_next_state_routine_block <= STATE_READ;
@@ -418,15 +424,18 @@ module i2c_controller #(parameter WIDTH = 8) (
                         end
                         else begin
                             // reset the subroutine FSM
-                            iteration <= 4'd0;
+                            iteration <= iteration + 1;
                             // give the proper ACK to the line
                             i2c_sda_out_pin_ctrl <= 1'b0;
                             i2c_next_state_routine_block <= STATE_READ;
                             received_data_internal_flag <= 1'b1;
                             register_content_data_flag <= 1'b1;
                         end
-                            
                     end 
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 9) begin
+                        i2c_sda_out_pin_ctrl <= 1'b1;
+                        iteration <= 4'd0;
+                    end
                     else begin
                         // keep current state of all IO
                         iteration <= iteration;
@@ -446,12 +455,13 @@ module i2c_controller #(parameter WIDTH = 8) (
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_WRITE;
                     end
-                    else if (falling_edge_detected == 1'b1 && iteration < 8) begin
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration < 8) begin
+                        // only change SDA line when SCL is low
                         i2c_sda_out_pin_ctrl <= send_data_buffer[7-iteration];
                         iteration <= iteration;
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
                     end
-                    else if (falling_edge_detected == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
                         // release SDA line for ACK sampling
                         i2c_sda_out_pin_ctrl <= 1'b1;
                         iteration <= iteration;

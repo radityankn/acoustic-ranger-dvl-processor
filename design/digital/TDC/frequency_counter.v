@@ -57,8 +57,8 @@ module frequency_counter #(parameter WIDTH = 8) (
     //      - bit 1: Reserved
     //      - bit 0: Reset counter interface (when things go awry, initialization means besides resetting the whole chip)
 
-    // Registers of the I2C Blocks
-    // The localparam is for defining the address of the I2C block's registers, please change it here in case
+    // Registers of the TDC Blocks
+    // The localparam is for defining the address of the TDC block's registers, please change it here in case
     // you need its address to be other than the default
     localparam [WIDTH-1:0] RANGE_TIMING_REGISTER_HIGH_ADDRESS = 14;
     localparam [WIDTH-1:0] RANGE_TIMING_REGISTER_MID_ADDRESS = 15;
@@ -384,7 +384,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1 || counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
             range_timing_internal <= 24'd0;
-            counter_ready <= 1'b0;
+            counter_ready <= 1'b1;
             range_finished_internal_flag <= 1'b0;
             range_timeout_internal_flag <= 1'b0;
             measurement_pulse_start_internal_flag <= 1'b0;

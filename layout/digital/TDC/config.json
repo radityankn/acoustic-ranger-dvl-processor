@@ -1,0 +1,6 @@
+{
+  "DESIGN_NAME": "frequency_counter",
+  "VERILOG_FILES": ["dir::design/digital/TDC/frequency_counter.v"],
+  "CLOCK_PERIOD": 100,
+  "CLOCK_PORT": "CLK_I"
+}
