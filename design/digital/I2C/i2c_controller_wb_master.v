@@ -303,11 +303,11 @@ module i2c_controller #(parameter WIDTH = 8) (
     end 
 
     // I2C: Subroutine IDLE 
-    reg [1:0] i2c_next_state_idle_block;
-    always @(*) begin
-        if (start_condition == 1'b1 && i2c_state == STATE_IDLE) i2c_next_state_idle_block = STATE_ADDR;
-        else i2c_next_state_idle_block = STATE_IDLE; 
-    end
+    //reg [1:0] i2c_next_state_idle_block;
+    //always @(*) begin
+    //    if (start_condition == 1'b1 && i2c_state == STATE_IDLE) i2c_next_state_idle_block = STATE_ADDR;
+    //    else i2c_next_state_idle_block = STATE_IDLE; 
+    //end
 
     // I2C: Subroutine ADDR, READ, WRITE in one iteration
     reg [1:0] i2c_next_state_routine_block;
@@ -351,7 +351,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                     // Let's sample all the bits
                     if (rising_edge_detected == 1'b1 && iteration < 8) begin
                         // sample the data from sda input line
-                        address_data_buffer_internal[7 - iteration] <= i2c_sda_in;
+                        address_data_buffer_internal <= {address_data_buffer_internal[6:0], i2c_sda_in};
                         // increment the iteration counter to iterate through all bits
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
@@ -375,21 +375,32 @@ module i2c_controller #(parameter WIDTH = 8) (
                             i2c_next_state_routine_block <= STATE_IDLE;
                         end
                     end
+                    // then check the read/write bit on the next iteration
+                    // if it is falling edge and R/W bit is 0 (means I2C write command is received a.k.a receiving data --> must READ)...
                     else if (falling_edge_detected_delayed == 1'b1 && iteration == 9) begin
-                        // return the line to default condition before proceeding to the next state
-                        i2c_sda_out_pin_ctrl <= 1'b1;
-                        iteration <= 4'd0;
-                        // then check the read/write bit
-                        // if it's 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
-                        if (address_data_buffer_internal[0] == 1) begin
-                            i2c_next_state_routine_block <= STATE_WRITE;
-                            write_request_internal_flag <= 1'b1;
-                        end 
-                        // if it's 0 (means I2C write command is received a.k.a receiving data --> must READ)...
-                        else if (address_data_buffer_internal[0] == 0) begin
+                        if (address_data_buffer_internal[0] == 0) begin
+                            // return the line to default condition before proceeding to the next state
+                            i2c_sda_out_pin_ctrl <= 1'b1;
+                            // return the iteration FSM to zero (reset)
+                            iteration <= 4'd0;
+                            // Go to the next state
                             i2c_next_state_routine_block <= STATE_READ;
+                            // give proper signal for the correct flag line
                             read_request_internal_flag <= 1'b1;
                         end
+                    end
+                    // if it is falling edge and R/W bit is 1 (means I2C read command is received a.k.a requesting data --> must WRITE)...
+                    else if (rising_edge_detected == 1'b1 && iteration == 9) begin
+                        if (address_data_buffer_internal[0] == 1) begin
+                            // keep I2C line ACK as-is
+                            i2c_sda_out_pin_ctrl <= i2c_sda_out_pin_ctrl;
+                            // reset the iteration FSM
+                            iteration <= 4'd0;
+                            // Go to the next state
+                            i2c_next_state_routine_block <= STATE_WRITE;
+                            // give proper signal for the correct flag line
+                            write_request_internal_flag <= 1'b1;
+                        end 
                     end
                     else begin
                         // preserve current state
@@ -403,9 +414,9 @@ module i2c_controller #(parameter WIDTH = 8) (
                 end
                 STATE_READ : begin
                     // Let's sample all the bits
-                    if (rising_edge_detected == 1'b1 && iteration < 8) begin
+                    if (rising_edge_detected == 1'b1 && iteration < 4'd8) begin
                         // sample the data from sda input line
-                        recv_data_buffer[7 - iteration] <= i2c_sda_in;
+                        recv_data_buffer <= {recv_data_buffer[6:0], i2c_sda_in};
                         // increment the iteration counter to iterate through all bits
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
@@ -502,7 +513,8 @@ module i2c_controller #(parameter WIDTH = 8) (
     end
             
     // The grand next state block, OR'ed from all the subroutine
-    assign i2c_next_state = i2c_next_state_idle_block | i2c_next_state_routine_block;
+    // assign i2c_next_state = i2c_next_state_idle_block | i2c_next_state_routine_block;
+    assign i2c_next_state = i2c_next_state_routine_block;
 
     // Assigning SDA out control port complement to its true counterpart
     assign i2c_sda_out_pin_ctrl_n = ~i2c_sda_out_pin_ctrl;

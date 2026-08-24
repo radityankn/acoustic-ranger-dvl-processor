@@ -1,0 +1,8 @@
+{
+  "DESIGN_NAME": "i2c_controller",
+  "VERILOG_FILES": ["dir::../../../design/digital/I2C/i2c_controller_wb_master.v"],
+  "CLOCK_PERIOD": 100,
+  "CLOCK_PORT": "CLK_I",
+  "IO_PIN_ORDER_CFG": "dir::pin_order.cfg",
+  "PDK": "gf180mcuD"
+}
