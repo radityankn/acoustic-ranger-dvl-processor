@@ -45,13 +45,13 @@ C {lab_wire.sym} 190 -340 0 0 {name=p4 sig_type=std_logic lab=vdd}
 C {vsource.sym} 240 -280 0 0 {name=V2 value=0 savecurrent=false}
 C {gnd.sym} 240 -230 0 0 {name=l2 lab=0}
 C {lab_wire.sym} 240 -340 0 0 {name=p5 sig_type=std_logic lab=vss}
-C {devices/code_shown.sym} 10 -720 0 0 {name=NGSPICE1 only_toplevel=true
+C {devices/code_shown.sym} -50 -840 0 0 {name=NGSPICE1 only_toplevel=true
 value="
 
 
 
 .control
-	
+	.include ./OTA_freq-response.save
 	*tran 1u 1m
 	*plot v(net2) v(net4) v(net5) v(in-) 
 	*plot v(net2) v(net3)
@@ -66,6 +66,8 @@ value="
 	plot db(v(out)/v(in-)) (180/3.14159)*cph(v(out)/v(in-))
 	*plot db(v(out)/v(in-))
 	*plot (180/3.14159) * cph(v(out)/v(in-))
+	remzerovec
+	write OTA_freq-response.raw
 	
 
 .endc
@@ -85,10 +87,10 @@ C {lab_wire.sym} 600 -330 0 0 {name=p7 sig_type=std_logic lab=in+}
 C {lab_wire.sym} 760 -310 0 0 {name=p8 sig_type=std_logic lab=out}
 C {capa.sym} 800 -260 0 0 {name=C1
 m=1
-value=500f
+value=1p
 footprint=1206
 device="ceramic capacitor"}
 C {lab_wire.sym} 470 -250 0 0 {name=p12 sig_type=std_logic lab=vdd}
-C {acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sym} 670 -260 0 0 {name=x1}
-C {acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 470 -180 0 0 {name=x2}
 C {lab_wire.sym} 390 -120 0 0 {name=p9 sig_type=std_logic lab=vss}
+C {/foss/designs/acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sym} 670 -260 0 0 {name=x3}
+C {/foss/designs/acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym} 470 -180 0 0 {name=x1}

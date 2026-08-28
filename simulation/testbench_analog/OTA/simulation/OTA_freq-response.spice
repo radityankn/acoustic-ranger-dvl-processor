@@ -1,0 +1,104 @@
+** sch_path: /foss/designs/acoustic-ranger-dvl-processor/simulation/testbench_analog/OTA/OTA_freq-response.sch
+**.subckt OTA_freq-response
+V3 in+ 0 1.65
+V1 vdd 0 3.3
+V2 vss 0 0
+V4 in- out ac 1
+C1 out vss 1p
+x3 vdd out in+ in- net1 vss two-stage_miller_OTA
+x1 vdd net1 net2 vss vss vss beta_multiplier
+**** begin user architecture code
+
+
+
+
+
+.control
+	.include ./OTA_freq-response.save
+	*tran 1u 1m
+	*plot v(net2) v(net4) v(net5) v(in-)
+	*plot v(net2) v(net3)
+
+
+	*show m.xm1.m0 m.xm2.m0
+
+	op
+	ac dec 20 1 1g
+
+	*plot v(pbias) v(nbias)
+	plot db(v(out)/v(in-)) (180/3.14159)*cph(v(out)/v(in-))
+	*plot db(v(out)/v(in-))
+	*plot (180/3.14159) * cph(v(out)/v(in-))
+	remzerovec
+	write OTA_freq-response.raw
+
+
+.endc
+
+
+
+.include /foss/pdks/gf180mcuD/libs.tech/ngspice/design.ngspice
+.lib /foss/pdks/gf180mcuD/libs.tech/ngspice/sm141064.ngspice fs
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  /foss/designs/acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sym # of pins=6
+** sym_path: /foss/designs/acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sym
+** sch_path: /foss/designs/acoustic-ranger-dvl-processor/design/analog/OTA/two-stage_miller_OTA.sch
+.subckt two-stage_miller_OTA vdd out in+ in- bias vss
+*.ipin in+
+*.ipin in-
+*.opin out
+*.iopin vdd
+*.iopin vss
+*.ipin bias
+XM1 net2 in- net1 vdd pfet_03v3 L=1u W=6.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=8
+XM2 net3 in+ net1 vdd pfet_03v3 L=1u W=6.2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=8
+XM14 net3 net2 vss vss nfet_03v3 L=3u W=7.7u nf=4 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM15 net2 net2 vss vss nfet_03v3 L=3u W=7.7u nf=4 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM3 out net3 vss vss nfet_03v3 L=3u W=7.7u nf=4 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=12
+C1 out net3 5p
+XM4 net1 bias vdd vdd pfet_03v3 L=20u W=25.3u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=2
+XM5 out bias vdd vdd pfet_03v3 L=20u W=25.3u nf=2 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=6
+.ends
+
+
+* expanding   symbol:  /foss/designs/acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym # of pins=6
+** sym_path: /foss/designs/acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sym
+** sch_path: /foss/designs/acoustic-ranger-dvl-processor/design/analog/beta multiplier/beta_multiplier.sch
+.subckt beta_multiplier vdd pbias nbias status trigger vss
+*.iopin vdd
+*.iopin vss
+*.opin pbias
+*.opin nbias
+*.opin status
+*.ipin trigger
+XM1 pbias nbias net1 net1 nfet_03v3 L=30u W=51.28u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=3
+XM2 nbias nbias vss vss nfet_03v3 L=30u W=22.22u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=3
+XM3 pbias pbias vdd vdd pfet_03v3 L=30u W=52.08u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=6
+XM4 nbias pbias vdd vdd pfet_03v3 L=30u W=52.08u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0 m=6
+R1 net1 vss 10k
+XM5 pbias trigger vss vss nfet_03v3 L=5u W=0.28u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM10 net2 nbias vss vss nfet_03v3 L=0.28u W=18u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+R3 vdd net2 10k
+XM11 status net2 vss vss nfet_03v3 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+XM12 status net2 vdd vdd pfet_03v3 L=1u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u' pd='2*int((nf+1)/2) * (W/nf + 0.18u)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W' sa=0 sb=0 sd=0
+.ends
+
+.end

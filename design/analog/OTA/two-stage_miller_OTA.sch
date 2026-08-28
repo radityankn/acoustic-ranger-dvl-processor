@@ -40,9 +40,9 @@ N 270 -470 270 -460 {lab=bias}
 N 180 -470 270 -470 {lab=bias}
 C {symbols/pfet_03v3.sym} 180 -340 0 0 {name=M1
 L=1u
-W=49.6u
+W=6.2u
 nf=1
-m=1
+m=8
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -54,9 +54,9 @@ spiceprefix=X
 }
 C {symbols/pfet_03v3.sym} 440 -340 0 1 {name=M2
 L=1u
-W=49.6u
+W=6.2u
 nf=1
-m=1
+m=8
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -72,9 +72,9 @@ C {ipin.sym} 120 -340 0 0 {name=p15 lab=in-}
 C {lab_wire.sym} 330 -160 0 0 {name=p2 sig_type=std_logic lab=vss}
 C {symbols/nfet_03v3.sym} 400 -190 0 0 {name=M14
 L=3u
-W=15.4u
-nf=1
-m=1
+W=7.7u
+nf=4
+m=2
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -86,9 +86,9 @@ spiceprefix=X
 }
 C {symbols/nfet_03v3.sym} 220 -190 0 1 {name=M15
 L=3u
-W=15.4u
-nf=1
-m=1
+W=7.7u
+nf=4
+m=2
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -99,10 +99,10 @@ model=nfet_03v3
 spiceprefix=X
 }
 C {symbols/nfet_03v3.sym} 610 -270 0 0 {name=M3
-L=500n
-W=15.4u
-nf=1
-m=1
+L=3u
+W=7.7u
+nf=4
+m=12
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -114,7 +114,7 @@ spiceprefix=X
 }
 C {capa.sym} 570 -320 0 0 {name=C1
 m=1
-value=2pf
+value=5p
 footprint=1206
 device="ceramic capacitor"}
 C {opin.sym} 750 -370 0 0 {name=p10 lab=out}
@@ -123,10 +123,10 @@ C {iopin.sym} 650 -160 0 0 {name=p24 lab=vss}
 C {ipin.sym} 180 -470 0 0 {name=p1 lab=bias}
 C {lab_wire.sym} 370 -500 0 0 {name=p5 sig_type=std_logic lab=vdd}
 C {symbols/pfet_03v3.sym} 290 -470 0 0 {name=M4
-L=30u
-W=63.9u
-nf=1
-m=6
+L=20u
+W=25.3u
+nf=2
+m=2
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
@@ -137,10 +137,10 @@ model=pfet_03v3
 spiceprefix=X
 }
 C {symbols/pfet_03v3.sym} 610 -470 0 0 {name=M5
-L=30u
-W=55.75u
-nf=1
-m=15
+L=20u
+W=25.3u
+nf=2
+m=6
 ad="'int((nf+1)/2) * W/nf * 0.18u'"
 pd="'2*int((nf+1)/2) * (W/nf + 0.18u)'"
 as="'int((nf+2)/2) * W/nf * 0.18u'"
