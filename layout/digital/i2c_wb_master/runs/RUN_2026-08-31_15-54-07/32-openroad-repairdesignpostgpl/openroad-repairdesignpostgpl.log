@@ -1,0 +1,127 @@
+Reading timing models for corner max_ff_n40C_5v50…
+Reading timing library for the 'max_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+Reading timing models for corner max_tt_025C_5v00…
+Reading timing library for the 'max_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading timing models for corner nom_ff_n40C_5v50…
+Reading timing library for the 'nom_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner min_ss_125C_4v50…
+Reading timing library for the 'min_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+Reading timing models for corner min_ff_n40C_5v50…
+Reading timing library for the 'min_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner min_tt_025C_5v00…
+Reading timing library for the 'min_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner max_ss_125C_4v50…
+Reading timing library for the 'max_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading timing models for corner nom_ss_125C_4v50…
+Reading timing library for the 'nom_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/28-openroad-globalplacement/i2c_controller.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/constraint.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO RSZ-0027] Inserted 12 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 input buffers.
+[INFO RSZ-0028] Inserted 21 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 output buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |       543
+       10 |     +0.0% |       0 |       0 |             0 |       533
+       20 |     +0.0% |       0 |       0 |             0 |       523
+       30 |     +0.0% |       0 |       0 |             0 |       513
+       40 |     +0.0% |       0 |       0 |             0 |       503
+       50 |     +0.0% |       0 |       0 |             0 |       493
+       60 |     +0.0% |       0 |       0 |             0 |       483
+       70 |     +0.0% |       0 |       0 |             0 |       473
+       80 |     +0.0% |       0 |       0 |             0 |       463
+       90 |     +0.0% |       0 |       0 |             0 |       453
+      100 |     +0.0% |       0 |       0 |             0 |       443
+      110 |     +0.4% |       0 |       2 |             2 |       433
+      120 |     +0.4% |       0 |       2 |             2 |       423
+      130 |     +0.4% |       0 |       2 |             2 |       413
+      140 |     +0.4% |       0 |       2 |             2 |       403
+      150 |     +0.4% |       0 |       2 |             2 |       393
+      160 |     +0.4% |       0 |       2 |             2 |       383
+      170 |     +0.4% |       0 |       2 |             2 |       373
+      180 |     +0.4% |       0 |       2 |             2 |       363
+      190 |     +0.4% |       0 |       2 |             2 |       353
+      200 |     +0.4% |       0 |       2 |             2 |       343
+      210 |     +0.4% |       0 |       2 |             2 |       333
+      220 |     +0.4% |       0 |       2 |             2 |       323
+      230 |     +0.4% |       0 |       2 |             2 |       313
+      240 |     +0.4% |       0 |       2 |             2 |       303
+      250 |     +0.5% |       0 |       3 |             3 |       293
+      260 |     +0.5% |       0 |       3 |             3 |       283
+      270 |     +0.5% |       0 |       3 |             3 |       273
+      280 |     +0.5% |       0 |       3 |             3 |       263
+      290 |     +0.5% |       0 |       3 |             3 |       253
+      300 |     +0.5% |       0 |       3 |             3 |       243
+      310 |     +0.5% |       0 |       3 |             3 |       233
+      320 |     +0.5% |       0 |       3 |             3 |       223
+      330 |     +0.5% |       0 |       3 |             3 |       213
+      340 |     +0.5% |       0 |       3 |             3 |       203
+      350 |     +0.5% |       0 |       3 |             3 |       193
+      360 |     +0.5% |       0 |       3 |             3 |       183
+      370 |     +0.5% |       0 |       3 |             3 |       173
+      380 |     +0.5% |       0 |       3 |             3 |       163
+      390 |     +0.5% |       0 |       3 |             3 |       153
+      400 |     +0.5% |       0 |       3 |             3 |       143
+      410 |     +0.5% |       0 |       3 |             3 |       133
+      420 |     +0.5% |       0 |       3 |             3 |       123
+      430 |     +0.5% |       0 |       3 |             3 |       113
+      440 |     +0.5% |       0 |       3 |             3 |       103
+      450 |     +0.5% |       0 |       3 |             3 |        93
+      460 |     +0.5% |       0 |       3 |             3 |        83
+      470 |     +0.5% |       0 |       3 |             3 |        73
+      480 |     +0.5% |       0 |       3 |             3 |        63
+      490 |     +0.5% |       0 |       3 |             3 |        53
+      500 |     +0.5% |       0 |       3 |             3 |        43
+      510 |     +0.5% |       0 |       3 |             3 |        33
+      520 |     +0.5% |       0 |       3 |             3 |        23
+      530 |     +0.5% |       0 |       3 |             3 |        13
+      540 |     +0.5% |       0 |       3 |             3 |         3
+    final |     +0.5% |       0 |       3 |             3 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 2 slew violations.
+[INFO RSZ-0036] Found 3 capacitance violations.
+[INFO RSZ-0038] Inserted 3 buffers in 3 nets.
+[WARNING RSZ-0020] found 2 floating nets.
+ VDD
+ VSS
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       2854.2 u
+average displacement        3.8 u
+max displacement           51.5 u
+original HPWL           14374.4 u
+legalized HPWL          16041.3 u
+delta HPWL                   12 %
+
+[INFO DPL-0020] Mirrored 204 instances
+[INFO DPL-0021] HPWL before           16041.3 u
+[INFO DPL-0022] HPWL after            15541.6 u
+[INFO DPL-0023] HPWL delta               -3.1 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 144 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                              76     333.67
+  Tap cell                                140     614.66
+  Buffer                                    1      13.17
+  Timing Repair Buffer                     36    1224.92
+  Inverter                                 33     289.77
+  Sequential cell                          85    5411.17
+  Multi-Input combinational cell          376    6855.61
+  Total                                   747   14742.96
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/32-openroad-repairdesignpostgpl/i2c_controller.odb'…
+Writing netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/32-openroad-repairdesignpostgpl/i2c_controller.nl.v'…
+Writing powered netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/32-openroad-repairdesignpostgpl/i2c_controller.pnl.v'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/32-openroad-repairdesignpostgpl/i2c_controller.def'…
+Writing timing constraints to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/32-openroad-repairdesignpostgpl/i2c_controller.sdc'…

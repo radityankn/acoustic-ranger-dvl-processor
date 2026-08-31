@@ -1,0 +1,29 @@
+[WARNING ORD-0039] .openroad ignored with -python
+Unannotated report:
+['report_parasitic_annotation -report_unannotated\n',
+ '============================================================================\n',
+ 'Found 9 unannotated drivers.\n',
+ ' ERR_I\n',
+ ' RTY_I\n',
+ ' clkload0/ZN\n',
+ ' clkload1/ZN\n',
+ ' clkload2/ZN\n',
+ ' clkload3/ZN\n',
+ ' clkload4/ZN\n',
+ ' clkload5/Z\n',
+ ' clkload6/Z\n',
+ 'Found 0 partially unannotated drivers.\n',
+ '\n']
+Reported nets:
+['ERR_I',
+ 'RTY_I',
+ 'clkload0/ZN',
+ 'clkload1/ZN',
+ 'clkload2/ZN',
+ 'clkload3/ZN',
+ 'clkload4/ZN',
+ 'clkload5/Z',
+ 'clkload6/Z']
+Filtered nets:
+[]
+done

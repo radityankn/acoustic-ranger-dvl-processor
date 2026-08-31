@@ -1,0 +1,40 @@
+135. Printing statistics.
+
+=== frequency_counter ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1091        - wires
+     1304        - wire bits
+       29        - public wires
+      196        - public wire bits
+       16        - ports
+       41        - port bits
+     1250 1.06E+04 cells
+      272        -   $_ANDNOT_
+       29        -   $_AND_
+      342        -   $_MUX_
+       47        -   $_NAND_
+       24        -   $_NOR_
+       26        -   $_NOT_
+       84        -   $_ORNOT_
+      175        -   $_OR_
+       19        -   $_XNOR_
+       66        -   $_XOR_
+      166 1.06E+04   gf180mcu_fd_sc_mcu7t5v0__dffq_1
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+   Chip area for module '\frequency_counter': 10567.692800
+     of which used for sequential elements: 10567.692800 (100.00%)
+

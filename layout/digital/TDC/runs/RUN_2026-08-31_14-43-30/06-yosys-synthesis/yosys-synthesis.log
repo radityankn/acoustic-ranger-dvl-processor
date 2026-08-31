@@ -1,0 +1,1520 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.64 (git sha1 6d2c445ae, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)
+
+1. Executing Liberty frontend: /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib
+Imported 229 cell types from liberty file.
+[INFO] Using SDC file '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/06-yosys-synthesis/synthesis.abc.sdc' for ABC…wtaf
+
+2. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v' to AST representation.
+Storing AST representation for module `$abstract\frequency_counter'.
+Successfully finished Verilog frontend.
+
+3. Executing HIERARCHY pass (managing design hierarchy).
+
+4. Executing AST frontend in derive mode using pre-parsed AST for module `\frequency_counter'.
+Generating RTLIL representation for module `\frequency_counter'.
+
+4.1. Analyzing design hierarchy..
+Top module:  \frequency_counter
+
+4.2. Analyzing design hierarchy..
+Top module:  \frequency_counter
+Removing unused module `$abstract\frequency_counter'.
+Removed 1 unused modules.
+Renaming module frequency_counter to frequency_counter.
+
+5. Executing ATTRMAP pass (move or copy attributes).
+
+6. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1. Analyzing design hierarchy..
+Top module:  \frequency_counter
+
+6.2. Analyzing design hierarchy..
+Top module:  \frequency_counter
+Removed 0 unused modules.
+
+7. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+8. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:520$95 in module frequency_counter.
+Marked 3 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83 in module frequency_counter.
+Marked 9 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57 in module frequency_counter.
+Marked 4 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45 in module frequency_counter.
+Marked 22 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1 in module frequency_counter.
+Removed a total of 0 dead cases.
+
+9. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 3 redundant assignments.
+Promoted 1 assignment to connection.
+
+10. Executing PROC_INIT pass (extract init attributes).
+
+11. Executing PROC_ARST pass (detect async resets in processes).
+
+12. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~46 debug messages>
+
+13. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:520$95'.
+     1/1: $0\pulse_timing_internal[23:0]
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83'.
+     1/2: $0\measurement_state_machine[15:0]
+     2/2: $0\measurement_pulse_done_internal_flag[0:0]
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+     1/5: $0\measurement_pulse_start_internal_flag[0:0]
+     2/5: $0\range_finished_internal_flag[0:0]
+     3/5: $0\range_timeout_internal_flag[0:0]
+     4/5: $0\counter_ready[0:0]
+     5/5: $0\range_timing_internal[23:0]
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45'.
+     1/2: $0\trigger_timer_internal[6:0]
+     2/2: $0\trigger_signal_out[0:0]
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:381$44'.
+Creating decoders for process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+     1/13: $0\counter_control_status_register[7:0] [5:1]
+     2/13: $0\counter_control_status_register[7:0] [0]
+     3/13: $0\counter_control_status_register[7:0] [6]
+     4/13: $0\counter_control_status_register[7:0] [7]
+     5/13: $0\pulse_count_threshold_register[15:0] [7:0]
+     6/13: $0\pulse_count_threshold_register[15:0] [15:8]
+     7/13: $0\afe_config_bypass_control_register[7:0]
+     8/13: $0\pulse_timing_register[23:0]
+     9/13: $0\range_timing_register[23:0]
+    10/13: $0\ACK_O[0:0]
+    11/13: $0\RTY_O[0:0]
+    12/13: $0\ERR_O[0:0]
+    13/13: $0\DAT_O[7:0]
+
+14. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+15. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\frequency_counter.\pulse_timing_internal' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:520$95'.
+  created $dff cell `$procdff$715' with positive edge clock.
+Creating register for signal `\frequency_counter.\measurement_pulse_done_internal_flag' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83'.
+  created $dff cell `$procdff$716' with positive edge clock.
+Creating register for signal `\frequency_counter.\measurement_state_machine' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83'.
+  created $dff cell `$procdff$717' with positive edge clock.
+Creating register for signal `\frequency_counter.\range_timing_internal' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+  created $dff cell `$procdff$718' with positive edge clock.
+Creating register for signal `\frequency_counter.\counter_ready' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+  created $dff cell `$procdff$719' with positive edge clock.
+Creating register for signal `\frequency_counter.\range_timeout_internal_flag' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+  created $dff cell `$procdff$720' with positive edge clock.
+Creating register for signal `\frequency_counter.\range_finished_internal_flag' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+  created $dff cell `$procdff$721' with positive edge clock.
+Creating register for signal `\frequency_counter.\measurement_pulse_start_internal_flag' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+  created $dff cell `$procdff$722' with positive edge clock.
+Creating register for signal `\frequency_counter.\trigger_signal_out' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45'.
+  created $dff cell `$procdff$723' with positive edge clock.
+Creating register for signal `\frequency_counter.\trigger_timer_internal' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45'.
+  created $dff cell `$procdff$724' with positive edge clock.
+Creating register for signal `\frequency_counter.\input_previous_state' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:381$44'.
+  created $dff cell `$procdff$725' with positive edge clock.
+Creating register for signal `\frequency_counter.\DAT_O' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$726' with positive edge clock.
+Creating register for signal `\frequency_counter.\ERR_O' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$727' with positive edge clock.
+Creating register for signal `\frequency_counter.\RTY_O' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$728' with positive edge clock.
+Creating register for signal `\frequency_counter.\ACK_O' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$729' with positive edge clock.
+Creating register for signal `\frequency_counter.\range_timing_register' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$730' with positive edge clock.
+Creating register for signal `\frequency_counter.\pulse_timing_register' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$731' with positive edge clock.
+Creating register for signal `\frequency_counter.\pulse_count_threshold_register' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$732' with positive edge clock.
+Creating register for signal `\frequency_counter.\counter_control_status_register' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$733' with positive edge clock.
+Creating register for signal `\frequency_counter.\afe_config_bypass_control_register' using process `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+  created $dff cell `$procdff$734' with positive edge clock.
+
+16. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+17. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:520$95'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:520$95'.
+Found and cleaned up 4 empty switches in `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:492$83'.
+Found and cleaned up 12 empty switches in `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:414$57'.
+Found and cleaned up 4 empty switches in `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:387$45'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:381$44'.
+Found and cleaned up 23 empty switches in `\frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+Removing empty process `frequency_counter.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:118$1'.
+Cleaned up 46 empty switches.
+
+18. Executing CHECK pass (checking for obvious problems).
+Checking module frequency_counter...
+Found and reported 0 problems.
+
+19. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~77 debug messages>
+
+20. Executing FLATTEN pass (flatten design).
+
+21. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+22. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 21 unused cells and 265 unused wires.
+<suppressed ~28 debug messages>
+
+23. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+24. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 262 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 230 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 227 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~105 debug messages>
+Removed a total of 35 cells.
+
+25. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$305: \counter_control_status_register [0] -> 1'0
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$572.
+    dead port 2/2 on $mux $procmux$614.
+    dead port 1/2 on $mux $procmux$175.
+    dead port 1/2 on $mux $procmux$142.
+    dead port 2/2 on $mux $procmux$663.
+    dead port 2/2 on $mux $procmux$523.
+Removed 6 multiplexer ports.
+<suppressed ~186 debug messages>
+
+26. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+    New ctrl vector for $pmux cell $procmux$529: { $procmux$654_CMP $procmux$559_CMP $procmux$555_CMP $procmux$551_CMP $procmux$547_CMP $procmux$543_CMP $auto$opt_reduce.cc:137:opt_pmux$736 }
+  Optimizing cells in module \frequency_counter.
+Performed a total of 3 changes.
+
+27. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 220 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 204 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~48 debug messages>
+Removed a total of 16 cells.
+
+28. Executing OPT_DFF pass (perform DFF optimizations).
+
+29. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 59 unused wires.
+<suppressed ~1 debug messages>
+
+30. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+31. Rerunning OPT passes. (Maybe there is more to do…)
+
+32. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~190 debug messages>
+
+33. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+    New ctrl vector for $pmux cell $procmux$633: $auto$opt_reduce.cc:137:opt_pmux$738
+    New ctrl vector for $pmux cell $procmux$529: { $auto$opt_reduce.cc:137:opt_pmux$740 $auto$opt_reduce.cc:137:opt_pmux$736 }
+  Optimizing cells in module \frequency_counter.
+Performed a total of 2 changes.
+
+34. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 206 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+35. Executing OPT_DFF pass (perform DFF optimizations).
+
+36. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+37. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+38. Rerunning OPT passes. (Maybe there is more to do…)
+
+39. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~180 debug messages>
+
+40. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+41. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+42. Executing OPT_DFF pass (perform DFF optimizations).
+
+43. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+44. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+45. Executing FSM pass (extract and optimize FSM).
+
+45.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+45.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+45.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+45.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+45.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+45.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+45.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+45.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+46. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+47. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+48. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~180 debug messages>
+
+49. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+50. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+51. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$734 ($dff) from module frequency_counter (D = \DAT_I, Q = \afe_config_bypass_control_register).
+Adding SRST signal on $procdff$733 ($dff) from module frequency_counter (D = { $procmux$407_Y $procmux$367_Y $procmux$299_Y $procmux$327_Y }, Q = \counter_control_status_register, rval = 8'00000000).
+Adding EN signal on $auto$ff.cc:337:slice$748 ($sdff) from module frequency_counter (D = \DAT_I [5:1], Q = \counter_control_status_register [5:1]).
+Adding EN signal on $auto$ff.cc:337:slice$748 ($sdff) from module frequency_counter (D = { $procmux$407_Y $procmux$367_Y }, Q = \counter_control_status_register [7:6]).
+Adding EN signal on $auto$ff.cc:337:slice$748 ($sdff) from module frequency_counter (D = $procmux$327_Y, Q = \counter_control_status_register [0]).
+Adding SRST signal on $procdff$732 ($dff) from module frequency_counter (D = { $procmux$442_Y $procmux$424_Y }, Q = \pulse_count_threshold_register, rval = 16'0000001111101000).
+Adding EN signal on $auto$ff.cc:337:slice$784 ($sdff) from module frequency_counter (D = \DAT_I, Q = \pulse_count_threshold_register [7:0]).
+Adding EN signal on $auto$ff.cc:337:slice$784 ($sdff) from module frequency_counter (D = \DAT_I, Q = \pulse_count_threshold_register [15:8]).
+Adding SRST signal on $procdff$731 ($dff) from module frequency_counter (D = $procmux$487_Y, Q = \pulse_timing_register, rval = 24'000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$795 ($sdff) from module frequency_counter (D = $procmux$484_Y, Q = \pulse_timing_register).
+Adding SRST signal on $procdff$730 ($dff) from module frequency_counter (D = $procmux$517_Y, Q = \range_timing_register, rval = 24'000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$807 ($sdff) from module frequency_counter (D = $procmux$514_Y, Q = \range_timing_register).
+Adding SRST signal on $procdff$729 ($dff) from module frequency_counter (D = $procmux$566_Y, Q = \ACK_O, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$819 ($sdff) from module frequency_counter (D = $procmux$564_Y, Q = \ACK_O).
+Adding SRST signal on $procdff$728 ($dff) from module frequency_counter (D = $procmux$608_Y, Q = \RTY_O, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$821 ($sdff) from module frequency_counter (D = 1'0, Q = \RTY_O).
+Adding SRST signal on $procdff$727 ($dff) from module frequency_counter (D = $procmux$657_Y, Q = \ERR_O, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$823 ($sdff) from module frequency_counter (D = $procmux$655_Y, Q = \ERR_O).
+Adding SRST signal on $procdff$726 ($dff) from module frequency_counter (D = $procmux$710_Y, Q = \DAT_O, rval = 8'00000000).
+Adding EN signal on $auto$ff.cc:337:slice$825 ($sdff) from module frequency_counter (D = $procmux$708_Y, Q = \DAT_O).
+Adding SRST signal on $procdff$724 ($dff) from module frequency_counter (D = $procmux$272_Y, Q = \trigger_timer_internal, rval = 7'0000000).
+Adding EN signal on $auto$ff.cc:337:slice$837 ($sdff) from module frequency_counter (D = $procmux$272_Y, Q = \trigger_timer_internal).
+Adding SRST signal on $procdff$723 ($dff) from module frequency_counter (D = $procmux$281_Y, Q = \trigger_signal_out, rval = 1'0).
+Adding SRST signal on $procdff$722 ($dff) from module frequency_counter (D = $procmux$163_Y, Q = \measurement_pulse_start_internal_flag, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$850 ($sdff) from module frequency_counter (D = $procmux$163_Y, Q = \measurement_pulse_start_internal_flag).
+Adding SRST signal on $procdff$721 ($dff) from module frequency_counter (D = $procmux$195_Y, Q = \range_finished_internal_flag, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$862 ($sdff) from module frequency_counter (D = $procmux$195_Y, Q = \range_finished_internal_flag).
+Adding SRST signal on $procdff$718 ($dff) from module frequency_counter (D = $procmux$260_Y, Q = \range_timing_internal, rval = 24'000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$872 ($sdff) from module frequency_counter (D = $procmux$258_Y, Q = \range_timing_internal).
+Adding SRST signal on $procdff$717 ($dff) from module frequency_counter (D = $procmux$117_Y, Q = \measurement_state_machine, rval = 16'0000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$882 ($sdff) from module frequency_counter (D = $procmux$115_Y, Q = \measurement_state_machine).
+Adding SRST signal on $procdff$716 ($dff) from module frequency_counter (D = $procmux$130_Y, Q = \measurement_pulse_done_internal_flag, rval = 1'0).
+Adding EN signal on $auto$ff.cc:337:slice$884 ($sdff) from module frequency_counter (D = $procmux$130_Y, Q = \measurement_pulse_done_internal_flag).
+Adding SRST signal on $procdff$715 ($dff) from module frequency_counter (D = $procmux$104_Y, Q = \pulse_timing_internal, rval = 24'000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$894 ($sdff) from module frequency_counter (D = $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:529$101_Y, Q = \pulse_timing_internal).
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$822 ($sdffe) from module frequency_counter.
+
+52. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 48 unused cells and 44 unused wires.
+<suppressed ~49 debug messages>
+
+53. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~5 debug messages>
+
+54. Rerunning OPT passes. (Maybe there is more to do…)
+
+55. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+56. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+57. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 220 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 206 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~45 debug messages>
+Removed a total of 15 cells.
+
+58. Executing OPT_DFF pass (perform DFF optimizations).
+
+59. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 16 unused wires.
+<suppressed ~1 debug messages>
+
+60. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+61. Rerunning OPT passes. (Maybe there is more to do…)
+
+62. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+63. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+64. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 205 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+65. Executing OPT_DFF pass (perform DFF optimizations).
+
+66. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+67. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+68. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$889 ($ne).
+Removed top 1 bits (of 3) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$875 ($ne).
+Removed top 1 bits (of 4) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$867 ($ne).
+Removed top 1 bits (of 2) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$814 ($ne).
+Removed top 3 bits (of 4) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$810 ($ne).
+Removed top 1 bits (of 2) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$766 ($ne).
+Removed top 1 bits (of 3) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$762 ($ne).
+Removed top 4 bits (of 5) from port B of cell frequency_counter.$auto$opt_dff.cc:235:make_patterns_logic$758 ($ne).
+Removed top 4 bits (of 24) from port B of cell frequency_counter.$ge$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:426$65 ($ge).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$530_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$533_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$536_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$539_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$543_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$547_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$551_CMP0 ($eq).
+Removed top 3 bits (of 8) from port B of cell frequency_counter.$procmux$555_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell frequency_counter.$procmux$559_CMP0 ($eq).
+Removed top 4 bits (of 8) from port B of cell frequency_counter.$procmux$654_CMP0 ($eq).
+
+69. Executing PEEPOPT pass (run peephole optimizers).
+
+70. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+71. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module frequency_counter:
+  creating $macc model for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:399$53 ($add).
+  creating $macc model for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:445$68 ($add).
+  creating $macc model for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:507$91 ($add).
+  creating $macc model for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:529$101 ($add).
+  creating $alu model for $macc $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:529$101.
+  creating $alu model for $macc $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:507$91.
+  creating $alu model for $macc $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:445$68.
+  creating $alu model for $macc $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:399$53.
+  creating $alu model for $ge$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:426$65 ($ge): new $alu
+  creating $alu cell for $ge$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:426$65: $auto$alumacc.cc:512:replace_alu$901
+  creating $alu cell for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:399$53: $auto$alumacc.cc:512:replace_alu$914
+  creating $alu cell for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:445$68: $auto$alumacc.cc:512:replace_alu$917
+  creating $alu cell for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:507$91: $auto$alumacc.cc:512:replace_alu$920
+  creating $alu cell for $add$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:529$101: $auto$alumacc.cc:512:replace_alu$923
+  created 5 $alu and 0 $macc cells.
+
+72. Executing SHARE pass (SAT-based resource sharing).
+
+73. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+74. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 210 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+75. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+76. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+77. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 210 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+78. Executing OPT_DFF pass (perform DFF optimizations).
+
+79. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+80. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+81. Rerunning OPT passes. (Maybe there is more to do…)
+
+82. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~126 debug messages>
+
+83. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+84. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 210 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+85. Executing OPT_DFF pass (perform DFF optimizations).
+
+86. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+87. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+88. Executing MEMORY pass.
+
+88.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+88.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+88.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+88.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+88.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+88.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+88.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+88.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+88.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+88.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+89. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+90. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~56 debug messages>
+
+91. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 160 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+92. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:337:slice$808 ($sdffe) from module frequency_counter (D = $procmux$514_Y, Q = \range_timing_register).
+Adding EN signal on $auto$ff.cc:337:slice$796 ($sdffe) from module frequency_counter (D = $procmux$484_Y, Q = \pulse_timing_register).
+Adding EN signal on $auto$ff.cc:337:slice$754 ($sdffe) from module frequency_counter (D = $procmux$407_Y, Q = \counter_control_status_register [7]).
+
+93. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 50 unused wires.
+<suppressed ~1 debug messages>
+
+94. Rerunning OPT passes (Removed registers in this run.)
+
+95. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~17 debug messages>
+
+96. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 157 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 155 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 154 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+97. Executing OPT_DFF pass (perform DFF optimizations).
+
+98. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 13 unused wires.
+<suppressed ~1 debug messages>
+
+99. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+100. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~2 debug messages>
+
+101. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 153 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+102. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~31 debug messages>
+
+103. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+    New input vector for $reduce_and cell $auto$opt_dff.cc:252:make_patterns_logic$940: { $auto$opt_dff.cc:234:make_patterns_logic$755 $auto$opt_dff.cc:234:make_patterns_logic$757 $auto$opt_dff.cc:234:make_patterns_logic$759 $auto$opt_dff.cc:234:make_patterns_logic$761 $auto$opt_dff.cc:234:make_patterns_logic$763 $auto$opt_dff.cc:234:make_patterns_logic$765 $auto$opt_dff.cc:234:make_patterns_logic$937 }
+    New input vector for $reduce_and cell $auto$opt_dff.cc:252:make_patterns_logic$935: { $auto$opt_dff.cc:234:make_patterns_logic$797 $auto$opt_dff.cc:234:make_patterns_logic$799 $auto$opt_dff.cc:234:make_patterns_logic$801 $auto$rtlil.cc:3255:Not$804 $auto$opt_dff.cc:234:make_patterns_logic$927 }
+  Optimizing cells in module \frequency_counter.
+Performed a total of 2 changes.
+
+104. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 153 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+105. Executing OPT_SHARE pass.
+
+106. Executing OPT_DFF pass (perform DFF optimizations).
+
+107. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 1 unused cells and 2 unused wires.
+<suppressed ~2 debug messages>
+
+108. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+109. Rerunning OPT passes. (Maybe there is more to do…)
+
+110. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~31 debug messages>
+
+111. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+112. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 152 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+113. Executing OPT_SHARE pass.
+
+114. Executing OPT_DFF pass (perform DFF optimizations).
+
+115. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+116. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+117. Executing TECHMAP pass (map to technology primitives).
+
+117.1. Executing Verilog-2005 frontend: /foss/tools/yosys/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/foss/tools/yosys/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+117.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using template $paramod$79aa992f2eb7f354d4aaf651790713cf239111fa\_90_alu for cells of type $alu.
+Using template $paramod$2af30114e9bd4ccb04dad757b3f0a8f6bf0615b0\_90_alu for cells of type $alu.
+Using template $paramod$103b4016182df467cceab67bcf3e18e6361ec0fd\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod$e4de2ab849095e3acc2e22a0369cbb671a3ded86\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_not.
+Using template $paramod$c5c783b17ab1d780abfad8cfe6563a0a7b47a3b0\_90_pmux for cells of type $pmux.
+Using template $paramod$8cb56ea4af20bc5206a0050d3126d66b7cc022cc\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $dff.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000111 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000111 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000011000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000011000 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1208 debug messages>
+
+118. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~993 debug messages>
+
+119. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 1241 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 1136 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 1107 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 1098 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~429 debug messages>
+Removed a total of 143 cells.
+
+120. Executing OPT_DFF pass (perform DFF optimizations).
+
+121. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 122 unused cells and 681 unused wires.
+<suppressed ~123 debug messages>
+
+122. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+123. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 976 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+124. Executing OPT_DFF pass (perform DFF optimizations).
+
+125. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+126. Executing ABC pass (technology mapping using ABC).
+
+126.1. Extracting gate netlist of module `\frequency_counter' to `<abc-temp-dir>/input.blif'..
+
+126.1.1. Executed ABC.
+Extracted 810 gates and 984 wires to a netlist network with 173 inputs and 106 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Apr 16 2026 21:01:18)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+ABC: 
+ABC: YOSYS_ABC_DONE 
+
+126.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       30
+ABC RESULTS:            ANDNOT cells:      272
+ABC RESULTS:               MUX cells:       21
+ABC RESULTS:              NAND cells:       47
+ABC RESULTS:               NOR cells:       25
+ABC RESULTS:               NOT cells:       26
+ABC RESULTS:                OR cells:      175
+ABC RESULTS:             ORNOT cells:       84
+ABC RESULTS:              XNOR cells:       19
+ABC RESULTS:               XOR cells:       66
+ABC RESULTS:        internal signals:      705
+ABC RESULTS:           input signals:      173
+ABC RESULTS:          output signals:      106
+Removing temp directory.
+Removing global temp directory.
+
+127. Executing OPT pass (performing simple optimizations).
+
+127.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+<suppressed ~3 debug messages>
+
+127.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 931 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Computing hashes of 929 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
+
+127.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+127.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 504 unused wires.
+<suppressed ~2 debug messages>
+
+127.5. Finished fast OPT passes.
+
+128. Executing HIERARCHY pass (managing design hierarchy).
+
+128.1. Analyzing design hierarchy..
+Top module:  \frequency_counter
+
+128.2. Analyzing design hierarchy..
+Top module:  \frequency_counter
+Removed 0 unused modules.
+
+129. Executing CHECK pass (checking for obvious problems).
+Checking module frequency_counter...
+Found and reported 0 problems.
+
+130. Printing statistics.
+
+=== frequency_counter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      770 wires
+      983 wire bits
+       29 public wires
+      196 public wire bits
+       16 ports
+       41 port bits
+      929 cells
+      272   $_ANDNOT_
+       29   $_AND_
+        8   $_DFFE_PP_
+        1   $_DFF_P_
+       21   $_MUX_
+       47   $_NAND_
+       24   $_NOR_
+       26   $_NOT_
+       84   $_ORNOT_
+      175   $_OR_
+       24   $_SDFFE_PP0N_
+      126   $_SDFFE_PP0P_
+        6   $_SDFFE_PP1P_
+        1   $_SDFF_PP0_
+       19   $_XNOR_
+       66   $_XOR_
+
+131. Executing OPT pass (performing simple optimizations).
+
+131.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+131.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 929 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+131.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \frequency_counter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+131.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \frequency_counter.
+Performed a total of 0 changes.
+
+131.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\frequency_counter'.
+Computing hashes of 929 cells of `\frequency_counter'.
+Finding duplicate cells in `\frequency_counter'.
+Removed a total of 0 cells.
+
+131.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+131.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+
+131.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module frequency_counter.
+
+131.9. Finished fast OPT passes. (There is nothing left to do.)
+
+132. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+{
+   "creator": "Yosys 0.64 (git sha1 6d2c445ae, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/tmp/ad6f353f0b194601bd2fc9403cd5b6f3.lib ",
+   "modules": {
+      "\\frequency_counter": {
+         "num_wires":         770,
+         "num_wire_bits":     983,
+         "num_pub_wires":     29,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         929,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 272,
+            "$_AND_": 29,
+            "$_DFFE_PP_": 8,
+            "$_DFF_P_": 1,
+            "$_MUX_": 21,
+            "$_NAND_": 47,
+            "$_NOR_": 24,
+            "$_NOT_": 26,
+            "$_ORNOT_": 84,
+            "$_OR_": 175,
+            "$_SDFFE_PP0N_": 24,
+            "$_SDFFE_PP0P_": 126,
+            "$_SDFFE_PP1P_": 6,
+            "$_SDFF_PP0_": 1,
+            "$_XNOR_": 19,
+            "$_XOR_": 66
+         }
+      }
+   },
+      "design": {
+         "num_wires":         770,
+         "num_wire_bits":     983,
+         "num_pub_wires":     29,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         929,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 272,
+            "$_AND_": 29,
+            "$_DFFE_PP_": 8,
+            "$_DFF_P_": 1,
+            "$_MUX_": 21,
+            "$_NAND_": 47,
+            "$_NOR_": 24,
+            "$_NOT_": 26,
+            "$_ORNOT_": 84,
+            "$_OR_": 175,
+            "$_SDFFE_PP0N_": 24,
+            "$_SDFFE_PP0P_": 126,
+            "$_SDFFE_PP1P_": 6,
+            "$_SDFF_PP0_": 1,
+            "$_XNOR_": 19,
+            "$_XOR_": 66
+         }
+      }
+}
+
+133. Printing statistics.
+
+=== frequency_counter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      770 wires
+      983 wire bits
+       29 public wires
+      196 public wire bits
+       16 ports
+       41 port bits
+      929 cells
+      272   $_ANDNOT_
+       29   $_AND_
+        8   $_DFFE_PP_
+        1   $_DFF_P_
+       21   $_MUX_
+       47   $_NAND_
+       24   $_NOR_
+       26   $_NOT_
+       84   $_ORNOT_
+      175   $_OR_
+       24   $_SDFFE_PP0N_
+      126   $_SDFFE_PP0P_
+        6   $_SDFFE_PP1P_
+        1   $_SDFF_PP0_
+       19   $_XNOR_
+       66   $_XOR_
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PP_ is unknown!
+   Area for cell type $_DFF_P_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_SDFFE_PP0N_ is unknown!
+   Area for cell type $_SDFFE_PP0P_ is unknown!
+   Area for cell type $_SDFFE_PP1P_ is unknown!
+   Area for cell type $_SDFF_PP0_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+134. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell gf180mcu_fd_sc_mcu7t5v0__dffnq_1 (noninv, pins=3, area=65.86) is a direct match for cell type $_DFF_N_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffq_1 (noninv, pins=3, area=63.66) is a direct match for cell type $_DFF_P_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffnrnq_1 (noninv, pins=4, area=74.64) is a direct match for cell type $_DFF_NN0_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffnsnq_1 (noninv, pins=4, area=79.03) is a direct match for cell type $_DFF_NN1_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffrnq_1 (noninv, pins=4, area=74.64) is a direct match for cell type $_DFF_PN0_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffsnq_1 (noninv, pins=4, area=79.03) is a direct match for cell type $_DFF_PN1_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_1 (noninv, pins=5, area=94.39) is a direct match for cell type $_DFFSR_NNN_.
+  cell gf180mcu_fd_sc_mcu7t5v0__dffrsnq_1 (noninv, pins=5, area=85.61) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    \gf180mcu_fd_sc_mcu7t5v0__dffnq_1 _DFF_N_ (.CLKN( C), .D( D), .Q( Q));
+    \gf180mcu_fd_sc_mcu7t5v0__dffq_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \gf180mcu_fd_sc_mcu7t5v0__dffnrnq_1 _DFF_NN0_ (.CLKN( C), .D( D), .Q( Q), .RN( R));
+    \gf180mcu_fd_sc_mcu7t5v0__dffnsnq_1 _DFF_NN1_ (.CLKN( C), .D( D), .Q( Q), .SETN( R));
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \gf180mcu_fd_sc_mcu7t5v0__dffrnq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RN( R));
+    \gf180mcu_fd_sc_mcu7t5v0__dffsnq_1 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SETN( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    \gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_1 _DFFSR_NNN_ (.CLKN( C), .D( D), .Q( Q), .RN( R), .SETN( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \gf180mcu_fd_sc_mcu7t5v0__dffrsnq_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .RN( R), .SETN( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+134.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+Mapping DFF cells in module `\frequency_counter':
+  mapped 166 $_DFF_P_ cells to \gf180mcu_fd_sc_mcu7t5v0__dffq_1 cells.
+{
+   "creator": "Yosys 0.64 (git sha1 6d2c445ae, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/tmp/ad6f353f0b194601bd2fc9403cd5b6f3.lib ",
+   "modules": {
+      "\\frequency_counter": {
+         "num_wires":         1091,
+         "num_wire_bits":     1304,
+         "num_pub_wires":     29,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1250,
+         "num_submodules":       0,
+         "area":              10567.692800,
+         "sequential_area":    10567.692800,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 272,
+            "$_AND_": 29,
+            "$_MUX_": 342,
+            "$_NAND_": 47,
+            "$_NOR_": 24,
+            "$_NOT_": 26,
+            "$_ORNOT_": 84,
+            "$_OR_": 175,
+            "$_XNOR_": 19,
+            "$_XOR_": 66,
+            "gf180mcu_fd_sc_mcu7t5v0__dffq_1": 166
+         }
+      }
+   },
+      "design": {
+         "num_wires":         1091,
+         "num_wire_bits":     1304,
+         "num_pub_wires":     29,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         1250,
+         "num_submodules":       0,
+         "area":              10567.692800,
+         "sequential_area":    10567.692800,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 272,
+            "$_AND_": 29,
+            "$_MUX_": 342,
+            "$_NAND_": 47,
+            "$_NOR_": 24,
+            "$_NOT_": 26,
+            "$_ORNOT_": 84,
+            "$_OR_": 175,
+            "$_XNOR_": 19,
+            "$_XOR_": 66,
+            "gf180mcu_fd_sc_mcu7t5v0__dffq_1": 166
+         }
+      }
+}
+
+135. Printing statistics.
+
+=== frequency_counter ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1091        - wires
+     1304        - wire bits
+       29        - public wires
+      196        - public wire bits
+       16        - ports
+       41        - port bits
+     1250 1.06E+04 cells
+      272        -   $_ANDNOT_
+       29        -   $_AND_
+      342        -   $_MUX_
+       47        -   $_NAND_
+       24        -   $_NOR_
+       26        -   $_NOT_
+       84        -   $_ORNOT_
+      175        -   $_OR_
+       19        -   $_XNOR_
+       66        -   $_XOR_
+      166 1.06E+04   gf180mcu_fd_sc_mcu7t5v0__dffq_1
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+   Chip area for module '\frequency_counter': 10567.692800
+     of which used for sequential elements: 10567.692800 (100.00%)
+
+[INFO] Using generated ABC script '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/06-yosys-synthesis/AREA_0.abc'…
+
+136. Executing ABC pass (technology mapping using ABC).
+
+136.1. Extracting gate netlist of module `\frequency_counter' to `/tmp/yosys-abc-HXHlEe/input.blif'..
+
+136.1.1. Executed ABC.
+Extracted 1084 gates and 1272 wires to a netlist network with 186 inputs and 165 outputs.
+Running ABC script: /tmp/yosys-abc-HXHlEe/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Apr 16 2026 21:01:18)
+ABC: abc 01> empty
+ABC: abc 01> source /tmp/yosys-abc-HXHlEe/abc.script
+ABC: + read_blif /tmp/yosys-abc-HXHlEe/input.blif 
+ABC: + read_lib -w /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/tmp/ad6f353f0b194601bd2fc9403cd5b6f3.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.13 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__antenna" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_3".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_12".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__bufz_16".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffnsnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffrsnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__dffsnq_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__endcap" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_16" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_32" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fill_64" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fillcap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fillcap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fillcap_16" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fillcap_32" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__fillcap_64" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__filltie" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__hold".
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtn_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtn_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtn_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "gf180mcu_fd_sc_mcu7t5v0__icgtp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_3".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_12".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "gf180mcu_fd_sc_mcu7t5v0__invz_16".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latrsnq_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latsnq_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latsnq_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "gf180mcu_fd_sc_mcu7t5v0__latsnq_4".
+ABC: Library "gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00" from "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/tmp/ad6f353f0b194601bd2fc9403cd5b6f3.lib" has 143 cells (72 skipped: 36 seq; 15 tri-state; 21 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.20 sec
+ABC: Memory =   23.83 MB. Time =     0.20 sec
+ABC: Warning: Detected 6 multi-output cells (for example, "gf180mcu_fd_sc_mcu7t5v0__addf_1").
+ABC: + read_constr -v /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "gf180mcu_fd_sc_mcu7t5v0__inv_1/ZN".
+ABC: Setting output load to be 72.910004.
+ABC: + source /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (gf180mcu_fd_sc_mcu7t5v0__inv_1/ZN) in the library.
+ABC: WireLoad = "none"  Gates =    644 (  7.9 %)   Cap = 23.7 ff (  2.6 %)   Area =    10872.83 ( 95.5 %)   Delay =  7103.63 ps  (  4.0 %)               
+ABC: Path  0 --     178 : 0    2 pi                                A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =   8.8 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --     393 : 2    3 gf180mcu_fd_sc_mcu7t5v0__nand2_1  A =  10.98  Df = 204.2  -25.8 ps  S = 341.2 ps  Cin =  4.7 ff  Cout =  13.7 ff  Cmax = 212.6 ff  G =  292  
+ABC: Path  2 --     394 : 2    3 gf180mcu_fd_sc_mcu7t5v0__nor2_1   A =  13.17  Df = 543.4  -95.3 ps  S = 526.3 ps  Cin =  4.4 ff  Cout =  13.6 ff  Cmax = 125.1 ff  G =  310  
+ABC: Path  3 --     449 : 3    2 gf180mcu_fd_sc_mcu7t5v0__aoi21_1  A =  17.56  Df = 836.2  -18.2 ps  S = 486.9 ps  Cin =  4.6 ff  Cout =   9.5 ff  Cmax = 124.2 ff  G =  208  
+ABC: Path  4 --     459 : 2    2 gf180mcu_fd_sc_mcu7t5v0__nand2_1  A =  10.98  Df =1056.0  -69.9 ps  S = 236.4 ps  Cin =  4.7 ff  Cout =   7.0 ff  Cmax = 212.6 ff  G =  150  
+ABC: Path  5 --     460 : 2   48 gf180mcu_fd_sc_mcu7t5v0__nor2_1   A =  13.17  Df =4859.2-1843.3 ps  S =6844.7 ps  Cin =  4.4 ff  Cout = 224.0 ff  Cmax = 125.1 ff  G = 5134  
+ABC: Path  6 --     549 : 4    1 gf180mcu_fd_sc_mcu7t5v0__aoi211_1 A =  21.95  Df =7103.6-1242.9 ps  S =3588.7 ps  Cin =  4.3 ff  Cout =  72.9 ff  Cmax =  82.4 ff  G = 1702  
+ABC: Start-point = pi177 (\CYC_I).  End-point = po51 ($auto$rtlil.cc:3501:MuxGate$4860).
+ABC: netlist                       : i/o =  186/  165  lat =    0  nd =   644  edge =   1729  area =10872.49  delay =10.00  lev = 10
+ABC: + write_blif /tmp/yosys-abc-HXHlEe/output.blif 
+ABC:                                                                                
+ABC: YOSYS_ABC_DONE 
+
+136.1.2. Re-integrating ABC results.
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__and2_1 cells:       33
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__and3_1 cells:       14
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__and4_1 cells:        8
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__aoi211_1 cells:       31
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__aoi21_1 cells:       41
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__aoi221_1 cells:        4
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__aoi222_1 cells:       16
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__aoi22_1 cells:       42
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__clkinv_1 cells:       51
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__mux2_2 cells:        7
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nand2_1 cells:       45
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nand3_1 cells:       10
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nand4_1 cells:        6
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nor2_1 cells:      172
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nor3_1 cells:       45
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__nor4_1 cells:       10
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__oai211_1 cells:        8
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__oai21_1 cells:       61
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__oai221_1 cells:        2
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__oai31_1 cells:        5
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__or2_1 cells:        4
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__or3_1 cells:        2
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__or4_1 cells:        5
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__xnor2_1 cells:        4
+ABC RESULTS:   gf180mcu_fd_sc_mcu7t5v0__xor2_1 cells:       18
+ABC RESULTS:        internal signals:      921
+ABC RESULTS:           input signals:      186
+ABC RESULTS:          output signals:      165
+Removing temp directory.
+Removing global temp directory.
+
+137. Executing SETUNDEF pass (replace undef values with defined constants).
+
+138. Executing HILOMAP pass (mapping to constant drivers).
+
+139. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+140. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \frequency_counter..
+Removed 0 unused cells and 1295 unused wires.
+<suppressed ~1 debug messages>
+
+141. Executing INSBUF pass (insert buffer cells for connected wires).
+Add frequency_counter/$auto$insbuf.cc:97:execute$5958: \afe_config_bypass_control_register[2] -> \bypass_pin_control [0]
+Add frequency_counter/$auto$insbuf.cc:97:execute$5959: \afe_config_bypass_control_register[3] -> \bypass_pin_control [1]
+Add frequency_counter/$auto$insbuf.cc:97:execute$5960: \afe_config_bypass_control_register[4] -> \bypass_pin_control [2]
+Add frequency_counter/$auto$insbuf.cc:97:execute$5961: \afe_config_bypass_control_register[5] -> \pga_gain_control [0]
+Add frequency_counter/$auto$insbuf.cc:97:execute$5962: \afe_config_bypass_control_register[6] -> \pga_gain_control [1]
+Add frequency_counter/$auto$insbuf.cc:97:execute$5963: \afe_config_bypass_control_register[7] -> \pga_gain_control [2]
+
+142. Executing CHECK pass (checking for obvious problems).
+Checking module frequency_counter...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.64 (git sha1 6d2c445ae, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)",
+   "invocation": "stat -json -liberty /foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_14-43-30/tmp/ad6f353f0b194601bd2fc9403cd5b6f3.lib ",
+   "modules": {
+      "\\frequency_counter": {
+         "num_wires":         815,
+         "num_wire_bits":     840,
+         "num_pub_wires":     171,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         817,
+         "num_submodules":       0,
+         "area":              21528.326400,
+         "sequential_area":    10567.692800,
+         "num_cells_by_type": {
+            "gf180mcu_fd_sc_mcu7t5v0__and2_1": 33,
+            "gf180mcu_fd_sc_mcu7t5v0__and3_1": 14,
+            "gf180mcu_fd_sc_mcu7t5v0__and4_1": 8,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi211_1": 31,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi21_1": 41,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi221_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi222_1": 16,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi22_1": 42,
+            "gf180mcu_fd_sc_mcu7t5v0__buf_1": 6,
+            "gf180mcu_fd_sc_mcu7t5v0__clkinv_1": 51,
+            "gf180mcu_fd_sc_mcu7t5v0__dffq_1": 166,
+            "gf180mcu_fd_sc_mcu7t5v0__mux2_2": 7,
+            "gf180mcu_fd_sc_mcu7t5v0__nand2_1": 45,
+            "gf180mcu_fd_sc_mcu7t5v0__nand3_1": 10,
+            "gf180mcu_fd_sc_mcu7t5v0__nand4_1": 6,
+            "gf180mcu_fd_sc_mcu7t5v0__nor2_1": 172,
+            "gf180mcu_fd_sc_mcu7t5v0__nor3_1": 45,
+            "gf180mcu_fd_sc_mcu7t5v0__nor4_1": 10,
+            "gf180mcu_fd_sc_mcu7t5v0__oai211_1": 8,
+            "gf180mcu_fd_sc_mcu7t5v0__oai21_1": 61,
+            "gf180mcu_fd_sc_mcu7t5v0__oai221_1": 2,
+            "gf180mcu_fd_sc_mcu7t5v0__oai31_1": 5,
+            "gf180mcu_fd_sc_mcu7t5v0__or2_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__or3_1": 2,
+            "gf180mcu_fd_sc_mcu7t5v0__or4_1": 5,
+            "gf180mcu_fd_sc_mcu7t5v0__tiel": 1,
+            "gf180mcu_fd_sc_mcu7t5v0__xnor2_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__xor2_1": 18
+         }
+      }
+   },
+      "design": {
+         "num_wires":         815,
+         "num_wire_bits":     840,
+         "num_pub_wires":     171,
+         "num_pub_wire_bits": 196,
+         "num_ports":         16,
+         "num_port_bits":     41,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         817,
+         "num_submodules":       0,
+         "area":              21528.326400,
+         "sequential_area":    10567.692800,
+         "num_cells_by_type": {
+            "gf180mcu_fd_sc_mcu7t5v0__and2_1": 33,
+            "gf180mcu_fd_sc_mcu7t5v0__and3_1": 14,
+            "gf180mcu_fd_sc_mcu7t5v0__and4_1": 8,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi211_1": 31,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi21_1": 41,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi221_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi222_1": 16,
+            "gf180mcu_fd_sc_mcu7t5v0__aoi22_1": 42,
+            "gf180mcu_fd_sc_mcu7t5v0__buf_1": 6,
+            "gf180mcu_fd_sc_mcu7t5v0__clkinv_1": 51,
+            "gf180mcu_fd_sc_mcu7t5v0__dffq_1": 166,
+            "gf180mcu_fd_sc_mcu7t5v0__mux2_2": 7,
+            "gf180mcu_fd_sc_mcu7t5v0__nand2_1": 45,
+            "gf180mcu_fd_sc_mcu7t5v0__nand3_1": 10,
+            "gf180mcu_fd_sc_mcu7t5v0__nand4_1": 6,
+            "gf180mcu_fd_sc_mcu7t5v0__nor2_1": 172,
+            "gf180mcu_fd_sc_mcu7t5v0__nor3_1": 45,
+            "gf180mcu_fd_sc_mcu7t5v0__nor4_1": 10,
+            "gf180mcu_fd_sc_mcu7t5v0__oai211_1": 8,
+            "gf180mcu_fd_sc_mcu7t5v0__oai21_1": 61,
+            "gf180mcu_fd_sc_mcu7t5v0__oai221_1": 2,
+            "gf180mcu_fd_sc_mcu7t5v0__oai31_1": 5,
+            "gf180mcu_fd_sc_mcu7t5v0__or2_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__or3_1": 2,
+            "gf180mcu_fd_sc_mcu7t5v0__or4_1": 5,
+            "gf180mcu_fd_sc_mcu7t5v0__tiel": 1,
+            "gf180mcu_fd_sc_mcu7t5v0__xnor2_1": 4,
+            "gf180mcu_fd_sc_mcu7t5v0__xor2_1": 18
+         }
+      }
+}
+
+143. Printing statistics.
+
+=== frequency_counter ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      815        - wires
+      840        - wire bits
+      171        - public wires
+      196        - public wire bits
+       16        - ports
+       41        - port bits
+      817 2.15E+04 cells
+       33  579.533   gf180mcu_fd_sc_mcu7t5v0__and2_1
+       14  307.328   gf180mcu_fd_sc_mcu7t5v0__and3_1
+        8  193.178   gf180mcu_fd_sc_mcu7t5v0__and4_1
+       31  680.512   gf180mcu_fd_sc_mcu7t5v0__aoi211_1
+       41  720.026   gf180mcu_fd_sc_mcu7t5v0__aoi21_1
+        4   96.589   gf180mcu_fd_sc_mcu7t5v0__aoi221_1
+       16  491.725   gf180mcu_fd_sc_mcu7t5v0__aoi222_1
+       42  829.786   gf180mcu_fd_sc_mcu7t5v0__aoi22_1
+        6   79.027   gf180mcu_fd_sc_mcu7t5v0__buf_1
+       51  447.821   gf180mcu_fd_sc_mcu7t5v0__clkinv_1
+      166 1.06E+04   gf180mcu_fd_sc_mcu7t5v0__dffq_1
+        7  230.496   gf180mcu_fd_sc_mcu7t5v0__mux2_2
+       45   493.92   gf180mcu_fd_sc_mcu7t5v0__nand2_1
+       10  153.664   gf180mcu_fd_sc_mcu7t5v0__nand3_1
+        6  118.541   gf180mcu_fd_sc_mcu7t5v0__nand4_1
+      172 2.27E+03   gf180mcu_fd_sc_mcu7t5v0__nor2_1
+       45  790.272   gf180mcu_fd_sc_mcu7t5v0__nor3_1
+       10   219.52   gf180mcu_fd_sc_mcu7t5v0__nor4_1
+        8  175.616   gf180mcu_fd_sc_mcu7t5v0__oai211_1
+       61 1.07E+03   gf180mcu_fd_sc_mcu7t5v0__oai21_1
+        2   52.685   gf180mcu_fd_sc_mcu7t5v0__oai221_1
+        5  120.736   gf180mcu_fd_sc_mcu7t5v0__oai31_1
+        4   70.246   gf180mcu_fd_sc_mcu7t5v0__or2_1
+        2   43.904   gf180mcu_fd_sc_mcu7t5v0__or3_1
+        5  131.712   gf180mcu_fd_sc_mcu7t5v0__or4_1
+        1    8.781   gf180mcu_fd_sc_mcu7t5v0__tiel
+        4   114.15   gf180mcu_fd_sc_mcu7t5v0__xnor2_1
+       18  474.163   gf180mcu_fd_sc_mcu7t5v0__xor2_1
+
+   Chip area for module '\frequency_counter': 21528.326400
+     of which used for sequential elements: 10567.692800 (49.09%)
+
+144. Executing Verilog backend.
+Dumping module `\frequency_counter'.
+
+145. Executing JSON backend.

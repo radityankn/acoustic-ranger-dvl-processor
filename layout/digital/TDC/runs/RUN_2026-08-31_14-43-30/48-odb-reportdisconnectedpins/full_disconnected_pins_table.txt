@@ -1,0 +1,44 @@
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Macro/Instance    ┃ Power Pins ┃ Disconnected ┃ Signal Pins           ┃ Disconnected ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ frequency_counter │ VDD        │              │ ACK_O                 │ ext_rst_i    │
+│                   │ VSS        │              │ ADDR_I[0]             │              │
+│                   │            │              │ ADDR_I[1]             │              │
+│                   │            │              │ ADDR_I[2]             │              │
+│                   │            │              │ ADDR_I[3]             │              │
+│                   │            │              │ ADDR_I[4]             │              │
+│                   │            │              │ ADDR_I[5]             │              │
+│                   │            │              │ ADDR_I[6]             │              │
+│                   │            │              │ ADDR_I[7]             │              │
+│                   │            │              │ CLK_I                 │              │
+│                   │            │              │ CYC_I                 │              │
+│                   │            │              │ DAT_I[0]              │              │
+│                   │            │              │ DAT_I[1]              │              │
+│                   │            │              │ DAT_I[2]              │              │
+│                   │            │              │ DAT_I[3]              │              │
+│                   │            │              │ DAT_I[4]              │              │
+│                   │            │              │ DAT_I[5]              │              │
+│                   │            │              │ DAT_I[6]              │              │
+│                   │            │              │ DAT_I[7]              │              │
+│                   │            │              │ DAT_O[0]              │              │
+│                   │            │              │ DAT_O[1]              │              │
+│                   │            │              │ DAT_O[2]              │              │
+│                   │            │              │ DAT_O[3]              │              │
+│                   │            │              │ DAT_O[4]              │              │
+│                   │            │              │ DAT_O[5]              │              │
+│                   │            │              │ DAT_O[6]              │              │
+│                   │            │              │ DAT_O[7]              │              │
+│                   │            │              │ ERR_O                 │              │
+│                   │            │              │ RST_I                 │              │
+│                   │            │              │ RTY_O                 │              │
+│                   │            │              │ STB_I                 │              │
+│                   │            │              │ WE_I                  │              │
+│                   │            │              │ bypass_pin_control[0] │              │
+│                   │            │              │ bypass_pin_control[1] │              │
+│                   │            │              │ bypass_pin_control[2] │              │
+│                   │            │              │ pga_gain_control[0]   │              │
+│                   │            │              │ pga_gain_control[1]   │              │
+│                   │            │              │ pga_gain_control[2]   │              │
+│                   │            │              │ signal_input          │              │
+│                   │            │              │ trigger_signal_out    │              │
+└───────────────────┴────────────┴──────────────┴───────────────────────┴──────────────┘

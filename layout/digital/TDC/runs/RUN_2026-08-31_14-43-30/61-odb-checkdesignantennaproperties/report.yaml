@@ -1,0 +1,5 @@
+- cell: frequency_counter
+  inout: []
+  input:
+  - ext_rst_i
+  output: []

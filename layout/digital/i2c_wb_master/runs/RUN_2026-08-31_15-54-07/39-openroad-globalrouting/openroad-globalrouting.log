@@ -1,0 +1,71 @@
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/37-openroad-resizertimingpostcts/i2c_controller.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/constraint.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO] Setting signal min routing layer to: Metal2 and clock min routing layer to Metal2. 
+[INFO] Setting signal max routing layer to: Metal5 and clock max routing layer to Metal5. 
++ global_route -congestion_iterations 50 -verbose
+[INFO GRT-0020] Min routing layer: Metal2
+[INFO GRT-0021] Max routing layer: Metal5
+[INFO GRT-0022] Global adjustment: 30%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 0
+[INFO GRT-0019] Found 10 clock nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 32
+
+[INFO GRT-0053] Routing resources analysis:
+          Routing      Original      Derated      Resource
+Layer     Direction    Resources     Resources    Reduction (%)
+---------------------------------------------------------------
+Metal1     Horizontal          0             0          0.00%
+Metal2     Vertical         5769          3846          33.33%
+Metal3     Horizontal       5827          3887          33.29%
+Metal4     Vertical         5766          3844          33.33%
+Metal5     Horizontal       3582          2412          32.66%
+---------------------------------------------------------------
+
+[INFO GRT-0197] Via related to pin nodes: 3493
+[INFO GRT-0198] Via related Steiner nodes: 79
+[INFO GRT-0199] Via filling finished.
+[INFO GRT-0111] Final number of vias: 4293
+[INFO GRT-0112] Final usage 3D: 15544
+
+[INFO GRT-0096] Final congestion report:
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow
+---------------------------------------------------------------------------------------
+Metal1               0             0            0.00%             0 /  0 /  0
+Metal2            3846          1429           37.16%             0 /  0 /  0
+Metal3            3887          1168           30.05%             0 /  0 /  0
+Metal4            3844            66            1.72%             0 /  0 /  0
+Metal5            2412             2            0.08%             0 /  0 /  0
+---------------------------------------------------------------------------------------
+Total            13989          2665           19.05%             0 /  0 /  0
+
+[INFO GRT-0018] Total wirelength: 35691 um
+[INFO GRT-0014] Routed nets: 581
+[INFO GRT-0303] Global routing runtime = 00:00:00
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 0 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                              76     333.67
+  Tap cell                                140     614.66
+  Buffer                                    1      13.17
+  Clock buffer                             11    1049.31
+  Timing Repair Buffer                     64    2761.56
+  Inverter                                 33     289.77
+  Clock inverter                            5      96.59
+  Sequential cell                          85    5411.17
+  Multi-Input combinational cell          376    6855.61
+  Total                                   791   17425.50
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/39-openroad-globalrouting/i2c_controller.odb'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/39-openroad-globalrouting/i2c_controller.def'…

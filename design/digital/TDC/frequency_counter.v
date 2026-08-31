@@ -65,7 +65,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     //          - bit 5: enables gain x50
     //      - bit 4: LNA bypass, activates the IN_BPF pin. can be used to test the LNA
     //      - bit 3: BPF bypass, activates the IN_SCHMITT pin. can be used to test the BPF
-    //      - bit 2: Reserved
+    //      - bit 2: optional bypass just in case
     //      - bit 1: Reserved
     //      - bit 0: Reserved
 
@@ -105,13 +105,15 @@ module frequency_counter #(parameter WIDTH = 8) (
     reg range_finished_internal_flag;
     reg pulse_timeout_internal_flag;
     reg measurement_pulse_start_internal_flag;
-
     reg measurement_pulse_done_internal_flag;
 
     // Wishbone Interface of the Counter block
     reg just_written_internal_flag;
     
     wire measurement_done_internal;
+
+    assign pga_gain_control[2:0] = afe_config_bypass_control_register[7:5];
+    assign bypass_pin_control[2:0] = afe_config_bypass_control_register[4:2];
 
     always @(posedge CLK_I) begin
         // if we receive a reset signal from the bus...

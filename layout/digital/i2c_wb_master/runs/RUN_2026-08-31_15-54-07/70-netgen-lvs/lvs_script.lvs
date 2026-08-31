@@ -1,0 +1,7 @@
+set circuit1 [readnet spice /foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/68-magic-spiceextraction/i2c_controller.spice]
+set circuit2 [readnet verilog /dev/null]
+puts "Reading SPICE netlist file '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/spice/gf180mcu_fd_sc_mcu7t5v0.spice'..."
+readnet spice /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/spice/gf180mcu_fd_sc_mcu7t5v0.spice $circuit2
+puts "Reading Verilog netlist file '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/52-openroad-fillinsertion/i2c_controller.pnl.v'..."
+readnet verilog /foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/52-openroad-fillinsertion/i2c_controller.pnl.v $circuit2
+lvs "$circuit1 i2c_controller" "$circuit2 i2c_controller" /usr/local/lib/python3.12/dist-packages/librelane/scripts/netgen/setup.tcl /foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/70-netgen-lvs/reports/lvs.netgen.rpt -blackbox -json

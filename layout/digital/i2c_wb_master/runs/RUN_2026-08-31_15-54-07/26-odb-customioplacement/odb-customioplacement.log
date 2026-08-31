@@ -1,0 +1,23 @@
+[WARNING ORD-0039] .openroad ignored with -python
+Top-level design name: i2c_controller
+Block boundaries: 0 0 329230 365070
+Horizontal Tracks Origin: 560, Count: 326, Step: 1120
+Vertical Tracks Origin: 560, Count: 294, Step: 1120
+Placement details for the E side
+Virtual pin count:  0
+Actual pin count:  32
+Total pin count:  32
+Tracks count:  163
+Tracks per pin:  5
+Used tracks count:  156
+Unused track count:  7
+Starting track index:  3
+Placement details for the W side
+Virtual pin count:  0
+Actual pin count:  4
+Total pin count:  4
+Tracks count:  163
+Tracks per pin:  40
+Used tracks count:  121
+Unused track count:  42
+Starting track index:  21

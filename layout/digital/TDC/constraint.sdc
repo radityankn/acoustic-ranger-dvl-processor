@@ -17,7 +17,7 @@ set clock_uncertainty 0.5
 set clock_period 100
 
 # set units for the whole SDC file expressions involving these quantities
-set_units -time ns -resistance Kohm -capacitance pF -voltage V -current mA
+set_units -time ns
 
 # Define the existing clock in the file for analysis. Here we are using 2 clocks
 # because there are 2 different clocks for this block's operation
