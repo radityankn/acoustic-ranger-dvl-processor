@@ -1,0 +1,26 @@
+{
+  "DESIGN_NAME": "i2c_controller",
+  "VERILOG_FILES": ["dir::../../../design/digital/I2C/i2c_controller_wb_master.v"],
+  "CLOCK_PERIOD": 100,
+  "CLOCK_PORT": "CLK_I",
+  "IO_PIN_ORDER_CFG": "dir::pin_order.cfg",
+  "PDK": "gf180mcuD",
+
+  "FP_SIZING": "relative",
+  "FP_CORE_UTIL": 60,
+  "FP_ASPECT_RATIO": 1,
+  "FP_OBSTRUCTIONS": null,
+  "PL_TARGET_DENSITY_PCT": 0.3,
+  "MAX_FANOUT_CONSTRAINT": 4,
+  "DIE_AREA": [0,0,300,300], 
+  "CORE_AREA": [0,0,280,280],
+
+  "MAX_TRANSITION_CONSTRAINT": 1.5,
+  "MAX_CAPACITANCE": 20,
+  "SYNTH_STRATEGY": "DELAY 2",
+
+  "PNR_SDC_FILE": "dir::constraint.sdc",
+  "SIGNOFF_SDC_FILE": "dir::constraint.sdc",
+
+  "KLAYOUT_DRC_RUNSET": "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/gf180mcu.drc"
+}

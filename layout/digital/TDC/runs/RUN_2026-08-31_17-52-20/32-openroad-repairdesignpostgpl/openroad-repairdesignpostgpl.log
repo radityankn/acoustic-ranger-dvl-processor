@@ -1,0 +1,176 @@
+Reading timing models for corner max_ff_n40C_5v50…
+Reading timing library for the 'max_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+Reading timing models for corner max_tt_025C_5v00…
+Reading timing library for the 'max_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading timing models for corner nom_ff_n40C_5v50…
+Reading timing library for the 'nom_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner min_ss_125C_4v50…
+Reading timing library for the 'min_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+Reading timing models for corner min_ff_n40C_5v50…
+Reading timing library for the 'min_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner min_tt_025C_5v00…
+Reading timing library for the 'min_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner max_ss_125C_4v50…
+Reading timing library for the 'max_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading timing models for corner nom_ss_125C_4v50…
+Reading timing library for the 'nom_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/28-openroad-globalplacement/frequency_counter.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/constraint.sdc'…
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO RSZ-0027] Inserted 20 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 input buffers.
+[INFO RSZ-0028] Inserted 17 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 output buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |      1002
+       10 |     +0.0% |       0 |       0 |             0 |       992
+       20 |     +0.0% |       0 |       0 |             0 |       982
+       30 |     +0.0% |       0 |       0 |             0 |       972
+       40 |     +0.0% |       0 |       0 |             0 |       962
+       50 |     +0.0% |       0 |       0 |             0 |       952
+       60 |     +0.0% |       0 |       0 |             0 |       942
+       70 |     +0.0% |       0 |       0 |             0 |       932
+       80 |     +0.0% |       0 |       0 |             0 |       922
+       90 |     +0.0% |       0 |       0 |             0 |       912
+      100 |     +0.0% |       0 |       0 |             0 |       902
+      110 |     +0.0% |       0 |       0 |             0 |       892
+      120 |     +0.0% |       0 |       0 |             0 |       882
+      130 |     +0.0% |       0 |       0 |             0 |       872
+      140 |     +0.0% |       0 |       0 |             0 |       862
+      150 |     +0.0% |       0 |       0 |             0 |       852
+      160 |     +0.0% |       0 |       0 |             0 |       842
+      170 |     +0.1% |       0 |       1 |             1 |       832
+      180 |     +0.1% |       0 |       1 |             1 |       822
+      190 |     +0.2% |       0 |       2 |             2 |       812
+      200 |     +0.2% |       0 |       2 |             2 |       802
+      210 |     +0.2% |       0 |       2 |             2 |       792
+      220 |     +0.2% |       0 |       2 |             2 |       782
+      230 |     +0.2% |       0 |       2 |             2 |       772
+      240 |     +0.2% |       0 |       2 |             2 |       762
+      250 |     +0.2% |       0 |       2 |             2 |       752
+      260 |     +0.2% |       0 |       2 |             2 |       742
+      270 |     +0.2% |       0 |       2 |             2 |       732
+      280 |     +0.2% |       0 |       2 |             2 |       722
+      290 |     +0.2% |       0 |       2 |             2 |       712
+      300 |     +0.2% |       0 |       2 |             2 |       702
+      310 |     +0.2% |       0 |       2 |             2 |       692
+      320 |     +0.2% |       0 |       2 |             2 |       682
+      330 |     +0.2% |       0 |       2 |             2 |       672
+      340 |     +0.2% |       0 |       2 |             2 |       662
+      350 |     +0.2% |       0 |       2 |             2 |       652
+      360 |     +0.2% |       0 |       2 |             2 |       642
+      370 |     +0.2% |       0 |       2 |             2 |       632
+      380 |     +0.2% |       0 |       2 |             2 |       622
+      390 |     +0.2% |       0 |       2 |             2 |       612
+      400 |     +0.4% |       0 |       4 |             3 |       602
+      410 |     +0.4% |       0 |       4 |             3 |       592
+      420 |     +0.4% |       0 |       4 |             3 |       582
+      430 |     +0.4% |       0 |       4 |             3 |       572
+      440 |     +0.4% |       0 |       4 |             3 |       562
+      450 |     +0.4% |       0 |       4 |             3 |       552
+      460 |     +0.4% |       0 |       4 |             3 |       542
+      470 |     +0.4% |       0 |       4 |             3 |       532
+      480 |     +0.4% |       0 |       4 |             3 |       522
+      490 |     +0.4% |       0 |       4 |             3 |       512
+      500 |     +0.4% |       0 |       4 |             3 |       502
+      510 |     +0.4% |       0 |       4 |             3 |       492
+      520 |     +0.4% |       0 |       4 |             3 |       482
+      530 |     +0.8% |       1 |       5 |             4 |       472
+      540 |     +0.8% |       1 |       5 |             4 |       462
+      550 |     +0.8% |       1 |       5 |             4 |       452
+      560 |     +0.8% |       1 |       5 |             4 |       442
+      570 |     +0.8% |       1 |       5 |             4 |       432
+      580 |     +0.8% |       1 |       5 |             4 |       422
+      590 |     +0.8% |       1 |       5 |             4 |       412
+      600 |     +0.9% |       1 |       6 |             5 |       402
+      610 |     +0.9% |       1 |       6 |             5 |       392
+      620 |     +0.9% |       1 |       6 |             5 |       382
+      630 |     +0.9% |       1 |       6 |             5 |       372
+      640 |     +1.1% |       2 |       7 |             6 |       362
+      650 |     +1.1% |       2 |       7 |             6 |       352
+      660 |     +1.1% |       2 |       7 |             6 |       342
+      670 |     +1.1% |       2 |       7 |             6 |       332
+      680 |     +1.1% |       2 |       7 |             6 |       322
+      690 |     +1.1% |       2 |       7 |             6 |       312
+      700 |     +1.1% |       2 |       7 |             6 |       302
+      710 |     +1.1% |       2 |       7 |             6 |       292
+      720 |     +1.1% |       2 |       7 |             6 |       282
+      730 |     +1.1% |       2 |       7 |             6 |       272
+      740 |     +1.4% |       2 |       9 |             7 |       262
+      750 |     +1.4% |       2 |       9 |             7 |       252
+      760 |     +1.4% |       2 |       9 |             7 |       242
+      770 |     +1.4% |       2 |       9 |             7 |       232
+      780 |     +1.4% |       2 |       9 |             7 |       222
+      790 |     +1.4% |       2 |       9 |             7 |       212
+      800 |     +1.4% |       2 |       9 |             7 |       202
+      810 |     +1.4% |       2 |       9 |             7 |       192
+      820 |     +1.4% |       2 |       9 |             7 |       182
+      830 |     +1.4% |       2 |       9 |             7 |       172
+      840 |     +1.4% |       2 |       9 |             7 |       162
+      850 |     +1.4% |       2 |       9 |             7 |       152
+      860 |     +1.4% |       2 |       9 |             7 |       142
+      870 |     +1.4% |       2 |       9 |             7 |       132
+      880 |     +1.4% |       2 |       9 |             7 |       122
+      890 |     +1.4% |       2 |       9 |             7 |       112
+      900 |     +1.4% |       2 |       9 |             7 |       102
+      910 |     +1.4% |       2 |       9 |             7 |        92
+      920 |     +1.4% |       2 |       9 |             7 |        82
+      930 |     +1.4% |       2 |       9 |             7 |        72
+      940 |     +1.4% |       2 |       9 |             7 |        62
+      950 |     +1.4% |       2 |       9 |             7 |        52
+      960 |     +1.4% |       2 |       9 |             7 |        42
+      970 |     +1.8% |       3 |      13 |             8 |        32
+      980 |     +1.8% |       3 |      13 |             8 |        22
+      990 |     +1.8% |       3 |      13 |             8 |        12
+     1000 |     +1.8% |       3 |      13 |             8 |         2
+    final |     +1.8% |       3 |      13 |             8 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 8 slew violations.
+[INFO RSZ-0036] Found 8 capacitance violations.
+[INFO RSZ-0039] Resized 3 instances.
+[INFO RSZ-0038] Inserted 13 buffers in 8 nets.
+[INFO RSZ-0042] Inserted 1 tie gf180mcu_fd_sc_mcu7t5v0__tiel instances.
+[WARNING RSZ-0020] found 2 floating nets.
+ VDD
+ VSS
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       4624.3 u
+average displacement        3.4 u
+max displacement           58.8 u
+original HPWL           29592.0 u
+legalized HPWL          33154.9 u
+delta HPWL                   12 %
+
+[INFO DPL-0020] Mirrored 360 instances
+[INFO DPL-0021] HPWL before           33154.9 u
+[INFO DPL-0022] HPWL after            32234.9 u
+[INFO DPL-0023] HPWL delta               -2.8 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 204 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                              76     333.67
+  Tap cell                                300    1317.12
+  Tie cell                                  1       8.78
+  Buffer                                    6      79.03
+  Timing Repair Buffer                     50    1729.82
+  Inverter                                 32     280.99
+  Sequential cell                         166   10567.69
+  Multi-Input combinational cell          737   13581.70
+  Total                                  1368   27898.80
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/32-openroad-repairdesignpostgpl/frequency_counter.odb'…
+Writing netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/32-openroad-repairdesignpostgpl/frequency_counter.nl.v'…
+Writing powered netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/32-openroad-repairdesignpostgpl/frequency_counter.pnl.v'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/32-openroad-repairdesignpostgpl/frequency_counter.def'…
+Writing timing constraints to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/32-openroad-repairdesignpostgpl/frequency_counter.sdc'…

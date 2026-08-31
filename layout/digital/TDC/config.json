@@ -8,12 +8,15 @@
 
   "FP_SIZING": "relative",
   "FP_CORE_UTIL": 55,
-  "FP_ASPECT_RATIO": 1,
+  "FP_ASPECT_RATIO": 0.5,
   "FP_OBSTRUCTIONS": null,
-  "PL_TARGET_DENSITY_PCT": 0.6,
-  "MAX_FANOUT_CONSTRAINT": 6,
-  "DIE_AREA": [0,0,300,300], 
-  "CORE_AREA": [0,0,280,280],
+  "PL_TARGET_DENSITY_PCT": 0.4,
+  "MAX_FANOUT_CONSTRAINT": 8,
+
+  "MAX_TRANSITION_CONSTRAINT": 1.5,
+  "SYNTH_STRATEGY": "DELAY 2",
+
+  "KLAYOUT_DRC_RUNSET": "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/gf180mcu.drc",
 
   "PNR_SDC_FILE": "dir::constraint.sdc",
   "SIGNOFF_SDC_FILE": "dir::constraint.sdc"

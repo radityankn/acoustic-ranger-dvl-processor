@@ -1,0 +1,6 @@
+- cell: i2c_controller
+  inout: []
+  input:
+  - ERR_I
+  - RTY_I
+  output: []

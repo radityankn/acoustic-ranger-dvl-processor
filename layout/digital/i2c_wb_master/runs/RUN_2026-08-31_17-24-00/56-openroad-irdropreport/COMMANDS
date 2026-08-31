@@ -1,0 +1,1 @@
+openroad -exit -no_splash -metrics /foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_17-24-00/56-openroad-irdropreport/or_metrics_out.json /usr/local/lib/python3.12/dist-packages/librelane/scripts/openroad/irdrop.tcl

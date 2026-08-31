@@ -1,0 +1,40 @@
+                                                                       Cells by Function                                                                        
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Cell Function                                                                                                                     ┃ Count                    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ gf180mcu_fd_sc_mcu7t5v0__and2                                                                                                     │ 7                        │
+│ gf180mcu_fd_sc_mcu7t5v0__and3                                                                                                     │ 2                        │
+│ gf180mcu_fd_sc_mcu7t5v0__and4                                                                                                     │ 12                       │
+│ gf180mcu_fd_sc_mcu7t5v0__aoi21                                                                                                    │ 32                       │
+│ gf180mcu_fd_sc_mcu7t5v0__aoi211                                                                                                   │ 13                       │
+│ gf180mcu_fd_sc_mcu7t5v0__aoi22                                                                                                    │ 26                       │
+│ gf180mcu_fd_sc_mcu7t5v0__aoi221                                                                                                   │ 1                        │
+│ gf180mcu_fd_sc_mcu7t5v0__aoi222                                                                                                   │ 1                        │
+│ gf180mcu_fd_sc_mcu7t5v0__buf                                                                                                      │ 3                        │
+│ gf180mcu_fd_sc_mcu7t5v0__clkbuf                                                                                                   │ 9                        │
+│ gf180mcu_fd_sc_mcu7t5v0__clkinv                                                                                                   │ 35                       │
+│ gf180mcu_fd_sc_mcu7t5v0__dffq                                                                                                     │ 85                       │
+│ gf180mcu_fd_sc_mcu7t5v0__dlyb                                                                                                     │ 33                       │
+│ gf180mcu_fd_sc_mcu7t5v0__dlyc                                                                                                     │ 25                       │
+│ gf180mcu_fd_sc_mcu7t5v0__fill                                                                                                     │ 294                      │
+│ gf180mcu_fd_sc_mcu7t5v0__fillcap                                                                                                  │ 162                      │
+│ gf180mcu_fd_sc_mcu7t5v0__inv                                                                                                      │ 5                        │
+│ gf180mcu_fd_sc_mcu7t5v0__mux2                                                                                                     │ 19                       │
+│ gf180mcu_fd_sc_mcu7t5v0__mux4                                                                                                     │ 2                        │
+│ gf180mcu_fd_sc_mcu7t5v0__nand2                                                                                                    │ 62                       │
+│ gf180mcu_fd_sc_mcu7t5v0__nand3                                                                                                    │ 24                       │
+│ gf180mcu_fd_sc_mcu7t5v0__nand4                                                                                                    │ 39                       │
+│ gf180mcu_fd_sc_mcu7t5v0__nor2                                                                                                     │ 55                       │
+│ gf180mcu_fd_sc_mcu7t5v0__nor3                                                                                                     │ 8                        │
+│ gf180mcu_fd_sc_mcu7t5v0__nor4                                                                                                     │ 10                       │
+│ gf180mcu_fd_sc_mcu7t5v0__oai21                                                                                                    │ 26                       │
+│ gf180mcu_fd_sc_mcu7t5v0__oai211                                                                                                   │ 5                        │
+│ gf180mcu_fd_sc_mcu7t5v0__oai22                                                                                                    │ 8                        │
+│ gf180mcu_fd_sc_mcu7t5v0__oai221                                                                                                   │ 6                        │
+│ gf180mcu_fd_sc_mcu7t5v0__oai31                                                                                                    │ 3                        │
+│ gf180mcu_fd_sc_mcu7t5v0__oai32                                                                                                    │ 4                        │
+│ gf180mcu_fd_sc_mcu7t5v0__oai33                                                                                                    │ 1                        │
+│ gf180mcu_fd_sc_mcu7t5v0__or2                                                                                                      │ 7                        │
+│ gf180mcu_fd_sc_mcu7t5v0__or4                                                                                                      │ 2                        │
+│ gf180mcu_fd_sc_mcu7t5v0__xor2                                                                                                     │ 1                        │
+└───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴──────────────────────────┘
