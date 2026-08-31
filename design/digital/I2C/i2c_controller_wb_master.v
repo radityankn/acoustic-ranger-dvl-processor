@@ -263,16 +263,32 @@ module i2c_controller #(parameter WIDTH = 8) (
         end
     end
 
+    //SDA and SCL synchroniser
+    reg [1:0] scl_synchroniser_internal;
+    reg [1:0] sda_synchroniser_internal;
+
+    wire i2c_sda_in_synchronised_internal;
+    wire i2c_scl_in_synchronised_internal;
+
+    assign i2c_sda_in_synchronised_internal = sda_synchroniser_internal[1];
+    assign i2c_scl_in_synchronised_internal = scl_synchroniser_internal[1];
+
+    always @(posedge CLK_I) begin
+        scl_synchroniser_internal <= {scl_synchroniser_internal[0],i2c_scl_in};
+        sda_synchroniser_internal <= {sda_synchroniser_internal[0],i2c_sda_in};
+    end
+
     // Start-Stop condition detector
     reg sda_previous_state;
     wire start_condition;
     wire stop_condition;
     
-    assign start_condition = sda_previous_state & ~i2c_sda_in & i2c_scl_in;
-    assign stop_condition = ~sda_previous_state & i2c_sda_in & i2c_scl_in;
+    assign start_condition = sda_previous_state & ~i2c_sda_in_synchronised_internal & i2c_scl_in_synchronised_internal;
+    assign stop_condition = ~sda_previous_state & i2c_sda_in_synchronised_internal & i2c_scl_in_synchronised_internal;
+
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) sda_previous_state <= 1'b0;
-        else sda_previous_state <= i2c_sda_in;
+        else sda_previous_state <= i2c_sda_in_synchronised_internal;
     end
 
     // Rising-Falling edge detector
@@ -283,10 +299,10 @@ module i2c_controller #(parameter WIDTH = 8) (
     
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) previous_state <= 1'b0;
-        else previous_state <= i2c_scl_in;
+        else previous_state <= i2c_scl_in_synchronised_internal;
 
-        rising_edge_detected <= ~previous_state & i2c_scl_in;
-        falling_edge_detected <= previous_state & ~i2c_scl_in;
+        rising_edge_detected <= ~previous_state & i2c_scl_in_synchronised_internal;
+        falling_edge_detected <= previous_state & ~i2c_scl_in_synchronised_internal;
     end
 
     // I2C State Machine
@@ -302,27 +318,20 @@ module i2c_controller #(parameter WIDTH = 8) (
         else i2c_state <= i2c_next_state;
     end 
 
-    // I2C: Subroutine IDLE 
-    //reg [1:0] i2c_next_state_idle_block;
-    //always @(*) begin
-    //    if (start_condition == 1'b1 && i2c_state == STATE_IDLE) i2c_next_state_idle_block = STATE_ADDR;
-    //    else i2c_next_state_idle_block = STATE_IDLE; 
-    //end
-
     // I2C: Subroutine ADDR, READ, WRITE in one iteration
     reg [1:0] i2c_next_state_routine_block;
     reg [3:0] iteration;
     reg [7:0] address_data_buffer_internal;
-    reg [1:0] falling_edge_delayer;
-    //reg [3:0] iteration_write;
+    // reg [1:0] falling_edge_delayer;
+    // reg [3:0] iteration_write;
     
-    always @(posedge CLK_I) begin
-        falling_edge_delayer[0] <= falling_edge_detected;
-        falling_edge_delayer[1] <= falling_edge_delayer[0];
-    end
+    // always @(posedge CLK_I) begin
+    //     falling_edge_delayer[0] <= falling_edge_detected;
+    //     falling_edge_delayer[1] <= falling_edge_delayer[0];
+    // end
 
-    wire falling_edge_detected_delayed;
-    assign falling_edge_detected_delayed = falling_edge_delayer[1];
+    // wire falling_edge_detected_delayed;
+    // assign falling_edge_detected_delayed = falling_edge_delayer[1];
 
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
@@ -351,20 +360,21 @@ module i2c_controller #(parameter WIDTH = 8) (
                     // Let's sample all the bits
                     if (rising_edge_detected == 1'b1 && iteration < 8) begin
                         // sample the data from sda input line
-                        address_data_buffer_internal <= {address_data_buffer_internal[6:0], i2c_sda_in};
+                        address_data_buffer_internal <= {address_data_buffer_internal[6:0], i2c_sda_in_synchronised_internal};
                         // increment the iteration counter to iterate through all bits
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_ADDR;
                     end
                     // When every bit has been sampled...
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected == 1'b1 && iteration == 8) begin
                         // if the address is correct... (only 7-bit address is supported)
                         if (address_data_buffer_internal[7:1] == addr_set_register[7:1]) begin
                             // reset the subroutine FSM
                             iteration <= iteration + 1'b1;
                             // give the proper ACK to the line
                             i2c_sda_out_pin_ctrl <= 1'b0;
+                            // hold the state until the 9th bit ends
                             i2c_next_state_routine_block <= STATE_ADDR;
                         end else begin
                             // reset the subroutine FSM
@@ -377,7 +387,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                     end
                     // then check the read/write bit on the next iteration
                     // if it is falling edge and R/W bit is 0 (means I2C write command is received a.k.a receiving data --> must READ)...
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 9) begin
+                    else if (falling_edge_detected == 1'b1 && iteration == 9) begin
                         if (address_data_buffer_internal[0] == 0) begin
                             // return the line to default condition before proceeding to the next state
                             i2c_sda_out_pin_ctrl <= 1'b1;
@@ -416,14 +426,14 @@ module i2c_controller #(parameter WIDTH = 8) (
                     // Let's sample all the bits
                     if (rising_edge_detected == 1'b1 && iteration < 4'd8) begin
                         // sample the data from sda input line
-                        recv_data_buffer <= {recv_data_buffer[6:0], i2c_sda_in};
+                        recv_data_buffer <= {recv_data_buffer[6:0], i2c_sda_in_synchronised_internal};
                         // increment the iteration counter to iterate through all bits
                         iteration <= iteration + 1'b1;
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_READ;
                     end
                     // When every bit has been sampled...
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected == 1'b1 && iteration == 8) begin
                         if (register_addr_data_flag == 1'b0) begin
                             // reset the subroutine FSM
                             iteration <= iteration + 1;
@@ -443,7 +453,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                             register_content_data_flag <= 1'b1;
                         end
                     end 
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 9) begin
+                    else if (falling_edge_detected == 1'b1 && iteration == 9) begin
                         i2c_sda_out_pin_ctrl <= 1'b1;
                         iteration <= 4'd0;
                     end
@@ -466,13 +476,13 @@ module i2c_controller #(parameter WIDTH = 8) (
                         // keep the current state until the last bit
                         i2c_next_state_routine_block <= STATE_WRITE;
                     end
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration < 8) begin
+                    else if (falling_edge_detected == 1'b1 && iteration < 8) begin
                         // only change SDA line when SCL is low
                         i2c_sda_out_pin_ctrl <= send_data_buffer[7-iteration];
                         iteration <= iteration;
                         i2c_next_state_routine_block <= i2c_next_state_routine_block;
                     end
-                    else if (falling_edge_detected_delayed == 1'b1 && iteration == 8) begin
+                    else if (falling_edge_detected == 1'b1 && iteration == 8) begin
                         // release SDA line for ACK sampling
                         i2c_sda_out_pin_ctrl <= 1'b1;
                         iteration <= iteration;
@@ -481,7 +491,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                     // When every bit has been sampled...
                     else if (rising_edge_detected == 1'b1 && iteration == 8) begin
                         // if host is ACK (means still in write or keep sending data)
-                        if (i2c_sda_in == 1'b0) begin
+                        if (i2c_sda_in_synchronised_internal == 1'b0) begin
                             // reset the subroutine FSM
                             iteration <= 4'd0;
                             // set the flag

@@ -4,7 +4,7 @@
 // Engineer: 
 // 
 // Create Date:    10:53:19 02/20/2025 
-// Design Name: 
+// Design Name:    Frequency Counter 
 // Module Name:    frequency_counter 
 // Project Name: 
 // Target Devices: 
@@ -35,7 +35,9 @@ module frequency_counter #(parameter WIDTH = 8) (
     output reg [WIDTH-1:0] DAT_O,
     output reg ERR_O,
     output reg RTY_O,
-    output reg ACK_O
+    output reg ACK_O,
+    output [2:0] pga_gain_control,
+    output [2:0] bypass_pin_control
     );
 
     // General Register that can be accessed through the bus
@@ -56,6 +58,16 @@ module frequency_counter #(parameter WIDTH = 8) (
     //      - bit 2: measurement pulse mode timeout. this bit will be set if the measurement timed out
     //      - bit 1: Reserved
     //      - bit 0: Reset counter interface (when things go awry, initialization means besides resetting the whole chip)
+    // afe_config_bypass_control_register (0x17) --> used to control the PGA gain, as well as bypass pins for analog debugging
+    //      - bit 7-5: PGA gain config. Uses one-hot data format
+    //          - bit 7: enables gain x2
+    //          - bit 6: enables gain x10
+    //          - bit 5: enables gain x50
+    //      - bit 4: LNA bypass, activates the IN_BPF pin. can be used to test the LNA
+    //      - bit 3: BPF bypass, activates the IN_SCHMITT pin. can be used to test the BPF
+    //      - bit 2: Reserved
+    //      - bit 1: Reserved
+    //      - bit 0: Reserved
 
     // Registers of the TDC Blocks
     // The localparam is for defining the address of the TDC block's registers, please change it here in case
@@ -69,6 +81,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     localparam [WIDTH-1:0] PULSE_COUNT_THRESHOLD_REGISTER_HIGH_ADDRESS = 20;
     localparam [WIDTH-1:0] PULSE_COUNT_THRESHOLD_REGISTER_LOW_ADDRESS = 21;
     localparam [WIDTH-1:0] COUNTER_CONTROL_STATUS_REGISTER_ADDRESS = 22;
+    localparam [WIDTH-1:0] AFE_CONFIG_BYPASS_CONTROL_REGISTER_ADDRESS = 23;
 
     localparam MEASUREMENT_START_BIT = 7;
     localparam MEASUREMENT_DONE_BIT = 6;
@@ -82,6 +95,7 @@ module frequency_counter #(parameter WIDTH = 8) (
     reg [23:0] pulse_timing_register;
     reg [15:0] pulse_count_threshold_register;
     reg [7:0] counter_control_status_register;
+    reg [7:0] afe_config_bypass_control_register;
 
     reg [23:0] pulse_timing_internal;            //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
     reg [23:0] range_timing_internal;            //front-end measurement counter register, where counting happens and data stored before being pushed to the bus-facing register
@@ -243,6 +257,20 @@ module frequency_counter #(parameter WIDTH = 8) (
                         end
                         else begin
                             DAT_O <= counter_control_status_register;
+                            ACK_O <= 1'b1;
+                            ERR_O <= 1'b0;
+                            RTY_O <= 1'b0;
+                        end
+                    end
+                    AFE_CONFIG_BYPASS_CONTROL_REGISTER_ADDRESS : begin
+                        if (WE_I == 1'b1) begin
+                            afe_config_bypass_control_register <= DAT_I;
+                            ACK_O <= 1'b1;
+                            ERR_O <= 1'b0;
+                            RTY_O <= 1'b0;
+                        end
+                        else begin
+                            DAT_O <= afe_config_bypass_control_register;
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;

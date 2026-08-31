@@ -152,7 +152,7 @@ module i2c_tb;
     reg [7:0] result;
 
     initial begin
-        $dumpfile("i2c_result.vcd");
+        $dumpfile("i2c_wb_master_result.vcd");
 		$dumpvars(0, i2c_tb);
         i2c_sda_in = 1'b1;
         i2c_scl_in = 1'b1;

@@ -3,7 +3,7 @@
 	"INCLUDE_CONFIGS": [
 		"$LVS_ROOT/tech/$PDK/lvs_config.base.json"
 	],
-	"TOP_SOURCE": "A01_topcell",
+	"TOP_SOURCE": "B05_chip_toplevel",
 	"TOP_LAYOUT": "$TOP_SOURCE",
 	"EXTRACT_FLATGLOB": [
 		""
@@ -24,7 +24,7 @@
 		""
 	],
 	"LVS_VERILOG_FILES": [
-		"$UPRJ_ROOT/design/digital/TDC/frequency_counter.v",
+		"$UPRJ_ROOT/design/digital/top_level.v",
         "$UPRJ_ROOT/design/digital/I2C/i2c_controller_wb_master.v"
 	],
 	"LAYOUT_FILE": "$UPRJ_ROOT/gds/$TOP_LAYOUT.gds"
