@@ -1,5 +1,0 @@
-`verilator_config
-lint_off -rule DECLFILENAME
-lint_off -rule EOFNEWLINE
-lint_off -rule UNDRIVEN -file "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/tmp/572028f0799144e6ba908f4819b4e7ae.bb.v"
-lint_off -rule UNUSEDSIGNAL -file "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/tmp/572028f0799144e6ba908f4819b4e7ae.bb.v"

@@ -19,6 +19,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module frequency_counter #(parameter WIDTH = 8) (
+    `ifdef USE_POWER_PINS
+    inout VDDD;
+    inout VSSD;
+    `endif
     input ext_rst_i,
     input RST_I,
     input CLK_I,

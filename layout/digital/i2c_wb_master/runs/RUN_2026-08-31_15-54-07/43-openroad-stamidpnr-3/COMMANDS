@@ -1,1 +1,0 @@
-openroad -exit -no_splash -metrics /foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/43-openroad-stamidpnr-3/or_metrics_out.json /usr/local/lib/python3.12/dist-packages/librelane/scripts/openroad/sta/corner.tcl

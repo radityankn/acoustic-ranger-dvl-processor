@@ -17,7 +17,7 @@ set clock_uncertainty 0.5
 set clock_period 100
 
 # set units for the whole SDC file expressions involving these quantities
-set_units -time ns
+set_units -time ns -capacitance pF
 
 # Define the existing clock in the file for analysis. Here we are using 2 clocks
 # because there are 2 different clocks for this block's operation
@@ -27,7 +27,8 @@ create_clock -name signal_clock -period 4000 -waveform {0.0 2000.0} [get_ports s
 # group the aforementioned clock, declare them as asynchronous to avoid analysis error
 # involving paths between these domains
 set_clock_group -name asynchronous_clock -asynchronous \
-    -group {system_clock signal_clock}
+    -group [get_clocks system_clock] \
+    -group [get_clocks signal_clock]
 
 # set clock uncertainty to represent jitter and skew
 set_clock_uncertainty $clock_uncertainty [get_clocks system_clock]
@@ -35,6 +36,10 @@ set_clock_uncertainty $clock_uncertainty [get_clocks system_clock]
 # set input and output delay to represent the time needed before it reaches the FF's
 # input pin. The input ones needed supposedly for setup time information, while the 
 # output ones are used for the desired hold time information of the design. 
-set non_clock_inputs [lsearch -inline -all -not -exact [all_inputs] [get_ports CLK_I]]
+set non_clock_inputs [lsearch -inline -all -not -exact [all_inputs] [get_ports {CLK_I signal_input}]]
 set_input_delay [expr $clock_period * $io_delay_percentage] -clock [get_clocks system_clock] $non_clock_inputs
 set_output_delay [expr $clock_period * $io_delay_percentage] -clock [get_clocks system_clock] [all_outputs]
+
+# set transient characteristics
+set_max_capacitance 0.079 [all_outputs]
+set_max_transition 3.5 [current_design]

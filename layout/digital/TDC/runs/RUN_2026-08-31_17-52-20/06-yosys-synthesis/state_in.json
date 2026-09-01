@@ -1,9 +1,0 @@
-{
-    "json_h": "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-08-31_17-52-20/05-yosys-jsonheader/frequency_counter.h.json",
-    "metrics": {
-        "design__lint_error__count": 0,
-        "design__lint_timing_construct__count": 0,
-        "design__lint_warning__count": 310,
-        "design__inferred_latch__count": 0
-    }
-}

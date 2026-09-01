@@ -1,0 +1,23 @@
+[WARNING ORD-0039] .openroad ignored with -python
+Top-level design name: frequency_counter
+Block boundaries: 0 0 613780 356170
+Horizontal Tracks Origin: 560, Count: 318, Step: 1120
+Vertical Tracks Origin: 560, Count: 548, Step: 1120
+Placement details for the E side
+Virtual pin count:  0
+Actual pin count:  32
+Total pin count:  32
+Tracks count:  159
+Tracks per pin:  4
+Used tracks count:  125
+Unused track count:  34
+Starting track index:  17
+Placement details for the W side
+Virtual pin count:  0
+Actual pin count:  9
+Total pin count:  9
+Tracks count:  159
+Tracks per pin:  17
+Used tracks count:  137
+Unused track count:  22
+Starting track index:  11

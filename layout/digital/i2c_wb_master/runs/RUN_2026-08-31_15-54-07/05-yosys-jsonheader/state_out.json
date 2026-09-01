@@ -1,9 +1,0 @@
-{
-    "json_h": "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/i2c_wb_master/runs/RUN_2026-08-31_15-54-07/05-yosys-jsonheader/i2c_controller.h.json",
-    "metrics": {
-        "design__lint_error__count": 0,
-        "design__lint_timing_construct__count": 0,
-        "design__lint_warning__count": 307,
-        "design__inferred_latch__count": 0
-    }
-}

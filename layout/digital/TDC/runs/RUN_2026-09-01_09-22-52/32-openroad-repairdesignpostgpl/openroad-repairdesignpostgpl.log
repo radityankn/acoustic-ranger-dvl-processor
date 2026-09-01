@@ -1,0 +1,164 @@
+Reading timing models for corner max_ff_n40C_5v50…
+Reading timing library for the 'max_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+Reading timing models for corner max_tt_025C_5v00…
+Reading timing library for the 'max_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading timing models for corner nom_ff_n40C_5v50…
+Reading timing library for the 'nom_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner min_ss_125C_4v50…
+Reading timing library for the 'min_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+Reading timing models for corner min_ff_n40C_5v50…
+Reading timing library for the 'min_ff_n40C_5v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ff_n40C_5v50 already exists.
+Reading timing models for corner min_tt_025C_5v00…
+Reading timing library for the 'min_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00 already exists.
+Reading timing models for corner max_ss_125C_4v50…
+Reading timing library for the 'max_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading timing models for corner nom_ss_125C_4v50…
+Reading timing library for the 'nom_ss_125C_4v50' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib'…
+[WARNING STA-1140] /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50.lib line 17, library gf180mcu_fd_sc_mcu7t5v0__ss_125C_4v50 already exists.
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/28-openroad-globalplacement/frequency_counter.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/constraint.sdc'…
+[WARNING STA-0441] set_input_delay relative to a clock defined on the same port/pin not allowed.
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO RSZ-0027] Inserted 20 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 input buffers.
+[INFO RSZ-0028] Inserted 17 gf180mcu_fd_sc_mcu7t5v0__dlyb_1 output buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |       877
+       10 |     +0.0% |       0 |       0 |             0 |       867
+       20 |     +0.0% |       0 |       0 |             0 |       857
+       30 |     +0.0% |       0 |       0 |             0 |       847
+       40 |     +0.0% |       0 |       0 |             0 |       837
+       50 |     +0.0% |       0 |       0 |             0 |       827
+       60 |     +0.0% |       0 |       0 |             0 |       817
+       70 |     +0.0% |       0 |       0 |             0 |       807
+       80 |     +0.0% |       0 |       0 |             0 |       797
+       90 |     +0.0% |       0 |       0 |             0 |       787
+      100 |     +0.0% |       0 |       0 |             0 |       777
+      110 |     +0.0% |       0 |       0 |             0 |       767
+      120 |     +0.0% |       0 |       0 |             0 |       757
+      130 |     +0.0% |       0 |       0 |             0 |       747
+      140 |     +0.0% |       0 |       0 |             0 |       737
+      150 |     +0.0% |       0 |       0 |             0 |       727
+      160 |     +0.0% |       0 |       0 |             0 |       717
+      170 |     +0.0% |       0 |       0 |             0 |       707
+      180 |     +0.0% |       0 |       0 |             0 |       697
+      190 |     +0.0% |       0 |       0 |             0 |       687
+      200 |     +0.0% |       0 |       0 |             0 |       677
+      210 |     +0.0% |       0 |       0 |             0 |       667
+      220 |     +0.0% |       0 |       0 |             0 |       657
+      230 |     +0.0% |       0 |       0 |             0 |       647
+      240 |     +0.0% |       0 |       0 |             0 |       637
+      250 |     +0.0% |       0 |       0 |             0 |       627
+      260 |     +0.0% |       0 |       0 |             0 |       617
+      270 |     +0.0% |       0 |       0 |             0 |       607
+      280 |     +0.0% |       0 |       0 |             0 |       597
+      290 |     +0.0% |       0 |       0 |             0 |       587
+      300 |     +0.0% |       0 |       0 |             0 |       577
+      310 |     +0.1% |       0 |       2 |             1 |       567
+      320 |     +0.1% |       0 |       2 |             1 |       557
+      330 |     +0.7% |       1 |       5 |             3 |       547
+      340 |     +0.7% |       1 |       5 |             3 |       537
+      350 |     +0.7% |       1 |       5 |             3 |       527
+      360 |     +0.7% |       1 |       5 |             3 |       517
+      370 |     +0.7% |       1 |       5 |             3 |       507
+      380 |     +0.7% |       1 |       5 |             3 |       497
+      390 |     +0.7% |       1 |       5 |             3 |       487
+      400 |     +0.7% |       1 |       5 |             3 |       477
+      410 |     +0.7% |       1 |       5 |             3 |       467
+      420 |     +0.7% |       1 |       5 |             3 |       457
+      430 |     +0.7% |       1 |       5 |             3 |       447
+      440 |     +0.7% |       1 |       5 |             3 |       437
+      450 |     +0.7% |       1 |       5 |             3 |       427
+      460 |     +0.7% |       1 |       5 |             3 |       417
+      470 |     +0.7% |       1 |       5 |             3 |       407
+      480 |     +0.7% |       1 |       5 |             3 |       397
+      490 |     +0.7% |       1 |       5 |             3 |       387
+      500 |     +1.2% |       1 |      12 |             8 |       377
+      510 |     +1.2% |       1 |      12 |             8 |       367
+      520 |     +1.2% |       1 |      12 |             8 |       357
+      530 |     +1.5% |       1 |      16 |            12 |       347
+      540 |     +1.5% |       1 |      16 |            12 |       337
+      550 |     +1.5% |       1 |      16 |            12 |       327
+      560 |     +1.6% |       1 |      17 |            13 |       317
+      570 |     +1.6% |       1 |      17 |            13 |       307
+      580 |     +1.7% |       1 |      18 |            14 |       297
+      590 |     +1.7% |       1 |      18 |            14 |       287
+      600 |     +1.7% |       1 |      18 |            14 |       277
+      610 |     +1.8% |       1 |      19 |            15 |       267
+      620 |     +1.8% |       1 |      19 |            15 |       257
+      630 |     +1.8% |       1 |      19 |            15 |       247
+      640 |     +1.8% |       1 |      19 |            15 |       237
+      650 |     +1.8% |       1 |      19 |            15 |       227
+      660 |     +1.8% |       1 |      19 |            15 |       217
+      670 |     +1.8% |       1 |      19 |            15 |       207
+      680 |     +1.8% |       1 |      19 |            15 |       197
+      690 |     +1.8% |       1 |      19 |            15 |       187
+      700 |     +1.8% |       1 |      19 |            15 |       177
+      710 |     +1.8% |       1 |      19 |            15 |       167
+      720 |     +1.8% |       1 |      19 |            15 |       157
+      730 |     +1.8% |       1 |      19 |            15 |       147
+      740 |     +1.8% |       1 |      19 |            15 |       137
+      750 |     +1.8% |       1 |      19 |            15 |       127
+      760 |     +1.8% |       1 |      19 |            15 |       117
+      770 |     +1.8% |       1 |      19 |            15 |       107
+      780 |     +1.8% |       1 |      19 |            15 |        97
+      790 |     +1.8% |       1 |      19 |            15 |        87
+      800 |     +1.8% |       1 |      19 |            15 |        77
+      810 |     +1.8% |       1 |      19 |            15 |        67
+      820 |     +1.8% |       1 |      19 |            15 |        57
+      830 |     +2.1% |       2 |      21 |            16 |        47
+      840 |     +2.1% |       2 |      21 |            16 |        37
+      850 |     +2.2% |       3 |      23 |            17 |        27
+      860 |     +2.2% |       3 |      23 |            17 |        17
+      870 |     +2.2% |       3 |      23 |            17 |         7
+    final |     +2.2% |       3 |      23 |            17 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 17 slew violations.
+[INFO RSZ-0036] Found 7 capacitance violations.
+[INFO RSZ-0039] Resized 3 instances.
+[INFO RSZ-0038] Inserted 23 buffers in 17 nets.
+[INFO RSZ-0042] Inserted 1 tie gf180mcu_fd_sc_mcu7t5v0__tiel instances.
+[WARNING RSZ-0020] found 2 floating nets.
+ VDD
+ VSS
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       3951.4 u
+average displacement        3.2 u
+max displacement           34.7 u
+original HPWL           23978.2 u
+legalized HPWL          26962.3 u
+delta HPWL                   12 %
+
+[INFO DPL-0020] Mirrored 380 instances
+[INFO DPL-0021] HPWL before           26962.3 u
+[INFO DPL-0022] HPWL after            25964.7 u
+[INFO DPL-0023] HPWL delta               -3.7 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 244 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                              74     324.89
+  Tap cell                                275    1207.36
+  Tie cell                                  1       8.78
+  Buffer                                    6      79.03
+  Timing Repair Buffer                     60    1800.06
+  Inverter                                 51     447.82
+  Sequential cell                         166   10567.69
+  Multi-Input combinational cell          593   10433.79
+  Total                                  1226   24869.42
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/32-openroad-repairdesignpostgpl/frequency_counter.odb'…
+Writing netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/32-openroad-repairdesignpostgpl/frequency_counter.nl.v'…
+Writing powered netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/32-openroad-repairdesignpostgpl/frequency_counter.pnl.v'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/32-openroad-repairdesignpostgpl/frequency_counter.def'…
+Writing timing constraints to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/TDC/runs/RUN_2026-09-01_09-22-52/32-openroad-repairdesignpostgpl/frequency_counter.sdc'…

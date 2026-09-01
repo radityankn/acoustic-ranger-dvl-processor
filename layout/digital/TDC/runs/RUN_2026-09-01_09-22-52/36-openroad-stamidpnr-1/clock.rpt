@@ -1,0 +1,93 @@
+Clock: system_clock
+Sources: CLK_I 
+Generated: no
+Virtual: yes
+Propagated: no
+Period: 100.000000
+
+===========================================================================
+report_clock_properties
+============================================================================
+Clock                   Period          Waveform
+----------------------------------------------------
+system_clock        100.000000    0.000000 50.000000
+
+===========================================================================
+report_clock_latency
+============================================================================
+Clock system_clock
+rise -> rise
+    min     max
+0.000000 0.000000 source latency
+0.627747         network latency _1426_/CLK
+        20.696457 network latency _1362_/CLK
+---------------
+0.627747 20.696457 latency
+        20.068710 skew
+
+rise -> fall
+    min     max
+0.000000 0.000000 source latency
+20.677294         network latency _1377_/CLK
+        20.681238 network latency _1362_/CLK
+---------------
+20.677294 20.681238 latency
+        0.003945 skew
+
+fall -> fall
+    min     max
+0.000000 0.000000 source latency
+0.647322         network latency _1426_/CLK
+        0.658442 network latency _1382_/CLK
+---------------
+0.647322 0.658442 latency
+        0.011120 skew
+
+
+
+===========================================================================
+report_clock_min_period
+============================================================================
+system_clock period_min = 6.63 fmax = 150.89
+Clock: signal_clock
+Sources: signal_input 
+Generated: no
+Virtual: yes
+Propagated: no
+Period: 4000.000000
+
+===========================================================================
+report_clock_properties
+============================================================================
+Clock                   Period          Waveform
+----------------------------------------------------
+signal_clock        4000.000000    0.0000002000.000000
+
+===========================================================================
+report_clock_latency
+============================================================================
+Clock signal_clock
+rise -> rise
+    min     max
+0.000000 0.000000 source latency
+0.692768         network latency _1378_/CLK
+        0.696454 network latency _1362_/CLK
+---------------
+0.692768 0.696454 latency
+        0.003686 skew
+
+fall -> fall
+    min     max
+0.000000 0.000000 source latency
+0.677346         network latency _1377_/CLK
+        0.681212 network latency _1362_/CLK
+---------------
+0.677346 0.681212 latency
+        0.003865 skew
+
+
+
+===========================================================================
+report_clock_min_period
+============================================================================
+signal_clock period_min = 5.77 fmax = 173.45
