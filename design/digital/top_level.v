@@ -2,6 +2,10 @@
 
 
 module top_level (
+    `ifdef USE_POWER_PINS
+    inout VDD,
+    inout VSS,
+    `endif
     input i2c_sda_in,                   // wire this to A pin on digital tristate pad block 
     input i2c_scl_in,
     input signal_input,
@@ -10,7 +14,8 @@ module top_level (
     output i2c_sda_out_pin_ctrl,        // to OE pin on digital tristate pad block
     output i2c_sda_out_pin_ctrl_n,      // to IE pin on digital tristate pad block
     output trigger_signal_out,
-    output gpio0
+    output [2:0] pga_gain_control,
+    output [2:0] bypass_pin_control
 );
     // TDC Registers
     // All registers are in MSB format
@@ -97,8 +102,8 @@ module top_level (
 		.ERR_O(ERR_BUS),
 		.RTY_O(RTY_BUS),
 		.ACK_O(ACK_BUS)
+        .pga_gain_control(pga_gain_control),
+        .bypass_pin_control(bypass_pin_control)
     );
-
-
 
 endmodule

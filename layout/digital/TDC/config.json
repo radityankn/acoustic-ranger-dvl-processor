@@ -10,8 +10,6 @@
   "FP_ASPECT_RATIO": 0.5,
   "MAX_FANOUT_CONSTRAINT": 6,
 
-  "PDN_MACRO_CONNECTION"
-
   "KLAYOUT_DRC_RUNSET": "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/gf180mcu.drc",
 
   "PNR_SDC_FILE": "dir::constraint.sdc",
