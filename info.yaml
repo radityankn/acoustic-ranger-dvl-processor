@@ -17,6 +17,10 @@ project:
   discord: "Raditya Putra"
   description: "Acoustic Ranging and Doppler Effect Detector"
   lvs_config: "lvs_config.json"
+  gf_def_ready: true
+  ws_def_ready: true
+  drc_ready: false
+  lvs_ready: false
 
 pins:
   # 1
