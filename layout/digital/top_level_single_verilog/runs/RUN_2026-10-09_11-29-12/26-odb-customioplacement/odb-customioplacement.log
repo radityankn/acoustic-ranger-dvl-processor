@@ -1,0 +1,25 @@
+[WARNING ORD-0039] .openroad ignored with -python
+[WARNING] VDD not found in design but found in config.
+[WARNING] VSS not found in design but found in config.
+Top-level design name: top_level
+Block boundaries: 0 0 506240 1021440
+Horizontal Tracks Origin: 560, Count: 912, Step: 1120
+Vertical Tracks Origin: 560, Count: 452, Step: 1120
+Placement details for the N side
+Virtual pin count:  0
+Actual pin count:  7
+Total pin count:  7
+Tracks count:  226
+Tracks per pin:  32
+Used tracks count:  193
+Unused track count:  33
+Starting track index:  16
+Placement details for the W side
+Virtual pin count:  0
+Actual pin count:  54
+Total pin count:  54
+Tracks count:  456
+Tracks per pin:  8
+Used tracks count:  425
+Unused track count:  31
+Starting track index:  15

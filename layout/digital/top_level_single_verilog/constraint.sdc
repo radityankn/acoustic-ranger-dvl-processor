@@ -9,7 +9,7 @@
 # way too inaccurate with the analysis.
 
 # Point at the intended module of interest
-current_design frequency_counter
+current_design top_level
 
 # set variables here
 set io_delay_percentage 0.2
@@ -21,7 +21,7 @@ set_units -time ns -capacitance pF
 
 # Define the existing clock in the file for analysis. Here we are using 2 clocks
 # because there are 2 different clocks for this block's operation
-create_clock -name system_clock -period 100 -waveform {0.0 50.0} [get_ports CLK_I]
+create_clock -name system_clock -period 100 -waveform {0.0 50.0} [get_ports ext_clk_in]
 create_clock -name signal_clock -period 4000 -waveform {0.0 2000.0} [get_ports signal_input]
 
 # group the aforementioned clock, declare them as asynchronous to avoid analysis error

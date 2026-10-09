@@ -1,18 +1,19 @@
 {
-  "DESIGN_NAME": "frequency_counter",
-  "VERILOG_FILES": ["dir::../../../design/digital/TDC/frequency_counter.v"],
+  "DESIGN_NAME": "top_level",
+  "VERILOG_FILES": ["dir::../../../design/digital/top_level.v","dir::../../../design/digital/misc/reg_bank.v","dir::../../../design/digital/TDC/frequency_counter.v","dir::../../../design/digital/I2C/i2c_controller_wb_master.v"],
   "CLOCK_PERIOD": 100,
-  "CLOCK_PORT": "CLK_I",
+  "CLOCK_PORT": "ext_clk_in",
   "IO_PIN_ORDER_CFG": "dir::pin_order.cfg",
   "PDK": "gf180mcuD",
 
   "FP_SIZING": "relative",
-  "FP_ASPECT_RATIO": 0.5,
+  "FP_ASPECT_RATIO": 2,
   "MAX_FANOUT_CONSTRAINT": 6,
 
-  "PDN_MACRO_CONNECTION"
-
   "KLAYOUT_DRC_RUNSET": "/foss/pdks/gf180mcuD/libs.tech/klayout/tech/drc/gf180mcu.drc",
+
+  "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 65,
+  "GRT_DESIGN_REPAIR_MAX_CAP_PCT": 65,
 
   "PNR_SDC_FILE": "dir::constraint.sdc",
   "SIGNOFF_SDC_FILE": "dir::constraint_signoff.sdc"

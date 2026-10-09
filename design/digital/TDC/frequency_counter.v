@@ -18,10 +18,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module frequency_counter #(parameter WIDTH = 8) (
+module frequency_counter #(parameter WIDTH = 8)(
     `ifdef USE_POWER_PINS
-    inout VDDD;
-    inout VSSD;
+    inout VDDD,
+    inout VSSD,
     `endif
     input ext_rst_i,
     input RST_I,
@@ -133,231 +133,294 @@ module frequency_counter #(parameter WIDTH = 8) (
             counter_control_status_register <= 8'd0;
         end
         // if there is any operation
-        else if (RST_I == 1'b0 && CYC_I == 1'b1 && STB_I == 1'b1) begin
-            if ((ACK_O | ERR_O | RTY_O) == 1'b0) begin
-                case (ADDR_I)
-                    RANGE_TIMING_REGISTER_HIGH_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
+        else begin 
+            if (RST_I == 1'b0 && CYC_I == 1'b1 && STB_I == 1'b1) begin
+                if ((ACK_O | ERR_O | RTY_O) == 1'b0) begin
+                    case (ADDR_I)
+                        RANGE_TIMING_REGISTER_HIGH_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= range_timing_register[23:16];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        RANGE_TIMING_REGISTER_MID_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= range_timing_register[15:8];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        RANGE_TIMING_REGISTER_LOW_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= range_timing_register[7:0];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        PULSE_TIMING_REGISTER_HIGH_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= pulse_timing_register[23:16];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        PULSE_TIMING_REGISTER_MID_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= pulse_timing_register[15:8];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        PULSE_TIMING_REGISTER_LOW_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                // Throw ERR signal (receive buffer is read only!)
+                                DAT_O <= 8'd0;
+                                ACK_O <= 1'b0;
+                                ERR_O <= 1'b1;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= pulse_timing_register[7:0];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        PULSE_COUNT_THRESHOLD_REGISTER_HIGH_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                pulse_count_threshold_register[15:8] <= DAT_I;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= pulse_count_threshold_register[15:8];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        PULSE_COUNT_THRESHOLD_REGISTER_LOW_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                pulse_count_threshold_register[7:0] <= DAT_I;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= pulse_count_threshold_register[7:0];
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        COUNTER_CONTROL_STATUS_REGISTER_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                counter_control_status_register <= DAT_I;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= counter_control_status_register;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        AFE_CONFIG_BYPASS_CONTROL_REGISTER_ADDRESS : begin
+                            if (WE_I == 1'b1) begin
+                                afe_config_bypass_control_register <= DAT_I;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                            else begin
+                                DAT_O <= afe_config_bypass_control_register;
+                                ACK_O <= 1'b1;
+                                ERR_O <= 1'b0;
+                                RTY_O <= 1'b0;
+                            end
+                        end
+                        default : begin
+                            // Register does not exist, but do not throw any error
+                            DAT_O <= 0;
+                            ERR_O <= 1'b0;
                             ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
                             RTY_O <= 1'b0;
+
+                            //Keep updating even in bus activity, as long as we are not being called
+                            if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                                if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
+                                    range_timing_register <= range_timing_internal;
+                                    pulse_timing_register <= pulse_timing_internal;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                                end
+                                else begin
+                                    range_timing_register <= range_timing_register;
+                                    pulse_timing_register <= pulse_timing_register;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                                end
+                            end
+                            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                                if (measurement_pulse_done_internal_flag == 1'b1) begin
+                                    range_timing_register <= range_timing_internal;
+                                    pulse_timing_register <= pulse_timing_internal;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                                end
+                                else begin
+                                    range_timing_register <= range_timing_register;
+                                    pulse_timing_register <= pulse_timing_register;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                                end
+                            end
+                            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
+                                if (range_finished_internal_flag == 1'b1) begin
+                                    range_timing_register <= range_timing_internal;
+                                    pulse_timing_register <= pulse_timing_internal;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                                end
+                                else begin
+                                    range_timing_register <= range_timing_register;
+                                    pulse_timing_register <= pulse_timing_register;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                                end
+                            end
+                            else begin
+                                if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+                                    counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
+                                end
+                                else if (range_finished_internal_flag == 1'b1) begin
+                                    range_timing_register <= range_timing_internal;
+                                    pulse_timing_register <= pulse_timing_internal;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                                end
+                                else begin
+                                    range_timing_register <= range_timing_register;
+                                    pulse_timing_register <= pulse_timing_register;
+                                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                                end
+                            end
                         end
-                        else begin
-                            DAT_O <= range_timing_register[23:16];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    RANGE_TIMING_REGISTER_MID_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
-                            ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= range_timing_register[15:8];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    RANGE_TIMING_REGISTER_LOW_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
-                            ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= range_timing_register[7:0];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    PULSE_TIMING_REGISTER_HIGH_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
-                            ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= pulse_timing_register[23:16];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    PULSE_TIMING_REGISTER_MID_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
-                            ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= pulse_timing_register[15:8];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    PULSE_TIMING_REGISTER_LOW_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            // Throw ERR signal (receive buffer is read only!)
-                            DAT_O <= 8'd0;
-                            ACK_O <= 1'b0;
-                            ERR_O <= 1'b1;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= pulse_timing_register[7:0];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    PULSE_COUNT_THRESHOLD_REGISTER_HIGH_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            pulse_count_threshold_register[15:8] <= DAT_I;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= pulse_count_threshold_register[15:8];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    PULSE_COUNT_THRESHOLD_REGISTER_LOW_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            pulse_count_threshold_register[7:0] <= DAT_I;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= pulse_count_threshold_register[7:0];
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    COUNTER_CONTROL_STATUS_REGISTER_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            counter_control_status_register <= DAT_I;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= counter_control_status_register;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    AFE_CONFIG_BYPASS_CONTROL_REGISTER_ADDRESS : begin
-                        if (WE_I == 1'b1) begin
-                            afe_config_bypass_control_register <= DAT_I;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                        else begin
-                            DAT_O <= afe_config_bypass_control_register;
-                            ACK_O <= 1'b1;
-                            ERR_O <= 1'b0;
-                            RTY_O <= 1'b0;
-                        end
-                    end
-                    default : begin
-                        // Register does not exist, but do not throw any error
-                        DAT_O <= 0;
-                        ERR_O <= 1'b0;
-                        ACK_O <= 1'b0;
-                        RTY_O <= 1'b0;
-                    end
-                endcase
-            end  
-            // if any of the signaling has been asserted (ACK, RTY, or ERR)...
-            else if ((ACK_O | ERR_O | RTY_O) == 1'b1) begin
-                // de-assert first before moving on to the next transaction
-                DAT_O <= 0;
-                ERR_O <= 1'b0;
-                ACK_O <= 1'b0;
-                RTY_O <= 1'b0;
+                    endcase
+                end  
+                // if any of the signaling has been asserted (ACK, RTY, or ERR)...
+                else if ((ACK_O | ERR_O | RTY_O) == 1'b1) begin
+                    // de-assert first before moving on to the next transaction
+                    DAT_O <= 0;
+                    ERR_O <= 1'b0;
+                    ACK_O <= 1'b0;
+                    RTY_O <= 1'b0;
+                end
             end
-        end
-        // if no activity is in progress, update the flag registers and the front facing register 
-        if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
-            if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
-                range_timing_register <= range_timing_internal;
-                pulse_timing_register <= pulse_timing_internal;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+            // if no activity is in progress, update the flag registers and the front facing register 
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+                if (measurement_pulse_done_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
+            end
+            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
+                if (range_finished_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
             end
             else begin
-                range_timing_register <= range_timing_register;
-                pulse_timing_register <= pulse_timing_register;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-            end
-        end
-        else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
-            if (measurement_pulse_done_internal_flag == 1'b1) begin
-                range_timing_register <= range_timing_internal;
-                pulse_timing_register <= pulse_timing_internal;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-            end
-            else begin
-                range_timing_register <= range_timing_register;
-                pulse_timing_register <= pulse_timing_register;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-            end
-        end
-        else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
-            if (range_finished_internal_flag == 1'b1) begin
-                range_timing_register <= range_timing_internal;
-                pulse_timing_register <= pulse_timing_internal;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-            end
-            else begin
-                range_timing_register <= range_timing_register;
-                pulse_timing_register <= pulse_timing_register;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-            end
-        end
-        else begin
-            if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
-                counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
-            end
-            else if (range_finished_internal_flag == 1'b1) begin
-                range_timing_register <= range_timing_internal;
-                pulse_timing_register <= pulse_timing_internal;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-            end
-            else begin
-                range_timing_register <= range_timing_register;
-                pulse_timing_register <= pulse_timing_register;
-                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+                    counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
+                end
+                else if (range_finished_internal_flag == 1'b1) begin
+                    range_timing_register <= range_timing_internal;
+                    pulse_timing_register <= pulse_timing_internal;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+                end
+                else begin
+                    range_timing_register <= range_timing_register;
+                    pulse_timing_register <= pulse_timing_register;
+                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+                end
             end
         end
     end

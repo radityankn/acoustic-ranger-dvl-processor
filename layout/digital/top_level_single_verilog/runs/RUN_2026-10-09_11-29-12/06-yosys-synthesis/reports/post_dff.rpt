@@ -1,0 +1,40 @@
+149. Printing statistics.
+
+=== top_level ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     3106        - wires
+     3520        - wire bits
+      104        - public wires
+      466        - public wire bits
+       45        - ports
+       61        - port bits
+     3446 2.63E+04 cells
+      823        -   $_ANDNOT_
+      100        -   $_AND_
+      870        -   $_MUX_
+      114        -   $_NAND_
+       87        -   $_NOR_
+       91        -   $_NOT_
+      297        -   $_ORNOT_
+      423        -   $_OR_
+       63        -   $_XNOR_
+      165        -   $_XOR_
+      413 2.63E+04   gf180mcu_fd_sc_mcu7t5v0__dffq_1
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+   Chip area for module '\top_level': 26291.910400
+     of which used for sequential elements: 26291.910400 (100.00%)
+

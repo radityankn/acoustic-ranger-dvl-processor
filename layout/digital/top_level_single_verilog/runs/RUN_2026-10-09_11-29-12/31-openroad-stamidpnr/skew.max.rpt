@@ -1,0 +1,22 @@
+
+===========================================================================
+Clock Skew (Setup)
+============================================================================
+Writing metric clock__skew__worst_setup__corner:nom_tt_025C_5v00: 0.5217362800577627
+======================= nom_tt_025C_5v00 Corner ===================================
+
+Clock signal_clock
+0.002641 source latency _4064_/CLK ^
+-0.001655 target latency _4077_/CLK ^
+0.000000 CRPR
+--------------
+0.000986 setup skew
+
+Clock system_clock
+0.025306 source latency _4026_/CLK ^
+-0.003570 target latency _3886_/CLK ^
+0.500000 clock uncertainty
+0.000000 CRPR
+--------------
+0.521736 setup skew
+

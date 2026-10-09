@@ -2,7 +2,7 @@
 
 
 module register_bank_gpio #(
-    parameter WIDTH = 8
+    parameter WIDTH = 8,
     parameter GPIO_NUMBER = 2
     )(
     input RST_I,
@@ -15,21 +15,21 @@ module register_bank_gpio #(
     output reg [WIDTH-1:0] DAT_O,
     output reg ERR_O,
     output reg RTY_O,
-    output reg ACK_O
+    output reg ACK_O,
 
     // input/output to GPIOs
-    output [GPIO_NUMBER-1:0] PAD_A;
-    input [GPIO_NUMBER-1:0] PAD_Y;
+    output [GPIO_NUMBER-1:0] PAD_A,
+    input [GPIO_NUMBER-1:0] PAD_Y,
 
     //configuration for bidirectional pads
-    output [GPIO_NUMBER-1:0] PAD_CS;
-    output [GPIO_NUMBER-1:0] PAD_OE;
-    output [GPIO_NUMBER-1:0] PAD_IE;
-    output [GPIO_NUMBER-1:0] PAD_PU;
-    output [GPIO_NUMBER-1:0] PAD_PD;
-    output [GPIO_NUMBER-1:0] PAD_SL;
-    output [GPIO_NUMBER-1:0] PAD_PDRV0;
-    output [GPIO_NUMBER-1:0] PAD_PDRV1;
+    output [GPIO_NUMBER-1:0] PAD_CS,
+    output [GPIO_NUMBER-1:0] PAD_OE,
+    output [GPIO_NUMBER-1:0] PAD_IE,
+    output [GPIO_NUMBER-1:0] PAD_PU,
+    output [GPIO_NUMBER-1:0] PAD_PD,
+    output [GPIO_NUMBER-1:0] PAD_SL,
+    output [GPIO_NUMBER-1:0] PAD_PDRV0,
+    output [GPIO_NUMBER-1:0] PAD_PDRV1,
 
     // ports for other pin configs
     // here are compatibility pins for every pins attached
@@ -118,16 +118,16 @@ module register_bank_gpio #(
     assign i2c_sda_out_pd_control = 1'b0;
     assign i2c_sda_out_pu_control = 1'b1;
     assign i2c_sda_out_cs_control = 1'b1;
-    assign [1:0] i2c_sda_out_pdrv_control = 2'b11;
+    assign i2c_sda_out_pdrv_control[1:0] = 2'b11;
 
     // Trigger Out: Digital Bidirectional, 16 mA, Push-Pull, Fast Slew, Weak PD
     assign trig_out_pd_control = 1'b1;
     assign trig_out_pu_control = 1'b0;
     assign trig_out_sl_control = 1'b0;
-    assign trig_out_cs_control, = 1'b0;
+    assign trig_out_cs_control = 1'b0;
     assign trig_out_ie_control = 1'b0;
     assign trig_out_oe_control = 1'b1;
-    assign [1:0] trig_out_pdrv_control = 2'b11;
+    assign trig_out_pdrv_control[1:0] = 2'b11;
 
     // External Clock Input: CMOS Digital Input, No PU/PD
     assign ext_clk_in_pu_control = 1'b0;
@@ -226,7 +226,7 @@ module register_bank_gpio #(
                             RTY_O <= 1'b0;
                         end
                         else begin
-                            DAT_O <= {6'd0,PAD_INPUT_READ_REGISTER[1:0]};
+                            DAT_O[GPIO_NUMBER-1:0] <= {6'd0,PAD_INPUT_READ_REGISTER[GPIO_NUMBER-1:0]};
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;
@@ -234,14 +234,14 @@ module register_bank_gpio #(
                     end
                     PIN_OUTPUT_WRITE_REGISTER_ADDRESS : begin
                         if (WE_I == 1'b1) begin
-                            {6'd0,PAD_OUTPUT_WRITE_REGISTER[1:0]} <= DAT_I;
+                            PAD_OUTPUT_WRITE_REGISTER[GPIO_NUMBER-1:0] <= DAT_I[GPIO_NUMBER-1:0];
                             DAT_O <= 8'd0;
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;
                         end
                         else begin
-                            DAT_O <= {6'd0,PAD_OUTPUT_WRITE_REGISTER[1:0]};
+                            DAT_O[GPIO_NUMBER-1:0] <= {6'd0,PAD_OUTPUT_WRITE_REGISTER[1:0]};
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;

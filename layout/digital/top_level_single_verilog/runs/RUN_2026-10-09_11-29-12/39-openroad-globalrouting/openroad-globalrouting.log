@@ -1,0 +1,74 @@
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/37-openroad-resizertimingpostcts/top_level.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/constraint.sdc'…
+[WARNING STA-0366] port 'CLK_I' not found.
+[WARNING STA-0441] set_input_delay relative to a clock defined on the same port/pin not allowed.
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
+[INFO] Setting signal min routing layer to: Metal2 and clock min routing layer to Metal2. 
+[INFO] Setting signal max routing layer to: Metal5 and clock max routing layer to Metal5. 
++ global_route -congestion_iterations 50 -verbose
+[INFO GRT-0020] Min routing layer: Metal2
+[INFO GRT-0021] Max routing layer: Metal5
+[INFO GRT-0022] Global adjustment: 30%
+[INFO GRT-0023] Grid origin: (0, 0)
+[INFO GRT-0088] Layer Metal1  Track-Pitch = 0.5600  line-2-Via Pitch: 0.4750
+[INFO GRT-0088] Layer Metal2  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal3  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal4  Track-Pitch = 0.5600  line-2-Via Pitch: 0.5600
+[INFO GRT-0088] Layer Metal5  Track-Pitch = 0.9000  line-2-Via Pitch: 0.8200
+[INFO GRT-0003] Macros: 0
+[INFO GRT-0004] Blockages: 0
+[INFO GRT-0019] Found 137 clock nets.
+[INFO GRT-0001] Minimum degree: 2
+[INFO GRT-0002] Maximum degree: 69
+
+[INFO GRT-0053] Routing resources analysis:
+          Routing      Original      Derated      Resource
+Layer     Direction    Resources     Resources    Reduction (%)
+---------------------------------------------------------------
+Metal1     Horizontal          0             0          0.00%
+Metal2     Vertical        25978         17299          33.41%
+Metal3     Horizontal      26186         17402          33.54%
+Metal4     Vertical        25972         17295          33.41%
+Metal5     Horizontal      16008         10788          32.61%
+---------------------------------------------------------------
+
+[INFO GRT-0197] Via related to pin nodes: 15279
+[INFO GRT-0198] Via related Steiner nodes: 295
+[INFO GRT-0199] Via filling finished.
+[INFO GRT-0111] Final number of vias: 18706
+[INFO GRT-0112] Final usage 3D: 69521
+
+[INFO GRT-0096] Final congestion report:
+Layer         Resource        Demand        Usage (%)    Max H / Max V / Total Overflow
+---------------------------------------------------------------------------------------
+Metal1               0             0            0.00%             0 /  0 /  0
+Metal2           17299          8026           46.40%             0 /  0 /  0
+Metal3           17402          4070           23.39%             0 /  0 /  0
+Metal4           17295          1257            7.27%             0 /  0 /  0
+Metal5           10788            50            0.46%             0 /  0 /  0
+---------------------------------------------------------------------------------------
+Total            62784         13403           21.35%             0 /  0 /  0
+
+[INFO GRT-0018] Total wirelength: 170200 um
+[INFO GRT-0014] Routed nets: 2618
+[INFO GRT-0303] Global routing runtime = 00:00:00
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 0 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                             244    1071.26
+  Tap cell                                744    3266.46
+  Tie cell                                 24     210.74
+  Buffer                                    6      79.03
+  Clock buffer                             92    7108.06
+  Timing Repair Buffer                    211    9213.25
+  Inverter                                253    2234.71
+  Clock inverter                           20     399.53
+  Sequential cell                         413   26291.91
+  Multi-Input combinational cell         1628   28667.12
+  Total                                  3635   78542.06
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/39-openroad-globalrouting/top_level.odb'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/39-openroad-globalrouting/top_level.def'…

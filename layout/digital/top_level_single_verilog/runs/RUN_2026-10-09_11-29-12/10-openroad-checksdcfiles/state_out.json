@@ -1,0 +1,14 @@
+{
+    "json_h": "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/05-yosys-jsonheader/top_level.h.json",
+    "nl": "/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/06-yosys-synthesis/top_level.nl.v",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 336,
+        "design__inferred_latch__count": 0,
+        "design__instance__count": 2325,
+        "design__instance__area": 57446.1888,
+        "design__instance_unmapped__count": 0,
+        "synthesis__check_error__count": 0
+    }
+}

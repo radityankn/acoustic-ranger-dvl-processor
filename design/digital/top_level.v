@@ -1,12 +1,11 @@
 `timescale 10ns/1ns
 
 
-module top_level (
+module top_level #(parameter GPIO_NUMBER = 2) (
     `ifdef USE_POWER_PINS
     inout VDD,
     inout VSS,
-    `endif
-    
+    `endif    
     // Analog and Internal Pins
     input BPF_OUT,
     input OTA_IN_M,
@@ -17,21 +16,21 @@ module top_level (
     input IN_SCHMITT,
     input signal_input,
     output [2:0] pga_gain_control,
-    output [2:0] bypass_pin_control
+    output [2:0] bypass_pin_control,
 
     // input/output to GPIOs
-    output [GPIO_NUMBER-1:0] PAD_A;
-    input [GPIO_NUMBER-1:0] PAD_Y;
+    output [GPIO_NUMBER-1:0] PAD_A,
+    input [GPIO_NUMBER-1:0] PAD_Y,
 
     //configuration for bidirectional pads
-    output [GPIO_NUMBER-1:0] PAD_CS;
-    output [GPIO_NUMBER-1:0] PAD_OE;
-    output [GPIO_NUMBER-1:0] PAD_IE;
-    output [GPIO_NUMBER-1:0] PAD_PU;
-    output [GPIO_NUMBER-1:0] PAD_PD;
-    output [GPIO_NUMBER-1:0] PAD_SL;
-    output [GPIO_NUMBER-1:0] PAD_PDRV0;
-    output [GPIO_NUMBER-1:0] PAD_PDRV1;
+    output [GPIO_NUMBER-1:0] PAD_CS,
+    output [GPIO_NUMBER-1:0] PAD_OE,
+    output [GPIO_NUMBER-1:0] PAD_IE,
+    output [GPIO_NUMBER-1:0] PAD_PU,
+    output [GPIO_NUMBER-1:0] PAD_PD,
+    output [GPIO_NUMBER-1:0] PAD_SL,
+    output [GPIO_NUMBER-1:0] PAD_PDRV0,
+    output [GPIO_NUMBER-1:0] PAD_PDRV1,
 
     // ports for other pin configs
     // here are compatibility pins for every pins attached
@@ -161,18 +160,18 @@ module top_level (
     wire RTY_BUS;
     wire ERR_BUS;
 
-    wire [WIDTH-1:0] DATA_BUS_TO_MASTER_CLIENT [2:0];
-    wire ACK_BUS_CLIENT [2:0];
-    wire RTY_BUS_CLIENT [2:0];
-    wire ERR_BUS_CLIENT [2:0];
+    wire [WIDTH-1:0] DATA_BUS_TO_MASTER_CLIENT [1:0];
+    wire ACK_BUS_CLIENT [1:0];
+    wire RTY_BUS_CLIENT [1:0];
+    wire ERR_BUS_CLIENT [1:0];
 
     reg [1:0] rst_buffer;
 
     assign rst_input_internal = ~ext_rst_n_in;
-    assign ACK_BUS = (ACK_BUS_CLIENT[0] | ACK_BUS_CLIENT[1] | ACK_BUS_CLIENT[2]);
-    assign RTY_BUS = (RTY_BUS_CLIENT[0] | RTY_BUS_CLIENT[1] | RTY_BUS_CLIENT[2]);
-    assign ERR_BUS = (ERR_BUS_CLIENT[0] | ERR_BUS_CLIENT[1] | ERR_BUS_CLIENT[2]);
-    assign DATA_BUS_TO_MASTER = (DATA_BUS_TO_MASTER_CLIENT[0] | DATA_BUS_TO_MASTER_CLIENT[1] | DATA_BUS_TO_MASTER_CLIENT[2]);
+    assign ACK_BUS = (ACK_BUS_CLIENT[0] | ACK_BUS_CLIENT[1]);
+    assign RTY_BUS = (RTY_BUS_CLIENT[0] | RTY_BUS_CLIENT[1]);
+    assign ERR_BUS = (ERR_BUS_CLIENT[0] | ERR_BUS_CLIENT[1]);
+    assign DATA_BUS_TO_MASTER = (DATA_BUS_TO_MASTER_CLIENT[0] | DATA_BUS_TO_MASTER_CLIENT[1]);
 
     always @(posedge ext_clk_in) begin
         rst_buffer[0] <= rst_input_internal;
@@ -207,26 +206,26 @@ module top_level (
 		.STB_I(STB_BUS),
 		.signal_input(signal_input),
 		.trigger_signal_out(trigger_signal_out),
-		.DAT_O(DATA_BUS_TO_MASTER_CLIENT[1]),
-		.ERR_O(ERR_BUS_CLIENT[1]),
-		.RTY_O(RTY_BUS_CLIENT[1]),
-		.ACK_O(ACK_BUS_CLIENT[1])
+		.DAT_O(DATA_BUS_TO_MASTER_CLIENT[0]),
+		.ERR_O(ERR_BUS_CLIENT[0]),
+		.RTY_O(RTY_BUS_CLIENT[0]),
+		.ACK_O(ACK_BUS_CLIENT[0]),
         .pga_gain_control(pga_gain_control),
         .bypass_pin_control(bypass_pin_control)
     );
 
     register_bank_gpio #(.WIDTH(WIDTH), .GPIO_NUMBER(2)) reg_bank (
-        .RST_I(rst_buffer),
+        .RST_I(rst_buffer[1]),
         .CLK_I(ext_clk_in),
         .ADDR_I(ADDR_BUS),
         .DAT_I(DATA_BUS_FROM_MASTER),
         .WE_I(WE_BUS),
         .CYC_I(CYC_BUS),
         .STB_I(STB_BUS),
-        .DAT_O(DATA_BUS_TO_MASTER_CLIENT[2]),
-        .ERR_O(ERR_BUS_CLIENT[2]),
-        .RTY_O(RTY_BUS_CLIENT[2]),
-        .ACK_O(ACK_BUS_CLIENT[2]),
+        .DAT_O(DATA_BUS_TO_MASTER_CLIENT[1]),
+        .ERR_O(ERR_BUS_CLIENT[1]),
+        .RTY_O(RTY_BUS_CLIENT[1]),
+        .ACK_O(ACK_BUS_CLIENT[1]),
         .PAD_A(PAD_A),
         .PAD_Y(PAD_Y),
         .PAD_CS(PAD_CS),

@@ -1,0 +1,58 @@
+┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┓
+┃ Macro/Instance ┃ Power Pins ┃ Disconnected ┃ Signal Pins                 ┃ Disconnected ┃
+┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━┩
+│ top_level      │ VDD        │              │ PAD_A[0]                    │ BPF_OUT      │
+│                │ VSS        │              │ PAD_A[1]                    │ IN_BPF       │
+│                │            │              │ PAD_CS[0]                   │ IN_SCHMITT   │
+│                │            │              │ PAD_CS[1]                   │ JUNCTION     │
+│                │            │              │ PAD_IE[0]                   │ OTA_IN_M     │
+│                │            │              │ PAD_IE[1]                   │ RX_IN_N      │
+│                │            │              │ PAD_OE[0]                   │ RX_IN_P      │
+│                │            │              │ PAD_OE[1]                   │              │
+│                │            │              │ PAD_PDRV0[0]                │              │
+│                │            │              │ PAD_PDRV0[1]                │              │
+│                │            │              │ PAD_PDRV1[0]                │              │
+│                │            │              │ PAD_PDRV1[1]                │              │
+│                │            │              │ PAD_PD[0]                   │              │
+│                │            │              │ PAD_PD[1]                   │              │
+│                │            │              │ PAD_PU[0]                   │              │
+│                │            │              │ PAD_PU[1]                   │              │
+│                │            │              │ PAD_SL[0]                   │              │
+│                │            │              │ PAD_SL[1]                   │              │
+│                │            │              │ PAD_Y[0]                    │              │
+│                │            │              │ PAD_Y[1]                    │              │
+│                │            │              │ bypass_pin_control[0]       │              │
+│                │            │              │ bypass_pin_control[1]       │              │
+│                │            │              │ bypass_pin_control[2]       │              │
+│                │            │              │ ext_clk_in                  │              │
+│                │            │              │ ext_clk_in_pd_control       │              │
+│                │            │              │ ext_clk_in_pu_control       │              │
+│                │            │              │ ext_rst_n_in                │              │
+│                │            │              │ i2c_scl_in                  │              │
+│                │            │              │ i2c_scl_in_pd_control       │              │
+│                │            │              │ i2c_scl_in_pu_control       │              │
+│                │            │              │ i2c_sda_in                  │              │
+│                │            │              │ i2c_sda_out_cs_control      │              │
+│                │            │              │ i2c_sda_out_pd_control      │              │
+│                │            │              │ i2c_sda_out_pdrv_control[0] │              │
+│                │            │              │ i2c_sda_out_pdrv_control[1] │              │
+│                │            │              │ i2c_sda_out_pin_ctrl        │              │
+│                │            │              │ i2c_sda_out_pin_ctrl_n      │              │
+│                │            │              │ i2c_sda_out_pu_control      │              │
+│                │            │              │ i2c_sda_out_sl_control      │              │
+│                │            │              │ nrst_in_pd_control          │              │
+│                │            │              │ nrst_in_pu_control          │              │
+│                │            │              │ pga_gain_control[0]         │              │
+│                │            │              │ pga_gain_control[1]         │              │
+│                │            │              │ pga_gain_control[2]         │              │
+│                │            │              │ signal_input                │              │
+│                │            │              │ trig_out_cs_control         │              │
+│                │            │              │ trig_out_ie_control         │              │
+│                │            │              │ trig_out_oe_control         │              │
+│                │            │              │ trig_out_pd_control         │              │
+│                │            │              │ trig_out_pdrv_control[0]    │              │
+│                │            │              │ trig_out_pdrv_control[1]    │              │
+│                │            │              │ trig_out_pu_control         │              │
+│                │            │              │ trig_out_sl_control         │              │
+│                │            │              │ trigger_signal_out          │              │
+└────────────────┴────────────┴──────────────┴─────────────────────────────┴──────────────┘

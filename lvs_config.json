@@ -29,5 +29,5 @@
 		"$UPRJ_ROOT/design/digital/TDC/frequency_counter.v",
 		"$UPRJ_ROOT/design/digital/misc/reg_bank.v"
 	],
-	"LAYOUT_FILE": "$UPRJ_ROOT/gds/$TOP_LAYOUT.gds"
+	"LAYOUT_FILE": "$UPRJ_ROOT/layout/top_level/$TOP_LAYOUT.gds"
 }

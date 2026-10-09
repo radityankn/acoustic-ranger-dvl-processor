@@ -1,0 +1,40 @@
+Reading timing models for corner nom_tt_025C_5v00…
+Reading timing library for the 'nom_tt_025C_5v00' corner at '/foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/lib/gf180mcu_fd_sc_mcu7t5v0__tt_025C_5v00.lib'…
+Reading OpenROAD database at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/32-openroad-repairdesignpostgpl/top_level.odb'…
+Reading design constraints file at '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/constraint.sdc'…
+[WARNING STA-0366] port 'CLK_I' not found.
+[WARNING STA-0441] set_input_delay relative to a clock defined on the same port/pin not allowed.
+[INFO] No information on clock propagation in input SDC file-- propagating all clocks.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement          0.0 u
+average displacement        0.0 u
+max displacement            0.0 u
+original HPWL           85776.7 u
+legalized HPWL          87947.4 u
+delta HPWL                    3 %
+
+[INFO DPL-0020] Mirrored 1028 instances
+[INFO DPL-0021] HPWL before           87947.4 u
+[INFO DPL-0022] HPWL after            85776.7 u
+[INFO DPL-0023] HPWL delta               -2.5 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 0 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Endcap cell                             244    1071.26
+  Tap cell                                744    3266.46
+  Tie cell                                 24     210.74
+  Buffer                                    6      79.03
+  Timing Repair Buffer                     94    2792.29
+  Inverter                                254    2243.49
+  Sequential cell                         413   26291.91
+  Multi-Input combinational cell         1628   28667.12
+  Total                                  3407   64622.30
+Writing OpenROAD database to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/34-openroad-detailedplacement/top_level.odb'…
+Writing netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/34-openroad-detailedplacement/top_level.nl.v'…
+Writing powered netlist to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/34-openroad-detailedplacement/top_level.pnl.v'…
+Writing layout to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/34-openroad-detailedplacement/top_level.def'…
+Writing timing constraints to '/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/34-openroad-detailedplacement/top_level.sdc'…

@@ -34,6 +34,7 @@ module top_level_tb;
     //      - 8 bit wide, read-only, always return 0xDE when read 
     
     localparam WIDTH = 8;
+    localparam GPIO_NUMBER = 2;
     localparam SCL_PERIOD = 250;
     localparam SIGNAL_PERIOD = 40;
 
@@ -64,9 +65,10 @@ module top_level_tb;
     wire i2c_sda_out_pin_ctrl;
     wire i2c_sda_out_pin_ctrl_n;
     wire trigger_signal_out;
-    wire gpio0;
+    wire [GPIO_NUMBER-1:0] gpio_out;
+    wire [GPIO_NUMBER-1:0] gpio_in;
 
-    top_level my_top_level (
+    top_level #(.GPIO_NUMBER(GPIO_NUMBER)) my_top_level (
         .i2c_sda_in(i2c_sda_in),                   // wire this to A pin on digital tristate pad block 
         .i2c_scl_in(i2c_scl_in),
         .signal_input(signal_input),
@@ -75,7 +77,8 @@ module top_level_tb;
         .i2c_sda_out_pin_ctrl(i2c_sda_out_pin_ctrl),        // to OE pin on digital tristate pad block
         .i2c_sda_out_pin_ctrl_n(i2c_sda_out_pin_ctrl_n),      // to IE pin on digital tristate pad block
         .trigger_signal_out(trigger_signal_out),
-        .gpio0(gpio0)
+        .PAD_A(gpio_out),
+        .PAD_Y(gpio_in)
     );
 
     // I2C tasks

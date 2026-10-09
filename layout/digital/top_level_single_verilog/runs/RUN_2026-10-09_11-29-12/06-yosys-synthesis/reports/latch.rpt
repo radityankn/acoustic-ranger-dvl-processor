@@ -1,0 +1,10 @@
+
+17. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\top_level.\ACK_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:227$288'.
+No latch inferred for signal `\top_level.\RTY_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:226$287'.
+No latch inferred for signal `\top_level.\ERR_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:225$286'.
+No latch inferred for signal `\top_level.\DATA_BUS_TO_MASTER_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:224$285'.
+No latch inferred for signal `\top_level.\ACK_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:211$284'.
+No latch inferred for signal `\top_level.\RTY_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:210$283'.
+No latch inferred for signal `\top_level.\ERR_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:209$282'.
+No latch inferred for signal `\top_level.\DATA_BUS_TO_MASTER_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:208$281'.

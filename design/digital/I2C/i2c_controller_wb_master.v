@@ -106,7 +106,7 @@ module i2c_controller #(parameter WIDTH = 8) (
                     wb_master_subroutine_iteration <= wb_master_subroutine_iteration + 1'b1;
                     if (wb_master_subroutine_iteration == 2'd2) wb_master_subroutine_iteration <= 2'd0;
                 end
-                defaut : begin
+                default : begin
                     wb_master_subroutine_iteration <= 2'd0;
                 end
             endcase

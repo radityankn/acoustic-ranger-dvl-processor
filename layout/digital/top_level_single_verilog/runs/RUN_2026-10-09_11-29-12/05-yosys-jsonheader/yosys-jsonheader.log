@@ -1,0 +1,745 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.64 (git sha1 6d2c445ae, g++ 13.3.0-6ubuntu2~24.04.1 -fPIC -O3)
+
+1. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/tmp/26fbddf4265e4b27ae8e0cd3a8f1182a.bb.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/layout/digital/top_level_single_verilog/runs/RUN_2026-10-09_11-29-12/tmp/26fbddf4265e4b27ae8e0cd3a8f1182a.bb.v' to AST representation.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addf_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addf_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addf_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addf_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addh_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addh_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addh_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__addh_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and3_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and4_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and4_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and4_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__and4_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__antenna'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__antenna_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi211_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi211_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi211_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi211_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi21_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi21_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi21_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi21_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi221_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi221_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi221_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi221_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi222_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi222_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi222_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi222_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi22_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi22_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi22_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__aoi22_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_20'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__buf_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__bufz_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_20'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkbuf_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_20'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__clkinv_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnrsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffnsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffrsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dffsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlya_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlya_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlya_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlya_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyb_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyb_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyb_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyb_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyc_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyc_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyc_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyc_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyd_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyd_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyd_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__dlyd_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__endcap'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__endcap_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_32'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_64'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fill_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_32'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_64'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__fillcap_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__filltie'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__filltie_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__hold'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__hold_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtn_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtn_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtn_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtn_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtp_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtp_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtp_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__icgtp_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_20'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__inv_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_12'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_16'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_3'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_8'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__invz_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latrsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__latsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux4_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux4_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux4_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__mux4_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand3_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand4_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand4_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand4_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nand4_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor3_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor4_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor4_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor4_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__nor4_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai211_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai211_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai211_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai211_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai21_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai21_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai21_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai21_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai221_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai221_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai221_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai221_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai222_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai222_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai222_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai222_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai22_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai22_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai22_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai22_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai31_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai31_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai31_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai31_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai32_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai32_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai32_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai32_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai33_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai33_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai33_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__oai33_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or3_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or4_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or4_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or4_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__or4_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffrsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffsnq_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffsnq_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffsnq_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__sdffsnq_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__tieh'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__tieh_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__tiel'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__tiel_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xnor3_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor2_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor2_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor2_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor2_func'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor3_1'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor3_2'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor3_4'.
+Generating RTLIL representation for module `\gf180mcu_fd_sc_mcu7t5v0__xor3_func'.
+Successfully finished Verilog frontend.
+wtaf
+
+2. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v' to AST representation.
+Storing AST representation for module `$abstract\top_level'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v' to AST representation.
+Storing AST representation for module `$abstract\register_bank_gpio'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v' to AST representation.
+Storing AST representation for module `$abstract\frequency_counter'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v
+Parsing SystemVerilog input from `/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v' to AST representation.
+Storing AST representation for module `$abstract\i2c_controller'.
+Successfully finished Verilog frontend.
+
+6. Executing HIERARCHY pass (managing design hierarchy).
+
+7. Executing AST frontend in derive mode using pre-parsed AST for module `\top_level'.
+Generating RTLIL representation for module `\top_level'.
+
+7.1. Analyzing design hierarchy..
+Top module:  \top_level
+Parameter \WIDTH = 8
+Parameter \GPIO_NUMBER = 2
+
+7.2. Executing AST frontend in derive mode using pre-parsed AST for module `\register_bank_gpio'.
+Parameter \WIDTH = 8
+Parameter \GPIO_NUMBER = 2
+Generating RTLIL representation for module `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio'.
+Warning: Replacing memory \PAD_Y_synchronizer with list of registers. See /foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:192
+Parameter \WIDTH = 8
+
+7.3. Executing AST frontend in derive mode using pre-parsed AST for module `\frequency_counter'.
+Parameter \WIDTH = 8
+Generating RTLIL representation for module `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000'.
+Parameter \WIDTH = 8
+
+7.4. Executing AST frontend in derive mode using pre-parsed AST for module `\i2c_controller'.
+Parameter \WIDTH = 8
+Generating RTLIL representation for module `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000'.
+Reprocessing module top_level because instantiated module $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio has become available.
+Generating RTLIL representation for module `\top_level'.
+
+7.5. Analyzing design hierarchy..
+Top module:  \top_level
+Parameter \WIDTH = 8
+Parameter \GPIO_NUMBER = 2
+Found cached RTLIL representation for module `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio'.
+Parameter \WIDTH = 8
+Found cached RTLIL representation for module `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000'.
+Parameter \WIDTH = 8
+Found cached RTLIL representation for module `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000'.
+
+7.6. Analyzing design hierarchy..
+Top module:  \top_level
+Used module:     $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio
+Used module:     $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000
+Used module:     $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000
+
+7.7. Analyzing design hierarchy..
+Top module:  \top_level
+Used module:     $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio
+Used module:     $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000
+Used module:     $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000
+Removing unused module `$abstract\i2c_controller'.
+Removing unused module `$abstract\frequency_counter'.
+Removing unused module `$abstract\register_bank_gpio'.
+Removing unused module `$abstract\top_level'.
+Removed 4 unused modules.
+Renaming module top_level to top_level.
+
+8. Executing PROC pass (convert processes to netlists).
+
+8.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+8.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:585$160 in module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Marked 3 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148 in module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Marked 9 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122 in module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Marked 4 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110 in module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Marked 30 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50 in module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Marked 2 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42 in module $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.
+Marked 21 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11 in module $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.
+Marked 17 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:319$212 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:292$204 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 7 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 2 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:92$169 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Marked 1 switch rules as full_case in process $proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:82$167 in module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+Removed a total of 0 dead cases.
+
+8.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 11 redundant assignments.
+Promoted 17 assignments to connections.
+
+8.4. Executing PROC_INIT pass (extract init attributes).
+
+8.5. Executing PROC_ARST pass (detect async resets in processes).
+
+8.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~118 debug messages>
+
+8.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:227$288'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:226$287'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:225$286'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:224$285'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:211$284'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:210$283'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:209$282'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:208$281'.
+Creating decoders for process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:176$280'.
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:585$160'.
+     1/1: $0\pulse_timing_internal[23:0]
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148'.
+     1/2: $0\measurement_state_machine[15:0]
+     2/2: $0\measurement_pulse_done_internal_flag[0:0]
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+     1/5: $0\measurement_pulse_start_internal_flag[0:0]
+     2/5: $0\range_finished_internal_flag[0:0]
+     3/5: $0\range_timeout_internal_flag[0:0]
+     4/5: $0\counter_ready[0:0]
+     5/5: $0\range_timing_internal[23:0]
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110'.
+     1/2: $0\trigger_timer_internal[6:0]
+     2/2: $0\trigger_signal_out[0:0]
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:446$109'.
+Creating decoders for process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+     1/13: $0\counter_control_status_register[7:0] [5:1]
+     2/13: $0\counter_control_status_register[7:0] [0]
+     3/13: $0\counter_control_status_register[7:0] [6]
+     4/13: $0\counter_control_status_register[7:0] [7]
+     5/13: $0\pulse_count_threshold_register[15:0] [7:0]
+     6/13: $0\pulse_count_threshold_register[15:0] [15:8]
+     7/13: $0\afe_config_bypass_control_register[7:0]
+     8/13: $0\pulse_timing_register[23:0]
+     9/13: $0\range_timing_register[23:0]
+    10/13: $0\ACK_O[0:0]
+    11/13: $0\RTY_O[0:0]
+    12/13: $0\ERR_O[0:0]
+    13/13: $0\DAT_O[7:0]
+Creating decoders for process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+     1/3: $0\blinker[32:0]
+     2/3: $0\blinker_has_toggled[0:0]
+     3/3: $0\blinker_output[0:0]
+Creating decoders for process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+     1/32: $0\PAD_INPUT_READ_REGISTER[1:0] [1]
+     2/32: $0\PAD_INPUT_READ_REGISTER[1:0] [0]
+     3/32: $0\DAT_O[7:0] [7:2]
+     4/32: $0\blinker_reset_register[31:0] [7:0]
+     5/32: $0\DAT_O[7:0] [1:0]
+     6/32: $0\blinker_reset_register[31:0] [15:8]
+     7/32: $0\blinker_compare_register[31:0] [7:0]
+     8/32: $0\blinker_reset_register[31:0] [31:24]
+     9/32: $0\blinker_compare_register[31:0] [15:8]
+    10/32: $0\blinker_constant_register[31:0] [7:0]
+    11/32: $0\blinker_compare_register[31:0] [31:24]
+    12/32: $0\blinker_constant_register[31:0] [15:8]
+    13/32: $0\PAD_ALT_FUNCTION_REGISTER[1:0] [0]
+    14/32: $0\PAD_DIRECTION_REGISTER[1:0] [0]
+    15/32: $0\PAD_PULLUP_REGISTER[1:0] [0]
+    16/32: $0\PAD_PULLDOWN_REGISTER[1:0] [0]
+    17/32: $0\PAD_INPUT_TYPE_REGISTER[1:0] [0]
+    18/32: $0\PAD_SLEWRATE_REGISTER[1:0] [0]
+    19/32: $0\PAD_DIRECTION_REGISTER[1:0] [1]
+    20/32: $0\blinker_compare_register[31:0] [23:16]
+    21/32: $0\blinker_constant_register[31:0] [23:16]
+    22/32: $0\PAD_OUTPUT_WRITE_REGISTER[1:0]
+    23/32: $0\PAD_ALT_FUNCTION_REGISTER[1:0] [1]
+    24/32: $0\PAD_SLEWRATE_REGISTER[1:0] [1]
+    25/32: $0\PAD_INPUT_TYPE_REGISTER[1:0] [1]
+    26/32: $0\PAD_PULLDOWN_REGISTER[1:0] [1]
+    27/32: $0\blinker_constant_register[31:0] [31:24]
+    28/32: $0\PAD_PULLUP_REGISTER[1:0] [1]
+    29/32: $0\ACK_O[0:0]
+    30/32: $0\RTY_O[0:0]
+    31/32: $0\ERR_O[0:0]
+    32/32: $0\blinker_reset_register[31:0] [23:16]
+Creating decoders for process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:191$10'.
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+     1/10: $0\address_data_buffer_internal[7:0]
+     2/10: $0\iteration[3:0]
+     3/10: $0\i2c_next_state_routine_block[1:0]
+     4/10: $0\register_content_data_flag[0:0]
+     5/10: $0\register_addr_data_flag[0:0]
+     6/10: $0\read_request_internal_flag[0:0]
+     7/10: $0\received_data_internal_flag[0:0]
+     8/10: $0\write_request_internal_flag[0:0]
+     9/10: $0\recv_data_buffer[7:0]
+    10/10: $0\i2c_sda_out_pin_ctrl[0:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:319$212'.
+     1/1: $0\i2c_state[1:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+     1/1: $0\previous_state[0:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:292$204'.
+     1/1: $0\sda_previous_state[0:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:279$197'.
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+     1/9: $0\wb_master_next_state[1:0]
+     2/9: $0\addr_pointer_register_internal[7:0]
+     3/9: $0\send_data_buffer[7:0]
+     4/9: $0\addr_set_register[7:0]
+     5/9: $0\DAT_O[7:0]
+     6/9: $0\WE_O[0:0]
+     7/9: $0\STB_O[0:0]
+     8/9: $0\CYC_O[0:0]
+     9/9: $0\ADDR_O[7:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:92$169'.
+     1/1: $0\wb_master_subroutine_iteration[1:0]
+Creating decoders for process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:82$167'.
+     1/1: $0\wb_master_state[1:0]
+
+8.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\top_level.\ACK_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:227$288'.
+No latch inferred for signal `\top_level.\RTY_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:226$287'.
+No latch inferred for signal `\top_level.\ERR_BUS_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:225$286'.
+No latch inferred for signal `\top_level.\DATA_BUS_TO_MASTER_CLIENT[1]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:224$285'.
+No latch inferred for signal `\top_level.\ACK_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:211$284'.
+No latch inferred for signal `\top_level.\RTY_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:210$283'.
+No latch inferred for signal `\top_level.\ERR_BUS_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:209$282'.
+No latch inferred for signal `\top_level.\DATA_BUS_TO_MASTER_CLIENT[0]' from process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:208$281'.
+
+8.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\top_level.\rst_buffer' using process `\top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:176$280'.
+  created $dff cell `$procdff$2555' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\pulse_timing_internal' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:585$160'.
+  created $dff cell `$procdff$2556' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\measurement_pulse_done_internal_flag' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148'.
+  created $dff cell `$procdff$2557' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\measurement_state_machine' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148'.
+  created $dff cell `$procdff$2558' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\range_timing_internal' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+  created $dff cell `$procdff$2559' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\counter_ready' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+  created $dff cell `$procdff$2560' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\range_timeout_internal_flag' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+  created $dff cell `$procdff$2561' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\range_finished_internal_flag' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+  created $dff cell `$procdff$2562' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\measurement_pulse_start_internal_flag' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+  created $dff cell `$procdff$2563' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\trigger_signal_out' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110'.
+  created $dff cell `$procdff$2564' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\trigger_timer_internal' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110'.
+  created $dff cell `$procdff$2565' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\input_previous_state' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:446$109'.
+  created $dff cell `$procdff$2566' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\DAT_O' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2567' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\ERR_O' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2568' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\RTY_O' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2569' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\ACK_O' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2570' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\range_timing_register' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2571' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\pulse_timing_register' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2572' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\pulse_count_threshold_register' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2573' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\counter_control_status_register' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2574' with positive edge clock.
+Creating register for signal `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.\afe_config_bypass_control_register' using process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+  created $dff cell `$procdff$2575' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+  created $dff cell `$procdff$2576' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker_output' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+  created $dff cell `$procdff$2577' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker_has_toggled' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+  created $dff cell `$procdff$2578' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\DAT_O' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2579' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\ERR_O' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2580' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\RTY_O' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2581' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\ACK_O' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2582' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_ALT_FUNCTION_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2583' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_INPUT_TYPE_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2584' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_DIRECTION_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2585' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_PULLUP_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2586' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_PULLDOWN_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2587' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_SLEWRATE_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2588' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_INPUT_READ_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2589' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_OUTPUT_WRITE_REGISTER' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2590' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker_constant_register' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2591' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker_compare_register' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2592' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\blinker_reset_register' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+  created $dff cell `$procdff$2593' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_Y_synchronizer[0]' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:191$10'.
+  created $dff cell `$procdff$2594' with positive edge clock.
+Creating register for signal `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.\PAD_Y_synchronizer[1]' using process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:191$10'.
+  created $dff cell `$procdff$2595' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\i2c_sda_out_pin_ctrl' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2596' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\recv_data_buffer' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2597' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\write_request_internal_flag' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2598' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\received_data_internal_flag' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2599' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\read_request_internal_flag' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2600' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\register_addr_data_flag' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2601' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\register_content_data_flag' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2602' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\i2c_next_state_routine_block' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2603' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\iteration' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2604' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\address_data_buffer_internal' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+  created $dff cell `$procdff$2605' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\i2c_state' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:319$212'.
+  created $dff cell `$procdff$2606' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\rising_edge_detected' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+  created $dff cell `$procdff$2607' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\falling_edge_detected' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+  created $dff cell `$procdff$2608' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\previous_state' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+  created $dff cell `$procdff$2609' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\sda_previous_state' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:292$204'.
+  created $dff cell `$procdff$2610' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\scl_synchroniser_internal' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:279$197'.
+  created $dff cell `$procdff$2611' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\sda_synchroniser_internal' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:279$197'.
+  created $dff cell `$procdff$2612' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\ADDR_O' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2613' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\CYC_O' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2614' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\STB_O' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2615' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\WE_O' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2616' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\DAT_O' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2617' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\addr_set_register' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2618' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\send_data_buffer' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2619' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\addr_pointer_register_internal' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2620' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\wb_master_next_state' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+  created $dff cell `$procdff$2621' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\wb_master_subroutine_iteration' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:92$169'.
+  created $dff cell `$procdff$2622' with positive edge clock.
+Creating register for signal `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.\wb_master_state' using process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:82$167'.
+  created $dff cell `$procdff$2623' with positive edge clock.
+
+8.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+8.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:227$288'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:226$287'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:225$286'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:224$285'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:211$284'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:210$283'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:209$282'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:208$281'.
+Removing empty process `top_level.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/top_level.v:176$280'.
+Found and cleaned up 3 empty switches in `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:585$160'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:585$160'.
+Found and cleaned up 4 empty switches in `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:557$148'.
+Found and cleaned up 12 empty switches in `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:479$122'.
+Found and cleaned up 4 empty switches in `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:452$110'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:446$109'.
+Found and cleaned up 31 empty switches in `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+Removing empty process `$paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/TDC/frequency_counter.v:122$50'.
+Found and cleaned up 3 empty switches in `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+Removing empty process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:494$42'.
+Found and cleaned up 23 empty switches in `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+Removing empty process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:196$11'.
+Removing empty process `$paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/misc/reg_bank.v:191$10'.
+Found and cleaned up 20 empty switches in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:339$214'.
+Found and cleaned up 1 empty switch in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:319$212'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:319$212'.
+Found and cleaned up 1 empty switch in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:303$206'.
+Found and cleaned up 1 empty switch in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:292$204'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:292$204'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:279$197'.
+Found and cleaned up 10 empty switches in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:117$175'.
+Found and cleaned up 4 empty switches in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:92$169'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:92$169'.
+Found and cleaned up 1 empty switch in `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:82$167'.
+Removing empty process `$paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.$proc$/foss/designs/acoustic-ranger-dvl-processor/design/digital/I2C/i2c_controller_wb_master.v:82$167'.
+Cleaned up 118 empty switches.
+
+8.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module top_level.
+Optimizing module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+<suppressed ~91 debug messages>
+Optimizing module $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.
+<suppressed ~56 debug messages>
+Optimizing module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+<suppressed ~54 debug messages>
+
+9. Executing FLATTEN pass (flatten design).
+Deleting now unused module $paramod\frequency_counter\WIDTH=s32'00000000000000000000000000001000.
+Deleting now unused module $paramod$fb02c4eba78027160d14a2b4590c10a765d541b9\register_bank_gpio.
+Deleting now unused module $paramod\i2c_controller\WIDTH=s32'00000000000000000000000000001000.
+<suppressed ~3 debug messages>
+
+10. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \top_level..
+Removed 45 unused cells and 845 unused wires.
+<suppressed ~137 debug messages>

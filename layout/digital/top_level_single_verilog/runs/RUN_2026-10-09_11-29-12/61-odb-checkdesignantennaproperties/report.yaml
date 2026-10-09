@@ -1,0 +1,11 @@
+- cell: top_level
+  inout: []
+  input:
+  - BPF_OUT
+  - IN_BPF
+  - IN_SCHMITT
+  - JUNCTION
+  - OTA_IN_M
+  - RX_IN_N
+  - RX_IN_P
+  output: []
