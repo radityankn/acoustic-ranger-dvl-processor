@@ -95,6 +95,7 @@ module register_bank_gpio #(
     reg [31:0] blinker_compare_register;
     reg [31:0] blinker_reset_register;
     reg blinker_output;
+    reg blinker_has_toggled;
 
     // Assign GPIO Pad settings here
     // This is reserved for the GPIO feature of our chip
@@ -211,7 +212,6 @@ module register_bank_gpio #(
             blinker_constant_register <= 32'd0;
             blinker_compare_register <= 32'd0;
             blinker_reset_register <= 32'd0;
-            blinker_output <= 1'b0;
         end
         // if there is any operation
         else if (RST_I == 1'b0 && CYC_I == 1'b1 && STB_I == 1'b1) begin
@@ -226,7 +226,7 @@ module register_bank_gpio #(
                             RTY_O <= 1'b0;
                         end
                         else begin
-                            DAT_O <= PAD_INPUT_READ_REGISTER[7:0];
+                            DAT_O <= {6'd0,PAD_INPUT_READ_REGISTER[1:0]};
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;
@@ -234,14 +234,14 @@ module register_bank_gpio #(
                     end
                     PIN_OUTPUT_WRITE_REGISTER_ADDRESS : begin
                         if (WE_I == 1'b1) begin
-                            PAD_OUTPUT_WRITE_REGISTER <= DAT_I;
+                            {6'd0,PAD_OUTPUT_WRITE_REGISTER[1:0]} <= DAT_I;
                             DAT_O <= 8'd0;
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;
                         end
                         else begin
-                            DAT_O <= PAD_OUTPUT_WRITE_REGISTER;
+                            DAT_O <= {6'd0,PAD_OUTPUT_WRITE_REGISTER[1:0]};
                             ACK_O <= 1'b1;
                             ERR_O <= 1'b0;
                             RTY_O <= 1'b0;
@@ -475,23 +475,38 @@ module register_bank_gpio #(
                 RTY_O <= 1'b0;
             end
         end
-        else begin
-            // housekeeping task
-            PAD_INPUT_REGISTER
+
+        // housekeeping task
+        if (PAD_DIRECTION_REGISTER[0] == 1) begin
+            PAD_INPUT_READ_REGISTER[0] <= PAD_OUTPUT_WRITE_REGISTER[0];
         end
+        else begin
+            PAD_INPUT_READ_REGISTER[0] <= PAD_Y_synchronizer[0][0];
+        end
+        if (PAD_DIRECTION_REGISTER[1] == 1) begin
+            PAD_INPUT_READ_REGISTER[1] <= PAD_OUTPUT_WRITE_REGISTER[1];
+        end
+        else begin
+            PAD_INPUT_READ_REGISTER[1] <= PAD_Y_synchronizer[0][1];
+        end    
     end
 
     always @(posedge CLK_I) begin
         if (RST_I == 1'b1) begin
             blinker <= 33'd0;
+            blinker_output <= 1'b0;
+            blinker_has_toggled <= 1'b0;
         end
         else begin
             blinker <= blinker + blinker_constant_register;
-            if (blinker == blinker_compare_register) begin
+            if (blinker >= blinker_compare_register && blinker_has_toggled == 1'b0) begin
                blinker_output <= ~blinker_output; 
+               blinker_has_toggled <= 1'b1;
             end
             else if (blinker >= blinker_reset_register) begin
                 blinker <= 33'd0;
+                blinker_output <= blinker_output;
+                blinker_has_toggled <= 1'b0;
             end
         end
     end

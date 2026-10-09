@@ -301,65 +301,63 @@ module frequency_counter #(parameter WIDTH = 8) (
             end
         end
         // if no activity is in progress, update the flag registers and the front facing register 
-        else begin
-            if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
-                if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
-                    range_timing_register <= range_timing_internal;
-                    pulse_timing_register <= pulse_timing_internal;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-                end
-                else begin
-                    range_timing_register <= range_timing_register;
-                    pulse_timing_register <= pulse_timing_register;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-                end
-            end
-            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
-                if (measurement_pulse_done_internal_flag == 1'b1) begin
-                    range_timing_register <= range_timing_internal;
-                    pulse_timing_register <= pulse_timing_internal;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-                end
-                else begin
-                    range_timing_register <= range_timing_register;
-                    pulse_timing_register <= pulse_timing_register;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-                end
-            end
-            else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
-                if (range_finished_internal_flag == 1'b1) begin
-                    range_timing_register <= range_timing_internal;
-                    pulse_timing_register <= pulse_timing_internal;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-                end
-                else begin
-                    range_timing_register <= range_timing_register;
-                    pulse_timing_register <= pulse_timing_register;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-                end
+        if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+            if (range_finished_internal_flag == 1'b1 && measurement_pulse_done_internal_flag == 1'b1) begin
+                range_timing_register <= range_timing_internal;
+                pulse_timing_register <= pulse_timing_internal;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
             end
             else begin
-                if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
-                    counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
-                end
-                else if (range_finished_internal_flag == 1'b1) begin
-                    range_timing_register <= range_timing_internal;
-                    pulse_timing_register <= pulse_timing_internal;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
-                end
-                else begin
-                    range_timing_register <= range_timing_register;
-                    pulse_timing_register <= pulse_timing_register;
-                    counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
-                    counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
-                end
+                range_timing_register <= range_timing_register;
+                pulse_timing_register <= pulse_timing_register;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+            end
+        end
+        else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b0 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b1) begin
+            if (measurement_pulse_done_internal_flag == 1'b1) begin
+                range_timing_register <= range_timing_internal;
+                pulse_timing_register <= pulse_timing_internal;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+            end
+            else begin
+                range_timing_register <= range_timing_register;
+                pulse_timing_register <= pulse_timing_register;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+            end
+        end
+        else if (counter_control_status_register[MEASUREMENT_RANGE_MODE_ENABLE] == 1'b1 && counter_control_status_register[MEASUREMENT_PULSE_MODE_ENABLE] == 1'b0) begin
+            if (range_finished_internal_flag == 1'b1) begin
+                range_timing_register <= range_timing_internal;
+                pulse_timing_register <= pulse_timing_internal;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+            end
+            else begin
+                range_timing_register <= range_timing_register;
+                pulse_timing_register <= pulse_timing_register;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
+            end
+        end
+        else begin
+            if (counter_control_status_register[RESET_COUNTER_BIT] == 1'b1) begin
+                counter_control_status_register[RESET_COUNTER_BIT] <= 1'b0;                    
+            end
+            else if (range_finished_internal_flag == 1'b1) begin
+                range_timing_register <= range_timing_internal;
+                pulse_timing_register <= pulse_timing_internal;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= 1'b1;
+                counter_control_status_register[MEASUREMENT_START_BIT] <= 1'b0;
+            end
+            else begin
+                range_timing_register <= range_timing_register;
+                pulse_timing_register <= pulse_timing_register;
+                counter_control_status_register[MEASUREMENT_DONE_BIT] <= counter_control_status_register[MEASUREMENT_DONE_BIT];
+                counter_control_status_register[MEASUREMENT_START_BIT] <= counter_control_status_register[MEASUREMENT_START_BIT];
             end
         end
     end
